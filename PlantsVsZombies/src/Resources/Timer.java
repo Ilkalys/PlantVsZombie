@@ -20,4 +20,8 @@ public class Timer {
 		return (debut.compareTo((Instant.now().minus(duree, ChronoUnit.MILLIS))) < 0);
 	}
 	
+	public long getDuree() {
+		return duree;
+	}
+	
 }

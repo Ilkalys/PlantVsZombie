@@ -12,6 +12,8 @@ public class GameWorld {
 
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
+	// L'ensemble des Soleils qui apparaitront.
+	private static List<Entite> soleils;
 	//Pour savoir si la partie est gagnee ou pas
 	private static boolean gameWon;
 	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
@@ -40,14 +42,15 @@ public class GameWorld {
 
 		// On cree les collections
 		entites = new LinkedList<Entite>();
+		soleils = new LinkedList<Entite>();
 		entites.add(bank);
 		
 		// On rajoute les entites
 		entites.add(new ZombieBasique(1, 0.5));
-		entites.add(new Soleil(0.5, 0.5));
-		entites.add(new Soleil(0.1, 0.5));
-		entites.add(new Soleil(0.5, 0.1));
-		entites.add(new Soleil(0.2, 0.2));
+		soleils.add(new Soleil(0.5, 0.5));
+		soleils.add(new Soleil(0.1, 0.5));
+		soleils.add(new Soleil(0.5, 0.1));
+		soleils.add(new Soleil(0.2, 0.2));
 	}
 
 	
@@ -66,7 +69,7 @@ public class GameWorld {
 		switch (key) {
 		case 't':
 			System.out.println("Le joueur veut acheter un Tournesol...");
-			if(Sunflower.cooldown == null || Sunflower.cooldown.hasFinished())
+			if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
 				if(bank.enoughSun(50)) {
 					purchase = 's';
 					System.out.println("Tournesol selectionne !");
@@ -76,7 +79,7 @@ public class GameWorld {
 			break;
 		case 'p':
 			System.out.println("Le joueur veut acheter un Tire-Pois...");
-			if(PeasShooter.cooldown == null || PeasShooter.cooldown.hasFinished())
+			if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
 				if(bank.enoughSun(100)) {
 					purchase = 'p';
 					System.out.println("Tire-Pois selectionne !");
@@ -85,7 +88,7 @@ public class GameWorld {
 			break;
 		case 'n':
 			System.out.println("Le joueur veut acheter une Noix...");
-			if(Nuts.cooldown == null || Nuts.cooldown.hasFinished())
+			if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
 				if(bank.enoughSun(50)) {
 					purchase = 'n';
 					System.out.println("Noix selectionne !");
@@ -107,10 +110,10 @@ public class GameWorld {
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en : "+x+" - "+y);
 		// Recuperation d'un soleil
-		Soleil clique = Soleil.somethingHere(entites, x, y);
+		Soleil clique = Soleil.somethingHere(soleils, x, y);
 		if(clique != null) {
 			bank.add(Soleil.VALUE);
-			entites.remove(clique);
+			soleils.remove(clique);
 		}
 		// Plantation
 		if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
@@ -158,19 +161,26 @@ public class GameWorld {
 	 * Dessine les entites du jeu
 	 */
 	public void dessine() {
-		// Ici vous pouvez afficher du decors
-		// TODO
+		
+		StdDraw.setFont();
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(0.1, 0.1, "Tournesol : " + ((Sunflower.getCooldown() == null)? 0 : 10));
+		StdDraw.text(0.3, 0.1, "Tire_Pois : " + ((PeasShooter.getCooldown() == null)? 0 : 10));
+		StdDraw.text(0.5, 0.1, "Noix : " + ((Nuts.getCooldown() == null)? 0 : 10));
+
 
 		// Affiche les entites
 		for (Entite entite : entites)
 			entite.dessine();
+		for (Entite soleil : soleils)
+			soleil.dessine();
 	}
 	
 	/**
 	 * Fait apparitre un nouveau soleil
 	 */
-	public static void addSun() {
-		entites.add(new Soleil(0.3,0.3));
+	public static void addSun(double x, double y) {
+		soleils.add(new Soleil(x,y));
 	}
 
 	

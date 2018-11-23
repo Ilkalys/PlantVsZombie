@@ -8,12 +8,25 @@ import Resources.Timer;
  */
 public class PeasShooter extends Plant {
 	
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
 	*/
 	//------------------------------------------------------------------------------
 	
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+
+
+	public static void setCooldown(Timer cooldown) {
+		PeasShooter.cooldown = cooldown;
+	}
+
+
 	/**
 	 * Constructeur
 	 * 

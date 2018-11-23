@@ -8,12 +8,25 @@ import Resources.Timer;
  */
 public class Nuts extends Plant {
 
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
 	*/
 	//------------------------------------------------------------------------------
 	
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+
+
+	public static void setCooldown(Timer cooldown) {
+		Nuts.cooldown = cooldown;
+	}
+
+
 	/**
 	 * Constructeur
 	 * 

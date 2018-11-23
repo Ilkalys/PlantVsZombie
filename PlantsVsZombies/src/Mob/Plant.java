@@ -9,8 +9,6 @@ import Resources.*;
  */
 public abstract class Plant extends Mob {
 
-	// Temps avant de pouvoir replanter
-	public static Timer cooldown;
 	// Cout en soleil de la plante
 	private static int price;
 	
@@ -64,15 +62,6 @@ public abstract class Plant extends Mob {
 	//------------------------------------------------------------------------------
 	
 	/**
-	 * Retourne le timer de recharge
-	 * 
-	 * @return cooldown
-	 */
-	public static Timer getCooldown() {
-		return cooldown;
-	}
-	
-	/**
 	 * Retourne le prix de la plante
 	 * 
 	 * @return price
@@ -88,15 +77,6 @@ public abstract class Plant extends Mob {
 	*/
 	//------------------------------------------------------------------------------
 
-	/**
-	 * Modifie le timer du temps avant de pouvoir racheter ce type de plante
-	 * 
-	 * @param cooldown timer du temps avant de pouvoir replanter
-	 */
-	public static void setCooldown(Timer cooldown) {
-		Plant.cooldown = cooldown;
-	}
-	
 	/**
 	 * Modifie le cout de ce type de plante
 	 * 

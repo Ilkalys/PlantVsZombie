@@ -8,6 +8,11 @@ import Soleil.*;
  */
 public class Sunflower extends Plant {
 
+
+
+
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
 	// Timerpour l'apparition des soleils gerer par la plante
 	private Timer sunrise;
 	
@@ -43,7 +48,7 @@ public class Sunflower extends Plant {
 	 */
 	public void step() {
 		if(sunrise.hasFinished()) {
-			GameWorld.addSun();
+			GameWorld.addSun(this.getX(),this.getY());
 			this.sunrise = new Timer(6500);
 		}
 	}
@@ -70,6 +75,10 @@ public class Sunflower extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 	
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+
 	/**
 	 * Retourne le timer gerant l'apparation des soleils
 	 * 
@@ -85,6 +94,10 @@ public class Sunflower extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 	
+	public static void setCooldown(Timer cooldown) {
+		Sunflower.cooldown = cooldown;
+	}
+
 	/**
 	 * Modifie sunrise
 	 * 
