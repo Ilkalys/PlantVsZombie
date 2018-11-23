@@ -3,6 +3,9 @@ package Mob;
 import Resources.GameWorld;
 import Resources.StdDraw;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class ZombieBasique extends Zombie{
 
 	public ZombieBasique(double x, double y) {

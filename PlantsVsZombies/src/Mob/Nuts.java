@@ -3,6 +3,9 @@ package Mob;
 import Resources.StdDraw;
 import Resources.Timer;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class Nuts extends Plant {
 
 	//------------------------------------------------------------------------------

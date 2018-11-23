@@ -2,6 +2,9 @@ package Mob;
 
 import Resources.StdDraw;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class ZombieBlinde extends Zombie{
 	
 	public ZombieBlinde(double x, double y) {

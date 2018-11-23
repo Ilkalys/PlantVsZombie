@@ -3,6 +3,9 @@ package Mob;
 import Resources.*;
 import Soleil.*;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class Sunflower extends Plant {
 
 	// Timerpour l'apparition des soleils gerer par la plante
@@ -40,7 +43,7 @@ public class Sunflower extends Plant {
 	 */
 	public void step() {
 		if(sunrise.hasFinished()) {
-			//GameWorld.addSun();
+			GameWorld.addSun();
 			this.sunrise = new Timer(6500);
 		}
 	}

@@ -3,6 +3,9 @@ package Soleil;
 import Resources.Entite;
 import Resources.StdDraw;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class PorteSoleil extends Entite{
 	private int bank;
 

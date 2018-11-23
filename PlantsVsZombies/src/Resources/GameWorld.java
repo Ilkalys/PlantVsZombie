@@ -169,7 +169,7 @@ public class GameWorld {
 	/**
 	 * Fait apparitre un nouveau soleil
 	 */
-	public void addSun() {
+	public static void addSun() {
 		entites.add(new Soleil(0.3,0.3));
 	}
 

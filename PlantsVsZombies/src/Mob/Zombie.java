@@ -2,6 +2,9 @@ package Mob;
 
 import Resources.GameWorld;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public abstract class Zombie extends Mob{
 
 	private int damage;

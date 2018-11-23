@@ -5,6 +5,9 @@ import java.util.List;
 import Resources.Entite;
 import Resources.StdDraw;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class Soleil extends Entite {
 
 	public static final int VALUE = 25;
