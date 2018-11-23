@@ -16,16 +16,6 @@ public class PeasShooter extends Plant {
 	**      CONSTRUCTEUR
 	*/
 	//------------------------------------------------------------------------------
-	
-	public static Timer getCooldown() {
-		return cooldown;
-	}
-
-
-	public static void setCooldown(Timer cooldown) {
-		PeasShooter.cooldown = cooldown;
-	}
-
 
 	/**
 	 * Constructeur
@@ -36,7 +26,6 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		PeasShooter.setPrice(100);
 		cooldown = new Timer(1);
 	}
 	
@@ -69,4 +58,24 @@ public class PeasShooter extends Plant {
 		cooldown = new Timer(5000);
 	}
 	
+	//------------------------------------------------------------------------------
+	/*
+	**      GETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      SETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	public static void setCooldown(Timer newCooldown) {
+		cooldown = newCooldown;
+	}
+
 }

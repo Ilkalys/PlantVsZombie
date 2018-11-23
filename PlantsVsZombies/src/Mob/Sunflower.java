@@ -8,9 +8,6 @@ import Soleil.*;
  */
 public class Sunflower extends Plant {
 
-
-
-
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
 	// Timerpour l'apparition des soleils gerer par la plante
@@ -31,7 +28,6 @@ public class Sunflower extends Plant {
 	public Sunflower(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		Sunflower.setPrice(50);
 		cooldown = new Timer(1);
 		this.sunrise = new Timer(6500);
 	}
@@ -94,8 +90,8 @@ public class Sunflower extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 	
-	public static void setCooldown(Timer cooldown) {
-		Sunflower.cooldown = cooldown;
+	public static void setCooldown(Timer newCooldown) {
+		cooldown = newCooldown;
 	}
 
 	/**

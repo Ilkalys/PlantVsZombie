@@ -9,9 +9,6 @@ import Resources.*;
  */
 public abstract class Plant extends Mob {
 
-	// Cout en soleil de la plante
-	private static int price;
-	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
@@ -60,15 +57,7 @@ public abstract class Plant extends Mob {
 	**      GETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
-	/**
-	 * Retourne le prix de la plante
-	 * 
-	 * @return price
-	 */
-	public static int getPrice() {
-		return price;
-	}
+
 	
 	
 	//------------------------------------------------------------------------------
@@ -77,17 +66,5 @@ public abstract class Plant extends Mob {
 	*/
 	//------------------------------------------------------------------------------
 
-	/**
-	 * Modifie le cout de ce type de plante
-	 * 
-	 * @param price cout en soleil de la plante
-	 */
-	public static void setPrice(int price) {
-		Plant.price = price;
-	}
 
-	
-
-
-	
 }

@@ -23,5 +23,8 @@ public class Timer {
 	public long getDuree() {
 		return duree;
 	}
-	
+	public double getActualTime() {
+		double x = debut.getEpochSecond()-(Instant.now().minus(duree, ChronoUnit.MILLIS).getEpochSecond());
+		return (x >0)? x : 0 ;
+	}
 }

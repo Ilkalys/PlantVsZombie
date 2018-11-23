@@ -46,11 +46,9 @@ public class GameWorld {
 		entites.add(bank);
 		
 		// On rajoute les entites
-		entites.add(new ZombieBasique(1, 0.5));
+		entites.add(new BasicZombie(1, 0.5));
 		soleils.add(new Soleil(0.5, 0.5));
 		soleils.add(new Soleil(0.1, 0.5));
-		soleils.add(new Soleil(0.5, 0.1));
-		soleils.add(new Soleil(0.2, 0.2));
 	}
 
 	
@@ -163,11 +161,12 @@ public class GameWorld {
 	public void dessine() {
 		
 		StdDraw.setFont();
-		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.text(0.1, 0.1, "Tournesol : " + ((Sunflower.getCooldown() == null)? 0 : 10));
-		StdDraw.text(0.3, 0.1, "Tire_Pois : " + ((PeasShooter.getCooldown() == null)? 0 : 10));
-		StdDraw.text(0.5, 0.1, "Noix : " + ((Nuts.getCooldown() == null)? 0 : 10));
-
+		StdDraw.setPenColor(StdDraw.YELLOW);
+		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
+		StdDraw.setPenColor(StdDraw.GREEN);
+		StdDraw.filledSquare(0.3, 0.1, 0.05 - ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/100));
+		StdDraw.setPenColor(StdDraw.ORANGE);
+		StdDraw.filledSquare(0.5, 0.1, 0.05 - ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/400));
 
 		// Affiche les entites
 		for (Entite entite : entites)

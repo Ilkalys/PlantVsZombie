@@ -16,15 +16,6 @@ public class Nuts extends Plant {
 	**      CONSTRUCTEUR
 	*/
 	//------------------------------------------------------------------------------
-	
-	public static Timer getCooldown() {
-		return cooldown;
-	}
-
-
-	public static void setCooldown(Timer cooldown) {
-		Nuts.cooldown = cooldown;
-	}
 
 
 	/**
@@ -36,7 +27,6 @@ public class Nuts extends Plant {
 	public Nuts(double x, double y){
 		super(x, y);
 		this.setLife(1500);
-		Nuts.setPrice(50);
 		cooldown = new Timer(1);
 	}
 
@@ -69,4 +59,25 @@ public class Nuts extends Plant {
 		cooldown = new Timer(20000);
 	}
 	
+
+	//------------------------------------------------------------------------------
+	/*
+	**      GETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      SETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	public static void setCooldown(Timer newCooldown) {
+		cooldown = newCooldown;
+	}
+
 }
