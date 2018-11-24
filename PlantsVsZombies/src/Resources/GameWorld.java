@@ -58,7 +58,7 @@ public class GameWorld {
 	*/
 	//------------------------------------------------------------------------------
 	
-	/**
+	/**  
 	 * Gestion des interactions clavier avec l'utilisateur
 	 * 
 	 * @param key Touche pressee par l'utilisateur
@@ -167,7 +167,13 @@ public class GameWorld {
 		StdDraw.filledSquare(0.3, 0.1, 0.05 - ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/100));
 		StdDraw.setPenColor(StdDraw.ORANGE);
 		StdDraw.filledSquare(0.5, 0.1, 0.05 - ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/400));
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.square(0.1, 0.1, 0.05);		
+		StdDraw.square(0.3, 0.1, 0.05);
+		StdDraw.square(0.5, 0.1, 0.05);
 
+		//StdDraw.text(0.1, 0.1, "Soleil : "+((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()));
+		
 		// Affiche les entites
 		for (Entite entite : entites)
 			entite.dessine();

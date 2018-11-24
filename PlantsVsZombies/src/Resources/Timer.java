@@ -24,7 +24,8 @@ public class Timer {
 		return duree;
 	}
 	public double getActualTime() {
-		double x = debut.getEpochSecond()-(Instant.now().minus(duree, ChronoUnit.MILLIS).getEpochSecond());
+		double x = debut.getEpochSecond() - Instant.now().minus(duree, ChronoUnit.MILLIS).getEpochSecond();
+		x += debut.getNano()/Math.pow(10, 9) - Instant.now().minus(duree, ChronoUnit.MILLIS).getNano()/Math.pow(10, 9);
 		return (x >0)? x : 0 ;
 	}
 }
