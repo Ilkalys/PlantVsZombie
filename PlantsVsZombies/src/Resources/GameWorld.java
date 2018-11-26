@@ -18,12 +18,11 @@ public class GameWorld {
 	private static boolean gameWon;
 	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
 	private static boolean gameLost;
-	
+
 	// Porte-feuille du joueur
 	private static PorteSoleil bank;
 	// Dernier achat effectue ('s'=tournesol, 'p'=tire-pois, 'n'=noix, ' '=rien)
 	private static char purchase;
-
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -44,7 +43,7 @@ public class GameWorld {
 		entites = new LinkedList<Entite>();
 		soleils = new LinkedList<Entite>();
 		entites.add(bank);
-		
+
 		// On rajoute les entites
 		entites.add(new BasicZombie(1, 0.5));
 		soleils.add(new Soleil(0.5, 0.5));
@@ -110,7 +109,7 @@ public class GameWorld {
 		// Recuperation d'un soleil
 		Soleil clique = Soleil.somethingHere(soleils, x, y);
 		if(clique != null) {
-			bank.add(Soleil.VALUE);
+			bank.add(Soleil.getValue());
 			soleils.remove(clique);
 		}
 		// Plantation
@@ -146,7 +145,7 @@ public class GameWorld {
 			else System.out.println("Il y a deja quelque chose ici.");
 		}
 	}
-	
+
 	/**
 	 * Fait bouger/agir toutes les entites
 	 */
@@ -158,13 +157,15 @@ public class GameWorld {
 				entites.get(i).step();
 			}
 		}
+		for (Entite soleil : soleils)
+			soleil.step();
 	}
 
 	/**
 	 * Dessine les entites du jeu
 	 */
 	public void dessine() {
-		
+
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.YELLOW);
 		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
@@ -177,22 +178,20 @@ public class GameWorld {
 		StdDraw.square(0.3, 0.1, 0.05);
 		StdDraw.square(0.5, 0.1, 0.05);
 
-		//StdDraw.text(0.1, 0.1, "Soleil : "+((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()));
-		
 		// Affiche les entites
 		for (Entite entite : entites)
 			entite.dessine();
 		for (Entite soleil : soleils)
 			soleil.dessine();
 	}
-	
+
 	/**
 	 * Fait apparitre un nouveau soleil
 	 */
 	public static void addSun(double x, double y) {
 		soleils.add(new Soleil(x,y));
 	}
-	
+
 	public static void removeEntite(Entite entite) {
 		GameWorld.entites.remove(entite);
 	}
@@ -212,7 +211,11 @@ public class GameWorld {
 	public static List<Entite> getEntites() {
 		return entites;
 	}
-	
+
+	public static List<Entite> getSoleils() {
+		return soleils;
+	}
+
 	/**
 	 * Retourne true si le jeu est gagne
 	 * 
@@ -230,7 +233,7 @@ public class GameWorld {
 	public static boolean gameLost() {
 		return gameLost;
 	}
-	
+
 	/**
 	 * Retourne le porte-feuille du joueur
 	 * 
@@ -239,7 +242,7 @@ public class GameWorld {
 	public static PorteSoleil getBank() {
 		return bank;
 	}
-	
+
 	public static char getPurchase() {
 		return purchase;
 	}
