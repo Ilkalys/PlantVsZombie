@@ -2,7 +2,9 @@ package Soleil;
 
 import java.util.List;
 
+
 import Resources.Entite;
+import Resources.Main;
 import Resources.StdDraw;
 
 /**
@@ -10,10 +12,12 @@ import Resources.StdDraw;
  */
 public class Soleil extends Entite {
 
-	public static final int VALUE = 25;
-	
+	private static final int VALUE = 25;
+	private double statusAnim;
+
 	public Soleil(double x, double y) {
 		super(x, y);
+		statusAnim = 0;
 	}
 
 	public static Soleil somethingHere(List<Entite> entites, double x, double y) {
@@ -28,13 +32,19 @@ public class Soleil extends Entite {
 	}
 	
 	public void step() {
-		
+		if(statusAnim >= 180)
+			statusAnim =0;
+		else statusAnim +=5;
 	}	
-	
+
 	// dessine l'entite, aux bonnes coordonnees
 	public  void dessine() {
-		StdDraw.setPenColor(StdDraw.CYAN);
-		StdDraw.filledSquare(this.position.getX(), this.position.getY(), 0.02);
+		StdDraw.picture(this.getX(), this.getY(), "/Soleil/sun.png", 0.04, 0.04, statusAnim);
 	}
 
+	
+	public static int getValue() {
+		return VALUE;
+	}
+	
 }
