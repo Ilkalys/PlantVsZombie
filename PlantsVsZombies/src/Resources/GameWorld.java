@@ -110,7 +110,7 @@ public class GameWorld {
 		// Recuperation d'un soleil
 		Soleil clique = Soleil.somethingHere(soleils, x, y);
 		if(clique != null) {
-			bank.add(Soleil.VALUE);
+			bank.add(Soleil.getValue());
 			soleils.remove(clique);
 		}
 		// Plantation
@@ -158,6 +158,8 @@ public class GameWorld {
 				entites.get(i).step();
 			}
 		}
+		for (Entite soleil : soleils)
+			soleil.step();
 	}
 
 	/**
@@ -176,8 +178,6 @@ public class GameWorld {
 		StdDraw.square(0.1, 0.1, 0.05);		
 		StdDraw.square(0.3, 0.1, 0.05);
 		StdDraw.square(0.5, 0.1, 0.05);
-
-		//StdDraw.text(0.1, 0.1, "Soleil : "+((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()));
 		
 		// Affiche les entites
 		for (Entite entite : entites)
@@ -211,6 +211,10 @@ public class GameWorld {
 	 */
 	public static List<Entite> getEntites() {
 		return entites;
+	}
+	
+	public static List<Entite> getSoleils() {
+		return soleils;
 	}
 	
 	/**
