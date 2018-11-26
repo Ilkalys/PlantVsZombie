@@ -1,12 +1,14 @@
 package Mob;
 
 import Resources.GameWorld;
+import Resources.Timer;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public abstract class Zombie extends Mob {
 
+	private static Timer attack;
 	// Nombre de degat qu'inflige un zombie
 	private int damage;
 	// Vitesse du zombie
@@ -27,6 +29,7 @@ public abstract class Zombie extends Mob {
 	 */
 	public Zombie(double x, double y) {
 		super(x, y);
+		this.attack = new Timer(1);
 	}
 	
 	
@@ -40,10 +43,12 @@ public abstract class Zombie extends Mob {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public  void step() {
-		if(!Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - this.getSpeed(), this.getY())) {
+		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - this.getSpeed(), this.getY());
+		if(obstacle == null)
 			this.position.setX(this.position.getX() - this.getSpeed());
-		if (this.position.getX() < 0.0)
-			this.position.setX(1.0);
+		else if(this.attack.hasFinished()) {
+			obstacle.takeDamage(this.damage);
+			this.attack = new Timer(1000);
 		}
 	}
 	

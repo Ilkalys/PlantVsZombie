@@ -2,6 +2,7 @@ package Mob;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.GameWorld;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -43,15 +44,15 @@ public abstract class Mob extends Entite {
 	 * @param y coordonne Y a verifier
 	 * @return boolean
 	 */
-	public static boolean somethingHere(List<Entite> entites, double x, double y) {
+	public static Mob somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
 			if(entites.get(i) instanceof Mob
 			&& entites.get(i).getX() <= x+0.09
 			&& entites.get(i).getX() >= x-0.09
 			&& entites.get(i).getY() <= y+0.09
 			&& entites.get(i).getY() >= y-0.09)
-				return true;
-		return false;
+				return (Mob)entites.get(i);
+		return null;
 	}
 
 	/**
@@ -61,6 +62,8 @@ public abstract class Mob extends Entite {
 	 */
 	public void takeDamage(int damage) {
 		this.life -= damage;
+		if(this.life <= 0)
+			GameWorld.removeEntite(this);
 	}
 	
 	//------------------------------------------------------------------------------

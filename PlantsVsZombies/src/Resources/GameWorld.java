@@ -118,7 +118,7 @@ public class GameWorld {
 			double rx, ry;
 			rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
 			ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
-			if(!Mob.somethingHere(entites, rx, ry)) {
+			if(Mob.somethingHere(entites, rx, ry) == null) {
 				switch (purchase) {
 				case 's':
 					bank.add(-50);
@@ -151,8 +151,13 @@ public class GameWorld {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {
-		for (Entite entite : entites)
-			entite.step();
+		/*for (Entite entite : entites)
+			entite.step();*/
+		for (int i = 0; i < entites.size(); i++) {
+			if(entites.get(i) != null) {
+				entites.get(i).step();
+			}
+		}
 	}
 
 	/**
@@ -186,6 +191,10 @@ public class GameWorld {
 	 */
 	public static void addSun(double x, double y) {
 		soleils.add(new Soleil(x,y));
+	}
+	
+	public static void removeEntite(Entite entite) {
+		GameWorld.entites.remove(entite);
 	}
 
 	

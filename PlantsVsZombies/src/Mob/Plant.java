@@ -3,6 +3,7 @@ package Mob;
 import java.util.List;
 
 import Resources.*;
+import Soleil.Soleil;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -38,17 +39,17 @@ public abstract class Plant extends Mob {
 	 * @param entites liste des entites a verifier
 	 * @param x coordonne X a verifier
 	 * @param y coordonne Y a verifier
-	 * @return boolean
+	 * @return la plante à l'endroit demandé
 	 */
-	public static boolean somethingHere(List<Entite> entites, double x, double y) {
+	public static Plant somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
 			if(entites.get(i) instanceof Plant
 			&& entites.get(i).getX() <= x+0.09
 			&& entites.get(i).getX() >= x-0.09
 			&& entites.get(i).getY() <= y+0.09
 			&& entites.get(i).getY() >= y-0.09)
-				return true;
-		return false;
+				return (Plant)entites.get(i);
+		return null;
 	}
 	
 	
