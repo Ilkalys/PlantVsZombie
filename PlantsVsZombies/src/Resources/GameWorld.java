@@ -25,6 +25,9 @@ public class GameWorld {
 	private static char purchase;
 
 	private static ZombieSpawner spawn;
+	private static SunSpawner sunSpawn;
+	private static int zombieQuantity;
+
 	//------------------------------------------------------------------------------
 	/*
 	 **      CONSTRUCTEUR
@@ -39,7 +42,9 @@ public class GameWorld {
 		gameLost=false;
 		bank = new SunWallet(0, 0, 50);
 		spawn = new ZombieSpawner(1);
-		
+		sunSpawn = new SunSpawner();
+		zombieQuantity =20;
+
 		purchase = ' ';
 
 		// On cree les collections
@@ -47,9 +52,6 @@ public class GameWorld {
 		suns = new LinkedList<Entite>();
 		entites.add(bank);
 
-		// On rajoute les entites
-		suns.add(new Sun(0.5, 0.5));
-		suns.add(new Sun(0.1, 0.5));
 	}
 
 
@@ -152,18 +154,24 @@ public class GameWorld {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {
-		/*for (Entite entite : entites)
-			entite.step();*/
+
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) != null) {
 				entites.get(i).step();
 			}
 		}
-		for (Entite Sun : suns)
-			Sun.step();
+		for (int i = 0; i < suns.size(); i++) {
+			if(suns.get(i) != null) {
+				suns.get(i).step();
+			}
+		}
 		spawn.step();
-	}
+		sunSpawn.step();
+		if(!AnyZombie() && zombieQuantity == 0) {
+			gameWon = true;
+		}
 
+	}
 	/**
 	 * Dessine les entites du jeu
 	 */
@@ -196,13 +204,16 @@ public class GameWorld {
 	}
 
 	public static void addZombie(double x, double y, boolean shielded) {
-		if(shielded)
-			entites.add(new ShieldedZombie(x,y));
-		else
-			entites.add(new BasicZombie(x,y));
+		if(zombieQuantity !=0) {
+			if(shielded)
+				entites.add(new ShieldedZombie(x,y));
+			else
+				entites.add(new BasicZombie(x,y));
+			zombieQuantity--;
+		}
 
 	}
-	
+
 	public static void addPeas(double x, double y) {
 		entites.add(new Peas(x,y));
 	}
@@ -260,6 +271,13 @@ public class GameWorld {
 
 	public static char getPurchase() {
 		return purchase;
+	}
+
+	public static boolean AnyZombie() {
+		for (Entite entite : entites)
+			if(entite instanceof Zombie)
+				return true;
+		return false;
 	}
 
 }
