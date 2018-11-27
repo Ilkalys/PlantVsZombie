@@ -63,7 +63,7 @@ public abstract class Mob extends Entite {
 	public void takeDamage(int damage) {
 		this.life -= damage;
 		if(this.life <= 0)
-			GameWorld.removeEntite(this);
+			GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
 	}
 	
 	//------------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 package Mob;
 
+import java.util.List;
+
+import Resources.Entite;
 import Resources.GameWorld;
 import Resources.Timer;
 
@@ -29,7 +32,7 @@ public abstract class Zombie extends Mob {
 	 */
 	public Zombie(double x, double y) {
 		super(x, y);
-		this.attack = new Timer(1);
+		attack = new Timer(1);
 	}
 	
 	
@@ -40,15 +43,34 @@ public abstract class Zombie extends Mob {
 	//------------------------------------------------------------------------------
 	
 	/**
+	 * Verifie si une plante se trouve a un endroit precis parmi une liste d'entites donnee
+	 * 
+	 * @param entites liste des entites a verifier
+	 * @param x coordonne X a verifier
+	 * @param y coordonne Y a verifier
+	 * @return la plante à l'endroit demandé
+	 */
+	public static Zombie somethingHere(List<Entite> entites, double x, double y) {
+		for(int i =0; i<entites.size(); i++)
+			if(entites.get(i) instanceof Zombie
+			&& entites.get(i).getX() <= x+0.09
+			&& entites.get(i).getX() >= x-0.09
+			&& entites.get(i).getY() <= y+0.09
+			&& entites.get(i).getY() >= y-0.09)
+				return (Zombie)entites.get(i);
+		return null;
+	}
+	
+	/**
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public  void step() {
 		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - this.getSpeed(), this.getY());
 		if(obstacle == null)
 			this.position.setX(this.position.getX() - this.getSpeed());
-		else if(this.attack.hasFinished()) {
+		else if(attack.hasFinished()) {
 			obstacle.takeDamage(this.damage);
-			this.attack = new Timer(1000);
+			attack = new Timer(1000);
 		}
 	}
 	

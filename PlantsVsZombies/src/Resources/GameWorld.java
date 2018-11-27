@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Mob.*;
-import Soleil.*;
+import Sun.*;
 
 /**
  * @author TERMIER Alexandre, GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -12,51 +12,53 @@ public class GameWorld {
 
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
-	// L'ensemble des Soleils qui apparaitront.
-	private static List<Entite> soleils;
+	// L'ensemble des Suns qui apparaitront.
+	private static List<Entite> suns;
 	//Pour savoir si la partie est gagnee ou pas
 	private static boolean gameWon;
 	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
 	private static boolean gameLost;
 
 	// Porte-feuille du joueur
-	private static PorteSoleil bank;
+	private static SunWallet bank;
 	// Dernier achat effectue ('s'=tournesol, 'p'=tire-pois, 'n'=noix, ' '=rien)
 	private static char purchase;
-	
+
+	private static ZombieSpawner spawn;
 	//------------------------------------------------------------------------------
 	/*
-	**      CONSTRUCTEUR
-	*/
+	 **      CONSTRUCTEUR
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
 	public GameWorld() {
 		gameWon=false;
 		gameLost=false;
-		bank = new PorteSoleil(0, 0, 50);
+		bank = new SunWallet(0, 0, 50);
+		spawn = new ZombieSpawner(1);
+		
 		purchase = ' ';
 
 		// On cree les collections
 		entites = new LinkedList<Entite>();
-		soleils = new LinkedList<Entite>();
+		suns = new LinkedList<Entite>();
 		entites.add(bank);
 
 		// On rajoute les entites
-		entites.add(new BasicZombie(1, 0.5));
-		soleils.add(new Soleil(0.5, 0.5));
-		soleils.add(new Soleil(0.1, 0.5));
+		suns.add(new Sun(0.5, 0.5));
+		suns.add(new Sun(0.1, 0.5));
 	}
 
-	
+
 	//------------------------------------------------------------------------------
 	/*
-	**      METHODES
-	*/
+	 **      METHODES
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**  
 	 * Gestion des interactions clavier avec l'utilisateur
 	 * 
@@ -70,7 +72,7 @@ public class GameWorld {
 				if(bank.enoughSun(50)) {
 					purchase = 's';
 					System.out.println("Tournesol selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de soleil.");
+				} else System.out.println("Mais il ne possede pas assez de Sun.");
 			else
 				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 			break;
@@ -80,7 +82,7 @@ public class GameWorld {
 				if(bank.enoughSun(100)) {
 					purchase = 'p';
 					System.out.println("Tire-Pois selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de soleil.");
+				} else System.out.println("Mais il ne possede pas assez de Sun.");
 			else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 			break;
 		case 'n':
@@ -89,7 +91,7 @@ public class GameWorld {
 				if(bank.enoughSun(50)) {
 					purchase = 'n';
 					System.out.println("Noix selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de soleil.");
+				} else System.out.println("Mais il ne possede pas assez de Sun.");
 			else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 			break;
 		default:
@@ -106,11 +108,11 @@ public class GameWorld {
 	 */
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en : "+x+" - "+y);
-		// Recuperation d'un soleil
-		Soleil clique = Soleil.somethingHere(soleils, x, y);
+		// Recuperation d'un Sun
+		Sun clique = Sun.somethingHere(suns, x, y);
 		if(clique != null) {
-			bank.add(Soleil.getValue());
-			soleils.remove(clique);
+			bank.add(Sun.getValue());
+			suns.remove(clique);
 		}
 		// Plantation
 		if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
@@ -157,8 +159,9 @@ public class GameWorld {
 				entites.get(i).step();
 			}
 		}
-		for (Entite soleil : soleils)
-			soleil.step();
+		for (Entite Sun : suns)
+			Sun.step();
+		spawn.step();
 	}
 
 	/**
@@ -181,26 +184,38 @@ public class GameWorld {
 		// Affiche les entites
 		for (Entite entite : entites)
 			entite.dessine();
-		for (Entite soleil : soleils)
-			soleil.dessine();
+		for (Entite Sun : suns)
+			Sun.dessine();
 	}
 
 	/**
-	 * Fait apparitre un nouveau soleil
+	 * Fait apparitre un nouveau Sun
 	 */
 	public static void addSun(double x, double y) {
-		soleils.add(new Soleil(x,y));
+		suns.add(new Sun(x,y));
 	}
 
-	public static void removeEntite(Entite entite) {
-		GameWorld.entites.remove(entite);
-	}
+	public static void addZombie(double x, double y, boolean shielded) {
+		if(shielded)
+			entites.add(new ShieldedZombie(x,y));
+		else
+			entites.add(new BasicZombie(x,y));
 
+	}
 	
+	public static void addPeas(double x, double y) {
+		entites.add(new Peas(x,y));
+	}
+
+	public static void removeEntiteFrom(List<Entite> entitesList, Entite entite) {
+		entitesList.remove(entite);
+	}
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      GETTERS
-	*/
+	 **      GETTERS
+	 */
 	//------------------------------------------------------------------------------
 
 	/**
@@ -212,8 +227,8 @@ public class GameWorld {
 		return entites;
 	}
 
-	public static List<Entite> getSoleils() {
-		return soleils;
+	public static List<Entite> getSuns() {
+		return suns;
 	}
 
 	/**
@@ -239,7 +254,7 @@ public class GameWorld {
 	 * 
 	 * @return bank
 	 */
-	public static PorteSoleil getBank() {
+	public static SunWallet getBank() {
 		return bank;
 	}
 

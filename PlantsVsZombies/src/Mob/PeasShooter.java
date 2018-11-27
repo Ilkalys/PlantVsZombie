@@ -1,5 +1,6 @@
 package Mob;
 
+import Resources.GameWorld;
 import Resources.StdDraw;
 import Resources.Timer;
 
@@ -10,6 +11,9 @@ public class PeasShooter extends Plant {
 	
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
+	// Temps de rechargement pour tirer
+	private Timer reload;
+
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -27,6 +31,7 @@ public class PeasShooter extends Plant {
 		super(x, y);
 		this.setLife(300);
 		cooldown = new Timer(1);
+		this.reload = new Timer(1500);
 	}
 	
 	
@@ -40,7 +45,10 @@ public class PeasShooter extends Plant {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public  void step() {
-
+		if(this.reload.hasFinished()) {
+			GameWorld.addPeas(this.getX(), this.getY());
+			this.reload = new Timer(1500);
+		}
 	}
 
 	/**

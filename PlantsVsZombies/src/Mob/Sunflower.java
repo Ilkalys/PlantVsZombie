@@ -1,7 +1,7 @@
 package Mob;
 
 import Resources.*;
-import Soleil.*;
+import Sun.*;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -10,7 +10,7 @@ public class Sunflower extends Plant {
 
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
-	// Timerpour l'apparition des soleils gerer par la plante
+	// Timerpour l'apparition des Suns gerer par la plante
 	private Timer sunrise;
 	
 	//------------------------------------------------------------------------------
@@ -43,8 +43,11 @@ public class Sunflower extends Plant {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public void step() {
-		if(sunrise.hasFinished()) {
-			GameWorld.addSun(this.getX(),this.getY());
+		if(Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) != null)
+			this.sunrise = new Timer(6500);
+
+		else if(sunrise.hasFinished()) {
+			GameWorld.addSun( this.getX(),this.getY());
 			this.sunrise = new Timer(6500);
 		}
 	}
@@ -76,7 +79,7 @@ public class Sunflower extends Plant {
 	}
 
 	/**
-	 * Retourne le timer gerant l'apparation des soleils
+	 * Retourne le timer gerant l'apparation des Suns
 	 * 
 	 * @return sunrise
 	 */
@@ -97,7 +100,7 @@ public class Sunflower extends Plant {
 	/**
 	 * Modifie sunrise
 	 * 
-	 * @param sunrise timer gerant l'apparation des soleils
+	 * @param sunrise timer gerant l'apparation des Suns
 	 */
 	public void setSunrise(Timer sunrise) {
 		this.sunrise = sunrise;
