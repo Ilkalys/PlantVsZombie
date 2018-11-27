@@ -1,0 +1,26 @@
+Thème : Espace
+  Sunflower : Satellite
+  Sun : Energie solaire
+  PeasShooter : Vaisseau spacial
+  Peas : Laser
+  Nuts : Asteroïde
+  BasicZombie : Vaisseau extra-terrestre
+  ShieldedZombie : Super vaisseau extra-terrestre
+
+Thème : Médiéval
+  Sunflower : ?
+  Sun : Or
+  PeasShooter : Archer
+  Peas : Flèche
+  Nuts : Tour
+  BasicZombie : Méchant chevalier
+  ShieldedZombie : Très méchant chevalier
+
+Thème : Western
+  Sunflower : Shérif
+  Sun : Etoile de Shérif
+  PeasShooter : Cowboy
+  Peas : Balle
+  Nuts : Tonneau
+  BasicZombie : Méchant cowboy
+  ShieldedZombie : Très méchant cowboy
