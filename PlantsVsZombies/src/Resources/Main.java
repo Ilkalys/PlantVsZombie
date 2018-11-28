@@ -4,6 +4,8 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		boolean mousePressed = false;
+		
 		// Creation de la scene
 		GameWorld world = new GameWorld();
 
@@ -25,9 +27,11 @@ public class Main {
 				world.processUserInput(key);
 			}
 
-			if (StdDraw.isMousePressed()) {
+			if (StdDraw.isMousePressed() && !mousePressed) {
+				mousePressed = true;
 				world.processMouseClick(StdDraw.mouseX(), StdDraw.mouseY());
 			}
+			if (!StdDraw.isMousePressed() && mousePressed) mousePressed = false;
 
 
 			world.step();

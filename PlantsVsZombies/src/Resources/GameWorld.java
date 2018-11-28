@@ -69,32 +69,38 @@ public class GameWorld {
 	public void processUserInput(char key) {
 		switch (key) {
 		case 't':
-			System.out.println("Le joueur veut acheter un Tournesol...");
-			if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
-				if(bank.enoughSun(50)) {
-					purchase = 's';
-					System.out.println("Tournesol selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de Sun.");
-			else
-				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			if(purchase != 's') {
+				System.out.println("Le joueur veut acheter un Tournesol...");
+				if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
+					if(bank.enoughSun(50)) {
+						purchase = 's';
+						System.out.println("Tournesol selectionne !");
+					} else System.out.println("Mais il ne possede pas assez de Sun.");
+				else
+					System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			} else purchase = ' ';
 			break;
 		case 'p':
-			System.out.println("Le joueur veut acheter un Tire-Pois...");
-			if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
-				if(bank.enoughSun(100)) {
-					purchase = 'p';
-					System.out.println("Tire-Pois selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de Sun.");
-			else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			if(purchase != 'p') {
+				System.out.println("Le joueur veut acheter un Tire-Pois...");
+				if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
+					if(bank.enoughSun(100)) {
+						purchase = 'p';
+						System.out.println("Tire-Pois selectionne !");
+					} else System.out.println("Mais il ne possede pas assez de Sun.");
+				else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			} else purchase = ' ';
 			break;
 		case 'n':
-			System.out.println("Le joueur veut acheter une Noix...");
-			if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
-				if(bank.enoughSun(50)) {
-					purchase = 'n';
-					System.out.println("Noix selectionne !");
-				} else System.out.println("Mais il ne possede pas assez de Sun.");
-			else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			if(purchase != 'n') {
+				System.out.println("Le joueur veut acheter une Noix...");
+				if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
+					if(bank.enoughSun(50)) {
+						purchase = 'n';
+						System.out.println("Noix selectionne !");
+					} else System.out.println("Mais il ne possede pas assez de Sun.");
+				else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+			} else purchase = ' ';
 			break;
 		default:
 			System.out.println("Touche non prise en charge.");
@@ -115,50 +121,51 @@ public class GameWorld {
 		if(clique != null) {
 			bank.add(Sun.getValue());
 			suns.remove(clique);
-		}
-		// Selection d'un tournesol
-		if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
-			processUserInput('t');
-		}
-		// Selection d'un tire-pois
-		if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
-			processUserInput('p');
-		}
-		// Selection d'une noix
-		if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
-			processUserInput('n');
-		}
-		// Plantation
-		if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
-			double rx, ry;
-			rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
-			ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
-			if(Mob.somethingHere(entites, rx, ry) == null) {
-				switch (purchase) {
-				case 's':
-					bank.add(-50);
-					entites.add(new Sunflower(rx, ry));
-					Sunflower.restartCooldown();
-					purchase = ' ';
-					break;
-				case 'p':
-					bank.add(-100);
-					entites.add(new PeasShooter(rx, ry));
-					PeasShooter.restartCooldown();
-					purchase = ' ';
-					break;
-				case 'n':
-					bank.add(-50);
-					entites.add(new Nuts(rx, ry));
-					Nuts.restartCooldown();
-					purchase = ' ';
-					break;
-				default:
-					System.out.println("Pas de plante selectionne.");
-					break;
-				}
+		} else {
+			// Selection d'un tournesol
+			if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
+				processUserInput('t');
 			}
-			else System.out.println("Il y a deja quelque chose ici.");
+			// Selection d'un tire-pois
+			if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
+				processUserInput('p');
+			}
+			// Selection d'une noix
+			if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
+				processUserInput('n');
+			}
+			// Plantation
+			if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
+				double rx, ry;
+				rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
+				ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
+				if(Mob.somethingHere(entites, rx, ry) == null) {
+					switch (purchase) {
+					case 's':
+						bank.add(-50);
+						entites.add(new Sunflower(rx, ry));
+						Sunflower.restartCooldown();
+						purchase = ' ';
+						break;
+					case 'p':
+						bank.add(-100);
+						entites.add(new PeasShooter(rx, ry));
+						PeasShooter.restartCooldown();
+						purchase = ' ';
+						break;
+					case 'n':
+						bank.add(-50);
+						entites.add(new Nuts(rx, ry));
+						Nuts.restartCooldown();
+						purchase = ' ';
+						break;
+					default:
+						System.out.println("Pas de plante selectionne.");
+						break;
+					}
+				}
+				else System.out.println("Il y a deja quelque chose ici.");
+			}
 		}
 	}
 
