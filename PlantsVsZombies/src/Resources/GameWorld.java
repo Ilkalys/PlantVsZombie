@@ -110,11 +110,23 @@ public class GameWorld {
 	 */
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en : "+x+" - "+y);
-		// Recuperation d'un Sun
+		// Recuperation d'un sun
 		Sun clique = Sun.somethingHere(suns, x, y);
 		if(clique != null) {
 			bank.add(Sun.getValue());
 			suns.remove(clique);
+		}
+		// Selection d'un tournesol
+		if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
+			processUserInput('t');
+		}
+		// Selection d'un tire-pois
+		if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
+			processUserInput('p');
+		}
+		// Selection d'une noix
+		if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
+			processUserInput('n');
 		}
 		// Plantation
 		if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
@@ -178,11 +190,11 @@ public class GameWorld {
 	public void dessine() {
 
 		StdDraw.setFont();
-		StdDraw.setPenColor(StdDraw.YELLOW);
+		StdDraw.setPenColor((purchase == 's')?StdDraw.RED : StdDraw.YELLOW);
 		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor(StdDraw.GREEN);
+		StdDraw.setPenColor((purchase == 'p')?StdDraw.RED : StdDraw.GREEN);
 		StdDraw.filledSquare(0.3, 0.1, 0.05 - ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor(StdDraw.ORANGE);
+		StdDraw.setPenColor((purchase == 'n')?StdDraw.RED : StdDraw.ORANGE);
 		StdDraw.filledSquare(0.5, 0.1, 0.05 - ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/400));
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.square(0.1, 0.1, 0.05);		
