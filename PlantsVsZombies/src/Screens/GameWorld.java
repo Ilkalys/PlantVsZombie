@@ -5,6 +5,7 @@ import java.util.List;
 
 import Mob.*;
 import Resources.Entite;
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.SunSpawner;
 import Resources.ZombieSpawner;
@@ -181,9 +182,7 @@ public class GameWorld extends GameScreen{
 		}
 		zombieSpawn.step();
 		sunSpawn.step();
-		if(!AnyZombie() && zombieQuantity == 0) {
-			gameWon = true;
-		}
+		
 
 	}
 	/**
@@ -335,7 +334,17 @@ public class GameWorld extends GameScreen{
 	 * @return gameLost
 	 */
 	public static boolean gameLost() {
-		return gameLost;
+		for (int y = 0; y>5;y++)
+			if(Zombie.somethingHere(entites, 1, y) != null)
+				return true;	
+		return false;	
+	}
+
+	public static void LevelComplete(){
+		if(!AnyZombie() && zombieQuantity == 0) {
+			Game.setWorld(new MenuLevelComplete());
+		}
+
 	}
 
 	/**

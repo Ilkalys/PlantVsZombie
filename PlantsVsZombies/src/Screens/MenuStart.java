@@ -4,9 +4,11 @@ import Resources.Game;
 import Resources.StdDraw;
 
 public class MenuStart extends GameScreen {
+	
+	private double ecart;
 
 	public MenuStart() {
-		
+		ecart = 0;
 	}
 	
 	@Override
@@ -15,27 +17,27 @@ public class MenuStart extends GameScreen {
 		
 	}
 
-	@Override
 	public void processMouseClick(double x, double y) {
-		if(x <= 0.58 && x >= 0.42 && y >= 0.57 && y <= 0.63) {
+		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
 			Game.setWorld(new MenuLevelComplete());
 		}
-		/*else if(x <= 0.58 && x >= 0.42 && y >= 0.37 && y <= 0.43) {
-			
-		}
-		*/
 	}
 
-	@Override
-	public void step() {		
+	public void step() {	
+		ecart += 0.001;
+		if (ecart >= 1.2)
+			ecart = -0.2;
 	}
 
 	@Override
 	public void dessine() {
 		
 		StdDraw.setFont();
-		StdDraw.picture(0.5, 0.6,(StdDraw.mouseX() <= 0.58 && StdDraw.mouseX() >= 0.42 && StdDraw.mouseY() >= 0.57 && StdDraw.mouseY() <= 0.63)?"/Pictures/start!_p.png" : "/Pictures/start!.png", 0.16, 0.06);
-		//StdDraw.picture(0.5, 0.4,(StdDraw.mouseX() <= 0.58 && StdDraw.mouseX() >= 0.42 && StdDraw.mouseY() >= 0.37 && StdDraw.mouseY() <= 0.43)?"/Pictures/quitter_p.png" : "/Pictures/quitter.png", 0.16, 0.06);
+		StdDraw.picture(0.5, 0.5,"/Pictures/Accueil1.png", 1, 1);
+		StdDraw.picture(0+ecart, 0.8,"/Pictures/CloudDown.png", 0.51, 0.51);
+		StdDraw.picture(1-ecart, 0.97,"/Pictures/CouldUp.png", 0.51, 0.51);
+		StdDraw.picture(0.509, 0.57,"/Pictures/Affichage.png", 0.51, 0.51);
+		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 
 		
 	}
