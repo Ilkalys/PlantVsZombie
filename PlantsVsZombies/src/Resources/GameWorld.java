@@ -1,4 +1,5 @@
 package Resources;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,15 +20,18 @@ public class GameWorld {
 	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
 	private static boolean gameLost;
 
-	// Porte-feuille du joueur
-	private static SunWallet bank;
 	// Dernier achat effectue ('s'=tournesol, 'p'=tire-pois, 'n'=noix, ' '=rien)
 	private static char purchase;
-
-	private static ZombieSpawner spawn;
+	// Gestionnaire des apparitions de soleil
 	private static SunSpawner sunSpawn;
+	// Porte-feuille du joueur
+	private static SunWallet bank;
+	// Gestionnaire des apparitions de zombies
+	private static ZombieSpawner zombieSpawn;
+	// Quantité de zombies du niveau
 	private static int zombieQuantity;
 
+	
 	//------------------------------------------------------------------------------
 	/*
 	 **      CONSTRUCTEUR
@@ -40,17 +44,17 @@ public class GameWorld {
 	public GameWorld() {
 		gameWon=false;
 		gameLost=false;
-		bank = new SunWallet(0, 0, 50);
-		spawn = new ZombieSpawner(1);
-		sunSpawn = new SunSpawner();
-		zombieQuantity =20;
 
 		purchase = ' ';
+		sunSpawn = new SunSpawner();
+		bank = new SunWallet(0, 0, 50);
+		zombieSpawn = new ZombieSpawner(1);
+		zombieQuantity =20;
+
 		// On cree les collections
 		entites = new LinkedList<Entite>();
 		suns = new LinkedList<Entite>();
 		entites.add(bank);
-
 	}
 
 
@@ -184,7 +188,7 @@ public class GameWorld {
 				suns.get(i).step();
 			}
 		}
-		spawn.step();
+		zombieSpawn.step();
 		sunSpawn.step();
 		if(!AnyZombie() && zombieQuantity == 0) {
 			gameWon = true;
