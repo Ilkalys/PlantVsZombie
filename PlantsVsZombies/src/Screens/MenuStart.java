@@ -1,5 +1,13 @@
 package Screens;
 
+import java.io.File;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+
 import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
@@ -12,6 +20,23 @@ public class MenuStart extends GameScreen {
 
 	public MenuStart() {
 		ecart = 0;
+		playBGM();
+	}
+	
+	public void playBGM() {
+		try {
+            String filePath = "/Musics/Blues.wav";
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(filePath));
+            AudioFormat format = inputStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip clip = (Clip) AudioSystem.getLine(info);
+
+            clip.open(inputStream);
+            clip.start();
+        } catch (Exception e) {
+            System.out.println("Error with playing sound.");
+            e.printStackTrace( );
+        }
 	}
 
 	@Override
