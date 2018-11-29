@@ -116,28 +116,29 @@ public class GameWorld {
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en : "+x+" - "+y);
 		// Recuperation d'un sun
-		Sun clique = Sun.somethingHere(suns, x, y);
-		if(clique != null) {
+		Sun sunHere = Sun.somethingHere(suns, x, y);
+		if(sunHere != null) {
 			bank.add(Sun.getValue());
-			suns.remove(clique);
+			suns.remove(sunHere);
 		} else {
-			// Selection d'un tournesol
+			// Selection d'un tournesol à la souris
 			if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
 				processUserInput('t');
 			}
-			// Selection d'un tire-pois
+			// Selection d'un tire-pois à la souris
 			if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
 				processUserInput('p');
 			}
-			// Selection d'une noix
+			// Selection d'une noix à la souris
 			if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
 				processUserInput('n');
 			}
-			// Plantation
+			// Choix de la position de la Plante
 			if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
 				double rx, ry;
 				rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
 				ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
+				//Vérification que la case souhaité soit vide
 				if(Mob.somethingHere(entites, rx, ry) == null) {
 					switch (purchase) {
 					case 's':
@@ -215,12 +216,20 @@ public class GameWorld {
 	}
 
 	/**
-	 * Fait apparitre un nouveau Sun
+	 * Fait apparaitre un nouveau Soleil(Sun)
+	 * @param x la position x du soleil
+	 * @param y la position y du soleil
 	 */
 	public static void addSun(double x, double y) {
 		suns.add(new Sun(x,y));
 	}
 
+	/**
+	 * Fait apparaitre un nouveau Zombie(Sun)
+	 * @param x la position x du zombie
+	 * @param y la position y du zombie
+	 * @param shielded le zombie est-il blindé?
+	 */
 	public static void addZombie(double x, double y, boolean shielded) {
 		if(zombieQuantity !=0) {
 			if(shielded)
@@ -232,32 +241,22 @@ public class GameWorld {
 
 	}
 
+	/**
+	 * Fait apparaitre un nouveau Pois(Peas)
+	 * @param x la position x du pois
+	 * @param y la position y du pois
+	 */
 	public static void addPeas(double x, double y) {
 		entites.add(new Peas(x,y));
 	}
 
+	/**
+	 * retire une entitée d'une des listes d'entitées
+	 * @param entitesList la liste d'entitées selectionnée
+	 * @param entite l'entitée que l'on veut supprimer
+	 */
 	public static void removeEntiteFrom(List<Entite> entitesList, Entite entite) {
 		entitesList.remove(entite);
-	}
-
-
-	//------------------------------------------------------------------------------
-	/*
-	 **      GETTERS
-	 */
-	//------------------------------------------------------------------------------
-
-	/**
-	 * Retourne l'ensemble des entites de la scene
-	 * 
-	 * @return entites
-	 */
-	public static List<Entite> getEntites() {
-		return entites;
-	}
-
-	public static List<Entite> getSuns() {
-		return suns;
 	}
 
 	/**
@@ -279,6 +278,42 @@ public class GameWorld {
 	}
 
 	/**
+	 * Verifie qu'il reste des zombies vivants sur la scène
+	 * @return si il en reste
+	 */
+	public static boolean AnyZombie() {
+		for (Entite entite : entites)
+			if(entite instanceof Zombie)
+				return true;
+		return false;
+	}
+
+
+	//------------------------------------------------------------------------------
+	/*
+	 **      GETTERS
+	 */
+	//------------------------------------------------------------------------------
+
+	/**
+	 * Retourne l'ensemble des plantes et zombies de la scene
+	 * 
+	 * @return entites la liste des plantes et zombies
+	 */
+	public static List<Entite> getEntites() {
+		return entites;
+	}
+
+	/**
+	 * Retourne l'ensemble des soleils de la scene
+	 * 
+	 * @return suns la liste des soleils 
+	 */
+	public static List<Entite> getSuns() {
+		return suns;
+	}
+
+	/**
 	 * Retourne le porte-feuille du joueur
 	 * 
 	 * @return bank
@@ -287,15 +322,13 @@ public class GameWorld {
 		return bank;
 	}
 
+	/**
+	 * Retourne le choix actuel de plante du joueur
+	 * 
+	 * @return purchase un character définissant la plante choisie
+	 */
 	public static char getPurchase() {
 		return purchase;
-	}
-
-	public static boolean AnyZombie() {
-		for (Entite entite : entites)
-			if(entite instanceof Zombie)
-				return true;
-		return false;
 	}
 
 }
