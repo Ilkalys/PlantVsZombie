@@ -45,7 +45,7 @@ public class Sun extends Entite {
 
 	// dessine l'entite, aux bonnes coordonnees
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), "/Sun/sun.png", 0.04, 0.04, animStatus);
+		StdDraw.picture(this.getX(), this.getY(), "/Pictures/sun.png", 0.04, 0.04, animStatus);
 	}
 
 	
