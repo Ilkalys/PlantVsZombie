@@ -138,7 +138,6 @@ public class GameWorld extends GameScreen{
 				// Verification que la case souhaité soit vide
 				if(Mob.somethingHere(entites, rx, ry) == null) {
 					if(selectedPlant == Sunflower.class.getName()) {
-						System.out.println("lol");
 						bank.add(-50);
 						entites.add(new Sunflower(rx, ry));
 						Sunflower.restartCooldown();
