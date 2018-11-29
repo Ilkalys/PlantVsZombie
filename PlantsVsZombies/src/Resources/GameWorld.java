@@ -46,7 +46,7 @@ public class GameWorld {
 		zombieQuantity =20;
 
 		purchase = ' ';
-
+		//test
 		// On cree les collections
 		entites = new LinkedList<Entite>();
 		suns = new LinkedList<Entite>();
