@@ -1,6 +1,7 @@
 package Mob;
 
 import Resources.*;
+import Screens.GameWorld;
 import Sun.*;
 
 /**

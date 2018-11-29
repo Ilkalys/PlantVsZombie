@@ -1,15 +1,19 @@
-package Resources;
+package Screens;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import Mob.*;
+import Resources.Entite;
+import Resources.StdDraw;
+import Resources.SunSpawner;
+import Resources.ZombieSpawner;
 import Sun.*;
 
 /**
  * @author TERMIER Alexandre, GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
-public class GameWorld {
+public class GameWorld extends GameScreen{
 
 	//------------------------------------------------------------------------------
 	/*

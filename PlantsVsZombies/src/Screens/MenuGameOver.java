@@ -3,11 +3,14 @@ package Screens;
 import java.awt.Font;
 
 import Resources.Game;
-import Resources.GameWorld;
 import Resources.StdDraw;
 
 public class MenuGameOver  extends GameScreen {
-
+	
+	
+	public MenuGameOver() {
+	}
+	
 	@Override
 	public void processUserInput(char key) {
 	}
@@ -24,13 +27,14 @@ public class MenuGameOver  extends GameScreen {
 	}
 
 	@Override
-	public void step() {		
+	public void step() {	
 	}
 
 	@Override
 	public void dessine() {
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.filledSquare(0.5,0.5,1);
+
 		StdDraw.setFont(new Font("sans serif",10,50));
 		StdDraw.setPenColor(StdDraw.RED);
 		StdDraw.text(0.5, 0.9, "You Died...");

@@ -2,7 +2,7 @@ package Resources;
 
 import java.util.Random;
 
-import Resources.GameWorld;
+import Screens.GameWorld;
 import Sun.Sun;
 
 public class SunSpawner{
@@ -10,7 +10,7 @@ public class SunSpawner{
 	private Random rand = new Random();
 	private Timer timer;
 
-	SunSpawner(){
+	public SunSpawner(){
 		this.timer = new Timer(6500);
 	}
 

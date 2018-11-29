@@ -1,6 +1,7 @@
 package Mob;
 
 import Resources.*;
+import Screens.GameWorld;
 
 public class Peas extends Entite {
 

@@ -1,6 +1,7 @@
 package Resources;
 
 import Screens.GameScreen;
+import Screens.GameWorld;
 import Screens.MenuStart;
 
 public class Game {

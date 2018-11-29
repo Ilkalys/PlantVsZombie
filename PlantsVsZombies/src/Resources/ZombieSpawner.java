@@ -4,7 +4,7 @@ package Resources;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-import Resources.GameWorld;
+import Screens.GameWorld;
 
 public class ZombieSpawner {
 
@@ -12,7 +12,7 @@ public class ZombieSpawner {
 	private Random rand = new Random();
 	private Timer timer;
 	
-	ZombieSpawner(int difficulty){
+	public ZombieSpawner(int difficulty){
 		this.timer = new Timer(20000);
 		for(int i=0; i< 20 ; i++ ) {
 			listeZombies.add(rand.nextInt(10));

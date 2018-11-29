@@ -3,8 +3,8 @@ package Mob;
 import java.util.List;
 
 import Resources.Entite;
-import Resources.GameWorld;
 import Resources.Timer;
+import Screens.GameWorld;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien

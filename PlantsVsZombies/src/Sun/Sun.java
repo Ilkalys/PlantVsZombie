@@ -3,9 +3,9 @@ package Sun;
 import java.util.List;
 
 import Resources.Entite;
-import Resources.GameWorld;
 import Resources.StdDraw;
 import Resources.Timer;
+import Screens.GameWorld;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
