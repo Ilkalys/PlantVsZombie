@@ -1,6 +1,10 @@
-package Resources;
+package Screens;
 
 import java.awt.Font;
+
+import Resources.Game;
+import Resources.GameWorld;
+import Resources.StdDraw;
 
 public class MenuGameOver  extends GameScreen {
 

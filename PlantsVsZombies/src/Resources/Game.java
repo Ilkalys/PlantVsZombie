@@ -1,5 +1,8 @@
 package Resources;
 
+import Screens.GameScreen;
+import Screens.MenuStart;
+
 public class Game {
 	
 	private static GameScreen world = new MenuStart();

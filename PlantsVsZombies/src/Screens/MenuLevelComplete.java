@@ -1,6 +1,9 @@
-package Resources;
+package Screens;
 
 import java.awt.Font;
+
+import Resources.Game;
+import Resources.StdDraw;
 
 public class MenuLevelComplete extends GameScreen {
 

@@ -1,4 +1,7 @@
-package Resources;
+package Screens;
+
+import Resources.Game;
+import Resources.StdDraw;
 
 public class MenuStart extends GameScreen {
 

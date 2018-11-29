@@ -1,4 +1,4 @@
-package Resources;
+package Screens;
 
 public abstract class GameScreen{
 
