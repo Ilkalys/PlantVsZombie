@@ -11,6 +11,12 @@ import Sun.*;
  */
 public class GameWorld {
 
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+	
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
 	// L'ensemble des Suns qui apparaitront.
@@ -20,8 +26,8 @@ public class GameWorld {
 	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
 	private static boolean gameLost;
 
-	// Dernier achat effectue ('s'=tournesol, 'p'=tire-pois, 'n'=noix, ' '=rien)
-	private static char purchase;
+	// Plante selectionne
+	private static String selectedPlant;
 	// Gestionnaire des apparitions de soleil
 	private static SunSpawner sunSpawn;
 	// Porte-feuille du joueur
@@ -30,6 +36,13 @@ public class GameWorld {
 	private static ZombieSpawner zombieSpawn;
 	// Quantité de zombies du niveau
 	private static int zombieQuantity;
+
+	// Touche pour selectionner un tournesol
+	private static final char SUNFLOWER_KEY = 't';
+	// Touche pour selectionner un tire-pois
+	private static final char PEASSHOOTER_KEY = 'p';
+	// Touche pour selectionner une noix
+	private static final char NUTS_KEY = 'n';
 
 	
 	//------------------------------------------------------------------------------
@@ -45,16 +58,16 @@ public class GameWorld {
 		gameWon=false;
 		gameLost=false;
 
-		purchase = ' ';
-		sunSpawn = new SunSpawner();
-		bank = new SunWallet(0, 0, 50);
-		zombieSpawn = new ZombieSpawner(1);
-		zombieQuantity =20;
-
 		// On cree les collections
 		entites = new LinkedList<Entite>();
 		suns = new LinkedList<Entite>();
+		
+		selectedPlant = null;
+		sunSpawn = new SunSpawner();
+		bank = new SunWallet(0, 0, 50);
 		entites.add(bank);
+		zombieSpawn = new ZombieSpawner(1);
+		zombieQuantity = 20;
 	}
 
 
@@ -71,46 +84,21 @@ public class GameWorld {
 	 */
 	public void processUserInput(char key) {
 		switch (key) {
-		case 't':
-			if(purchase != 's') {
-				System.out.println("Le joueur veut acheter un Tournesol...");
-				if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
-					if(bank.enoughSun(50)) {
-						purchase = 's';
-						System.out.println("Tournesol selectionne !");
-					} else System.out.println("Mais il ne possede pas assez de Sun.");
-				else
-					System.out.println("Mais le temps de recharge ne c'est pas effectue.");
-			} else purchase = ' ';
+		case SUNFLOWER_KEY:
+			selectSunflower();
 			break;
-		case 'p':
-			if(purchase != 'p') {
-				System.out.println("Le joueur veut acheter un Tire-Pois...");
-				if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
-					if(bank.enoughSun(100)) {
-						purchase = 'p';
-						System.out.println("Tire-Pois selectionne !");
-					} else System.out.println("Mais il ne possede pas assez de Sun.");
-				else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
-			} else purchase = ' ';
+		case PEASSHOOTER_KEY:
+			selectPeasShooter();
 			break;
-		case 'n':
-			if(purchase != 'n') {
-				System.out.println("Le joueur veut acheter une Noix...");
-				if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
-					if(bank.enoughSun(50)) {
-						purchase = 'n';
-						System.out.println("Noix selectionne !");
-					} else System.out.println("Mais il ne possede pas assez de Sun.");
-				else System.out.println("Mais le temps de recharge ne c'est pas effectue.");
-			} else purchase = ' ';
+		case NUTS_KEY:
+			selectNuts();
 			break;
 		default:
 			System.out.println("Touche non prise en charge.");
 			break;
 		}
 	}
-
+	
 	/**
 	 * Gestion des interactions souris avec l'utilisateur (la souris a ete clique)
 	 * 
@@ -118,8 +106,8 @@ public class GameWorld {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		System.out.println("La souris a ete clique en : "+x+" - "+y);
-		// Recuperation d'un sun
+		System.out.println("La souris a ete clique en (" + x + ";" + y + ")");
+		// Recuperation d'un soleil
 		Sun sunHere = Sun.somethingHere(suns, x, y);
 		if(sunHere != null) {
 			bank.add(Sun.getValue());
@@ -127,45 +115,44 @@ public class GameWorld {
 		} else {
 			// Selection d'un tournesol à la souris
 			if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
-				processUserInput('t');
+				selectSunflower();
 			}
 			// Selection d'un tire-pois à la souris
 			if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
-				processUserInput('p');
+				selectPeasShooter();
 			}
 			// Selection d'une noix à la souris
 			if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
-				processUserInput('n');
+				selectNuts();
 			}
-			// Choix de la position de la Plante
+			// Plantation
 			if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
 				double rx, ry;
 				rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
 				ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
-				//Vérification que la case souhaité soit vide
+				// Verification que la case souhaité soit vide
 				if(Mob.somethingHere(entites, rx, ry) == null) {
-					switch (purchase) {
-					case 's':
+					if(selectedPlant == Sunflower.class.getName()) {
+						System.out.println("lol");
 						bank.add(-50);
 						entites.add(new Sunflower(rx, ry));
 						Sunflower.restartCooldown();
-						purchase = ' ';
-						break;
-					case 'p':
+						selectedPlant = null;
+					}
+					if(selectedPlant == PeasShooter.class.getName()) {
 						bank.add(-100);
 						entites.add(new PeasShooter(rx, ry));
 						PeasShooter.restartCooldown();
-						purchase = ' ';
-						break;
-					case 'n':
+						selectedPlant = null;
+					}
+					if(selectedPlant == Nuts.class.getName()) {
 						bank.add(-50);
 						entites.add(new Nuts(rx, ry));
 						Nuts.restartCooldown();
-						purchase = ' ';
-						break;
-					default:
+						selectedPlant = null;
+					}
+					if(selectedPlant == null) {
 						System.out.println("Pas de plante selectionne.");
-						break;
 					}
 				}
 				else System.out.println("Il y a deja quelque chose ici.");
@@ -201,11 +188,11 @@ public class GameWorld {
 	public void dessine() {
 
 		StdDraw.setFont();
-		StdDraw.setPenColor((purchase == 's')?StdDraw.RED : StdDraw.YELLOW);
+		StdDraw.setPenColor((selectedPlant == Sunflower.class.getName())?StdDraw.RED : StdDraw.YELLOW);
 		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor((purchase == 'p')?StdDraw.RED : StdDraw.GREEN);
+		StdDraw.setPenColor((selectedPlant == PeasShooter.class.getName())?StdDraw.RED : StdDraw.GREEN);
 		StdDraw.filledSquare(0.3, 0.1, 0.05 - ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor((purchase == 'n')?StdDraw.RED : StdDraw.ORANGE);
+		StdDraw.setPenColor((selectedPlant == Nuts.class.getName())?StdDraw.RED : StdDraw.ORANGE);
 		StdDraw.filledSquare(0.5, 0.1, 0.05 - ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/400));
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.square(0.1, 0.1, 0.05);		
@@ -217,6 +204,72 @@ public class GameWorld {
 			entite.dessine();
 		for (Entite Sun : suns)
 			Sun.dessine();
+	}
+	
+	/**
+	 * Selectionne ou deselectionne le tournesol
+	 */
+	private void selectSunflower() {
+		if(selectedPlant != Sunflower.class.getName()) {
+			System.out.println("Le joueur souhaite selectionner un tounesol...");
+			if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
+				if(bank.enoughSun(Sunflower.getPrice())) {
+					System.out.println("Tournesol selectionne !");
+					selectedPlant = Sunflower.class.getName();
+				}
+				else
+					System.out.println("Mais il ne possede pas assez de soleil.");
+			else
+				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+		}
+		else {
+			System.out.println("Pas de plante selectionne.");
+			selectedPlant = null;
+		}
+	}
+	
+	/**
+	 * Selectionne ou deselectionne le tire-pois
+	 */
+	private void selectPeasShooter() {
+		if(selectedPlant != PeasShooter.class.getName()) {
+			System.out.println("Le joueur souhaite selectionner un tire-pois...");
+			if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
+				if(bank.enoughSun(PeasShooter.getPrice())) {
+					System.out.println("Tire-pois selectionne !");
+					selectedPlant = PeasShooter.class.getName();
+				}
+				else
+					System.out.println("Mais il ne possede pas assez de soleil.");
+			else
+				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+		}
+		else {
+			System.out.println("Pas de plante selectionne.");
+			selectedPlant = null;
+		}
+	}
+	
+	/**
+	 * Selectionne ou deselectionne la noix
+	 */
+	private void selectNuts() {
+		if(selectedPlant != Nuts.class.getName()) {
+			System.out.println("Le joueur souhaite selectionner une noix...");
+			if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
+				if(bank.enoughSun(Nuts.getPrice())) {
+					System.out.println("Noix selectionnee !");
+					selectedPlant = Nuts.class.getName();
+				}
+				else
+					System.out.println("Mais il ne possede pas assez de soleil.");
+			else
+				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+		}
+		else {
+			System.out.println("Pas de plante selectionne.");
+			selectedPlant = null;
+		}
 	}
 
 	/**
@@ -324,15 +377,6 @@ public class GameWorld {
 	 */
 	public static SunWallet getBank() {
 		return bank;
-	}
-
-	/**
-	 * Retourne le choix actuel de plante du joueur
-	 * 
-	 * @return purchase un character définissant la plante choisie
-	 */
-	public static char getPurchase() {
-		return purchase;
 	}
 
 }

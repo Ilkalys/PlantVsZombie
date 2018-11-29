@@ -10,6 +10,8 @@ public class Nuts extends Plant {
 
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
+	// Prix de la noix
+	private static final int PRICE = 50;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -27,7 +29,7 @@ public class Nuts extends Plant {
 	public Nuts(double x, double y){
 		super(x, y);
 		this.setLife(1500);
-		cooldown = new Timer(1);
+		cooldown = new Timer(0);
 	}
 
 	
@@ -68,6 +70,15 @@ public class Nuts extends Plant {
 
 	public static Timer getCooldown() {
 		return cooldown;
+	}
+	
+	/**
+	 * Retourne le prix de la noix
+	 * 
+	 * @return PRICE
+	 */
+	public static int getPrice() {
+		return PRICE;
 	}
 	
 	//------------------------------------------------------------------------------

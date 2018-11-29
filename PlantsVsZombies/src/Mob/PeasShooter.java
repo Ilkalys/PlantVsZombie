@@ -13,6 +13,8 @@ public class PeasShooter extends Plant {
 	private static Timer cooldown;
 	// Temps de rechargement pour tirer
 	private Timer reload;
+	// Prix du pire-pois
+	private static final int PRICE = 100;
 
 	
 	//------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		cooldown = new Timer(1);
+		cooldown = new Timer(0);
 		this.reload = new Timer(1500);
 	}
 	
@@ -74,6 +76,15 @@ public class PeasShooter extends Plant {
 
 	public static Timer getCooldown() {
 		return cooldown;
+	}
+	
+	/**
+	 * Retourne le prix du tire-pois
+	 * 
+	 * @return PRICE
+	 */
+	public static int getPrice() {
+		return PRICE;
 	}
 	
 	//------------------------------------------------------------------------------

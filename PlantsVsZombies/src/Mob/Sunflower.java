@@ -12,6 +12,8 @@ public class Sunflower extends Plant {
 	private static Timer cooldown;
 	// Timerpour l'apparition des Suns gerer par la plante
 	private Timer sunrise;
+	// Prix du tournesol
+	private static final int PRICE = 50;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -28,7 +30,7 @@ public class Sunflower extends Plant {
 	public Sunflower(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		cooldown = new Timer(1);
+		cooldown = new Timer(0);
 		this.sunrise = new Timer(6500);
 	}
 
@@ -85,6 +87,15 @@ public class Sunflower extends Plant {
 	 */
 	public Timer getSunrise() {
 		return this.sunrise;
+	}
+	
+	/**
+	 * Retourne le prix du tournesol
+	 * 
+	 * @return PRICE
+	 */
+	public static int getPrice() {
+		return PRICE;
 	}
 	
 	//------------------------------------------------------------------------------
