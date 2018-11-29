@@ -23,7 +23,7 @@ public class MenuStart extends GameScreen {
 			start = true;
 		}
 	}
-
+//test
 	public void step() {	
 		if (!start) {
 			ecart += 0.001;
