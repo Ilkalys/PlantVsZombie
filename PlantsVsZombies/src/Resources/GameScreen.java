@@ -8,7 +8,4 @@ public abstract class GameScreen{
 	public abstract void step();
 	public abstract void dessine();
 	
-	public void LoadScreen(String level) {
-		new GameWorld();
-	}
 }
