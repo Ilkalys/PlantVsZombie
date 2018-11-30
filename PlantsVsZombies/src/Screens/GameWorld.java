@@ -1,5 +1,6 @@
 package Screens;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class GameWorld extends GameScreen {
 	private static final char PEASSHOOTER_KEY = 'p';
 	// Touche pour selectionner une noix
 	private static final char NUTS_KEY = 'n';
+	private File SpriteFilepath = new File("sprites");
+
 
 
 	//------------------------------------------------------------------------------
@@ -188,6 +191,7 @@ public class GameWorld extends GameScreen {
 	public void dessine() {
 
 		StdDraw.setFont();
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
 		StdDraw.setPenColor((selectedPlant == Sunflower.class.getName())?StdDraw.RED : StdDraw.YELLOW);
 		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
 		StdDraw.setPenColor((selectedPlant == PeasShooter.class.getName())?StdDraw.RED : StdDraw.GREEN);

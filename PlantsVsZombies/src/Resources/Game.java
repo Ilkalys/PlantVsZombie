@@ -51,7 +51,7 @@ public class Game {
 				if(((GameWorld)world).LevelComplete())
 					world = new MenuLevelComplete();
 				else if(((GameWorld)world).gameLost())
-					world = new MenuLevelComplete();
+					world = new MenuGameOver();
 			}
 			// Montre la fenetre graphique mise a jour et attends 20 millisecondes
 			StdDraw.show();
