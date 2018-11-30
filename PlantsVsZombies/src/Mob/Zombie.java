@@ -32,7 +32,7 @@ public abstract class Zombie extends Mob {
 	 */
 	public Zombie(double x, double y) {
 		super(x, y);
-		attack = new Timer(1);
+		attack = new Timer(0);
 	}
 	
 	

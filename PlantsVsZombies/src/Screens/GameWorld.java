@@ -203,9 +203,14 @@ public class GameWorld extends GameScreen {
 		StdDraw.square(0.3, 0.1, 0.05);
 		StdDraw.square(0.5, 0.1, 0.05);
 
-		// Affiche les entites
-		for (Entite entite : entites)
-			entite.dessine();
+		// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
+		for (float i = 1; i >= 0; i -= 0.1) {
+			for (int j = 0; j < entites.size(); j++) {
+				if(entites.get(j).getY() < i && entites.get(j).getY() >= i-0.1) {
+					entites.get(j).dessine();
+				}
+			}
+		}
 		for (Entite Sun : suns)
 			Sun.dessine();
 	}

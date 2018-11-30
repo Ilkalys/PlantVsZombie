@@ -1,5 +1,7 @@
 package Mob;
 
+import java.io.File;
+
 import Resources.*;
 import Screens.GameWorld;
 import Sun.*;
@@ -15,6 +17,8 @@ public class Sunflower extends Plant {
 	private Timer sunrise;
 	// Prix du tournesol
 	private static final int PRICE = 50;
+	// Chelin vers le sprite du tournesol
+	private File SpriteFilepath;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -33,6 +37,7 @@ public class Sunflower extends Plant {
 		this.setLife(300);
 		cooldown = new Timer(0);
 		this.sunrise = new Timer(6500);
+		SpriteFilepath = new File("sprites\\mob\\sunflower.png");
 	}
 
 	
@@ -59,8 +64,7 @@ public class Sunflower extends Plant {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.setPenColor(StdDraw.YELLOW);
-		StdDraw.filledSquare(this.position.getX(), this.position.getY(), 0.05);
+		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
 	}
 	
 	/**

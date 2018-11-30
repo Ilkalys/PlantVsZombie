@@ -1,5 +1,7 @@
 package Mob;
 
+import java.io.File;
+
 import Resources.StdDraw;
 import Resources.Timer;
 
@@ -12,6 +14,8 @@ public class Nuts extends Plant {
 	private static Timer cooldown;
 	// Prix de la noix
 	private static final int PRICE = 50;
+	// Chelin vers le sprite de la noix
+	private File SpriteFilepath;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -30,6 +34,7 @@ public class Nuts extends Plant {
 		super(x, y);
 		this.setLife(1500);
 		cooldown = new Timer(0);
+		SpriteFilepath = new File("sprites\\mob\\nuts.png");
 	}
 
 	
@@ -50,8 +55,7 @@ public class Nuts extends Plant {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public  void dessine() {
-		StdDraw.setPenColor(StdDraw.ORANGE);
-		StdDraw.filledSquare(this.position.getX(), this.position.getY(), 0.05);
+		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
 	}
 	
 	/**

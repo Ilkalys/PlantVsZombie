@@ -1,5 +1,7 @@
 package Mob;
 
+import java.io.File;
+
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -15,6 +17,8 @@ public class PeasShooter extends Plant {
 	private Timer reload;
 	// Prix du pire-pois
 	private static final int PRICE = 100;
+	// Chelin vers le sprite du tire-pois
+	private File SpriteFilepath;
 
 	
 	//------------------------------------------------------------------------------
@@ -34,6 +38,7 @@ public class PeasShooter extends Plant {
 		this.setLife(300);
 		cooldown = new Timer(0);
 		this.reload = new Timer(1500);
+		SpriteFilepath = new File("sprites\\mob\\peasShooter.png");
 	}
 	
 	
@@ -57,8 +62,7 @@ public class PeasShooter extends Plant {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public  void dessine() {
-		StdDraw.setPenColor(StdDraw.GREEN);
-		StdDraw.filledSquare(this.position.getX(), this.position.getY(), 0.05);
+		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
 	}
 
 	/**
