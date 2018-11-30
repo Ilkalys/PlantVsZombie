@@ -4,17 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Mob.*;
-import Resources.Entite;
-import Resources.Game;
-import Resources.StdDraw;
-import Resources.SunSpawner;
-import Resources.ZombieSpawner;
+import Resources.*;
 import Sun.*;
 
 /**
  * @author TERMIER Alexandre, GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
-public class GameWorld extends GameScreen{
+public class GameWorld extends GameScreen {
 
 	//------------------------------------------------------------------------------
 	/*

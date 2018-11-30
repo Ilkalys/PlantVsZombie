@@ -5,8 +5,13 @@ import java.util.Random;
 import Screens.GameWorld;
 import Sun.Sun;
 
-public class SunSpawner{
-
+public class SunSpawner {
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
 	private Random rand = new Random();
 	private Timer timer;
 

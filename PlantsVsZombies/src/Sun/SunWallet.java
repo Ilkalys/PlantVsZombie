@@ -6,7 +6,14 @@ import Resources.StdDraw;
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
-public class SunWallet extends Entite{
+public class SunWallet extends Entite {
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+	
 	private int bank;
 
 	public SunWallet(double x, double y, int bank) {

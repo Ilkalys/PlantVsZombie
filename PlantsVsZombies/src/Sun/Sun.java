@@ -1,5 +1,6 @@
 package Sun;
 
+import java.io.File;
 import java.util.List;
 
 import Resources.Entite;
@@ -11,15 +12,23 @@ import Screens.GameWorld;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public class Sun extends Entite {
-
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+	
 	private static final int VALUE = 25;
 	private double animStatus;
 	private Timer lifeTime;
+	private File SpriteFilepath;
 
 	public Sun(double x, double y) {
 		super(x, y);
 		animStatus = 0;
 		this.lifeTime = new Timer(20000);
+		SpriteFilepath = new File("sprites\\mob\\sun.png");
 	}
 
 	public static Sun somethingHere(List<Entite> entites, double x, double y) {
@@ -45,7 +54,7 @@ public class Sun extends Entite {
 
 	// dessine l'entite, aux bonnes coordonnees
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), "/Pictures/sun.png", 0.04, 0.04, animStatus);
+		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.04, 0.04, animStatus);
 	}
 
 	

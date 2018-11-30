@@ -1,38 +1,29 @@
 package Screens;
 
-
 import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 import Resources.Game;
+import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.Timer;
 
 public class MenuStart extends GameScreen {
-
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+	
 	private double ecart;
 	private boolean start;
 	private Timer fondu;
+	private File SpriteFilepath;
 
 	public MenuStart() {
 		ecart = 0;
-		playBGM();
-	}
-	
-	private void playBGM() {
-		try {
-			File filepath = new File("src\\Musics\\Blues.wav");
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(filepath); 
-			Clip clip = AudioSystem.getClip(); 
-			clip.open(audioInputStream); 
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-			clip.start(); 
-		} catch (Exception e) {
-            e.printStackTrace();
-		}
+		SoundPlayer.PlayBGM("Blues.wav");
+		SpriteFilepath = new File("sprites");
 	}
 	
 	@Override
@@ -65,13 +56,13 @@ public class MenuStart extends GameScreen {
 	public void dessine() {
 
 		StdDraw.setFont();
-		StdDraw.picture(0.5, 0.5,(start)?"/Pictures/Accueil2.png":"/Pictures/Accueil1.png", 1, 1);
-		StdDraw.picture(0+ecart, 0.8,"/Pictures/CloudDown.png", 0.51, 0.51);
-		StdDraw.picture(1-ecart, 0.97,"/Pictures/CouldUp.png", 0.51, 0.51);
-		StdDraw.picture(0.509, 0.57,"/Pictures/Affichage.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.5,(start)?SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil2.png":SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil1.png", 1, 1);
+		StdDraw.picture(0+ecart, 0.8,SpriteFilepath.getAbsolutePath() + "\\set\\CloudDown.png", 0.51, 0.51);
+		StdDraw.picture(1-ecart, 0.97,SpriteFilepath.getAbsolutePath() + "\\set\\CouldUp.png", 0.51, 0.51);
+		StdDraw.picture(0.509, 0.57,SpriteFilepath.getAbsolutePath() + "\\set\\Affichage.png", 0.51, 0.51);
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 		if(start)
-			StdDraw.picture(0.5, 0.5, "/Pictures/Fondu.png",5,5);
+			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",5,5);
 
 
 	}
