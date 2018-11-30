@@ -2,16 +2,19 @@ package Resources;
 
 import Screens.GameScreen;
 import Screens.GameWorld;
+import Screens.MenuGameOver;
+import Screens.MenuLevelComplete;
 import Screens.MenuStart;
 
 public class Game {
-	
+
 	private static GameScreen world = new MenuStart();
+	private static boolean stopGame = false;
 
 	public static void launch() {
 
 		boolean mousePressed = false;
-		
+
 		// Creation de la scene
 
 		// Reglage de la taille de la fenetre de jeu, en pixels (nb: un ecran fullHD = 1980x1050 pixels)
@@ -22,7 +25,7 @@ public class Game {
 
 
 		// La boucle principale de notre jeu
-		while (!GameWorld.gameLost() && !GameWorld.gameWon()) {
+		while (!Game.stopGame) {
 			// Efface la fenetre graphique
 			StdDraw.clear();
 
@@ -47,13 +50,19 @@ public class Game {
 			// Montre la fenetre graphique mise a jour et attends 20 millisecondes
 			StdDraw.show();
 			StdDraw.pause(20);
+			if (GameWorld.gameLost())
+				Game.setWorld(new MenuGameOver());
+			if (GameWorld.gameWon()) 
+				Game.setWorld(new MenuLevelComplete());
 		}
+	}
 
-		if (GameWorld.gameWon()) System.out.println("Game won !");
-		if (GameWorld.gameLost()) System.out.println("Game lost...");
-		
-		setWorld(new GameWorld());
-		launch();
+	public static boolean getStopGame() {
+		return stopGame;
+	}
+
+	public static void setStopGame(boolean stopGame) {
+		Game.stopGame = stopGame;
 	}
 
 	public static GameScreen getWorld() {

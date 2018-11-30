@@ -31,9 +31,10 @@ public class MenuStart extends GameScreen {
 	}
 
 	public void processMouseClick(double x, double y) {
-		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
+		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68)
 			start = true;
-		}
+		else if(x <= 0.589 && x >= 0.429 && y >= 0.54 && y <= 0.59)
+			Game.setStopGame(true);
 	}
 
 	public void step() {	

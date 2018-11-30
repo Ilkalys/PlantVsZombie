@@ -17,7 +17,7 @@ public class GameWorld extends GameScreen {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
+
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
 	// L'ensemble des Suns qui apparaitront.
@@ -45,7 +45,7 @@ public class GameWorld extends GameScreen {
 	// Touche pour selectionner une noix
 	private static final char NUTS_KEY = 'n';
 
-	
+
 	//------------------------------------------------------------------------------
 	/*
 	 **      CONSTRUCTEUR
@@ -63,7 +63,7 @@ public class GameWorld extends GameScreen {
 		// On cree les collections
 		entites = new LinkedList<Entite>();
 		suns = new LinkedList<Entite>();
-		
+
 		selectedPlant = null;
 		sunSpawn = new SunSpawner();
 		bank = new SunWallet(0, 0, 50);
@@ -100,7 +100,7 @@ public class GameWorld extends GameScreen {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Gestion des interactions souris avec l'utilisateur (la souris a ete clique)
 	 * 
@@ -178,7 +178,7 @@ public class GameWorld extends GameScreen {
 		}
 		zombieSpawn.step();
 		sunSpawn.step();
-		
+
 
 	}
 	/**
@@ -204,7 +204,7 @@ public class GameWorld extends GameScreen {
 		for (Entite Sun : suns)
 			Sun.dessine();
 	}
-	
+
 	/**
 	 * Selectionne ou deselectionne le tournesol
 	 */
@@ -226,7 +226,7 @@ public class GameWorld extends GameScreen {
 			selectedPlant = null;
 		}
 	}
-	
+
 	/**
 	 * Selectionne ou deselectionne le tire-pois
 	 */
@@ -248,7 +248,7 @@ public class GameWorld extends GameScreen {
 			selectedPlant = null;
 		}
 	}
-	
+
 	/**
 	 * Selectionne ou deselectionne la noix
 	 */
@@ -330,9 +330,11 @@ public class GameWorld extends GameScreen {
 	 * @return gameLost
 	 */
 	public static boolean gameLost() {
-		for (int y = 0; y>5;y++)
-			if(Zombie.somethingHere(entites, 1, y) != null)
-				return true;	
+		if (entites != null)
+			for(Entite entite  :entites)
+				if(entite.getX() < 0) {
+					return true;	
+				}
 		return false;	
 	}
 
