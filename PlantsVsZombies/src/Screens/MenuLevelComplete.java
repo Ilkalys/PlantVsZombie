@@ -27,7 +27,7 @@ public class MenuLevelComplete extends GameScreen {
 	@Override
 	public void processMouseClick(double x, double y) {
 		if(x <= 0.68 && x >= 0.52 && y >= 0.57 && y <= 0.63) {
-			Game.setWorld(new MenuGameOver());
+			Game.setWorld(new GameWorld());
 		}
 		else if(x <= 0.48 && x >= 0.32 && y >= 0.57 && y <= 0.63) {
 			Game.setWorld(new MenuStart());

@@ -14,7 +14,7 @@ public class ZombieSpawner {
 	
 	public ZombieSpawner(int difficulty){
 		this.timer = new Timer(20000);
-		for(int i=0; i< 20 ; i++ ) {
+		for(int i=0; i< GameWorld.getZombieQuantity() ; i++ ) {
 			listeZombies.add(rand.nextInt(10));
 		}
 	}

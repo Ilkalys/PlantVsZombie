@@ -33,8 +33,9 @@ public class MenuStart extends GameScreen {
 	public void processMouseClick(double x, double y) {
 		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68)
 			start = true;
-		else if(x <= 0.589 && x >= 0.429 && y >= 0.54 && y <= 0.59)
+		else if(x <= 0.589 && x >= 0.429 && y >= 0.54 && y <= 0.59) {
 			Game.setStopGame(true);
+		}
 	}
 
 	public void step() {	
@@ -57,11 +58,13 @@ public class MenuStart extends GameScreen {
 	public void dessine() {
 
 		StdDraw.setFont();
+		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(0.5, 0.5,(start)?SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil2.png":SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil1.png", 1, 1);
 		StdDraw.picture(0+ecart, 0.8,SpriteFilepath.getAbsolutePath() + "\\set\\CloudDown.png", 0.51, 0.51);
 		StdDraw.picture(1-ecart, 0.97,SpriteFilepath.getAbsolutePath() + "\\set\\CouldUp.png", 0.51, 0.51);
 		StdDraw.picture(0.509, 0.57,SpriteFilepath.getAbsolutePath() + "\\set\\Affichage.png", 0.51, 0.51);
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
+		StdDraw.text(0.509, 0.57,"Quitter");
 		if(start)
 			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",5,5);
 

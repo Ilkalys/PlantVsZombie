@@ -68,8 +68,8 @@ public class GameWorld extends GameScreen {
 		sunSpawn = new SunSpawner();
 		bank = new SunWallet(0, 0, 50);
 		entites.add(bank);
+		zombieQuantity = 1;
 		zombieSpawn = new ZombieSpawner(1);
-		zombieQuantity = 20;
 	}
 
 
@@ -78,6 +78,7 @@ public class GameWorld extends GameScreen {
 	 **      METHODES
 	 */
 	//------------------------------------------------------------------------------
+
 
 	/**  
 	 * Gestion des interactions clavier avec l'utilisateur
@@ -316,32 +317,23 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
-	 * Retourne true si le jeu est gagne
-	 * 
-	 * @return gameWon
-	 */
-	public static boolean gameWon() {
-		return gameWon;
-	}
-
-	/**
 	 * Retourne true si le jeu est perdu
 	 * 
 	 * @return gameLost
 	 */
-	public static boolean gameLost() {
+	public boolean gameLost() {
 		if (entites != null)
 			for(Entite entite  :entites)
-				if(entite.getX() < 0) {
-					return true;	
-				}
-		return false;	
+				if(entite.getX() < 0) 
+					return true;
+		return false;
 	}
 
-	public static void LevelComplete(){
+	public boolean LevelComplete(){
 		if(!AnyZombie() && zombieQuantity == 0) {
-			Game.setWorld(new MenuLevelComplete());
+			return true;
 		}
+		return false;
 
 	}
 
@@ -349,11 +341,14 @@ public class GameWorld extends GameScreen {
 	 * Verifie qu'il reste des zombies vivants sur la scène
 	 * @return si il en reste
 	 */
-	public static boolean AnyZombie() {
-		for (Entite entite : entites)
-			if(entite instanceof Zombie)
-				return true;
-		return false;
+	public boolean AnyZombie() {
+		if (entites != null) {
+			for (Entite entite : entites)
+				if(entite instanceof Zombie)
+					return true;
+			return false;
+		}
+		return true;
 	}
 
 
@@ -389,5 +384,16 @@ public class GameWorld extends GameScreen {
 	public static SunWallet getBank() {
 		return bank;
 	}
+
+
+	public static int getZombieQuantity() {
+		return zombieQuantity;
+	}
+
+
+	public static void setZombieQuantity(int zombieQuantity) {
+		GameWorld.zombieQuantity = zombieQuantity;
+	}
+
 
 }

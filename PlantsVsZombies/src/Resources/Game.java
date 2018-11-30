@@ -47,14 +47,18 @@ public class Game {
 			// Dessine la carte
 			world.dessine();
 
+			if (world instanceof GameWorld) {
+				if(((GameWorld)world).LevelComplete())
+					world = new MenuLevelComplete();
+				else if(((GameWorld)world).gameLost())
+					world = new MenuLevelComplete();
+			}
 			// Montre la fenetre graphique mise a jour et attends 20 millisecondes
 			StdDraw.show();
 			StdDraw.pause(20);
-			if (GameWorld.gameLost())
-				Game.setWorld(new MenuGameOver());
-			if (GameWorld.gameWon()) 
-				Game.setWorld(new MenuLevelComplete());
+
 		}
+		System.exit(0);
 	}
 
 	public static boolean getStopGame() {
