@@ -56,6 +56,7 @@ public class GameWorld extends GameScreen {
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
 	public GameWorld() {
+		SoundPlayer.stopAll();
 		gameWon=false;
 		gameLost=false;
 
