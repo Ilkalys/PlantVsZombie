@@ -23,11 +23,6 @@ public class GameWorld extends GameScreen {
 	private static List<Entite> entites;
 	// L'ensemble des Suns qui apparaitront.
 	private static List<Entite> suns;
-	//Pour savoir si la partie est gagnee ou pas
-	private static boolean gameWon;
-	// Idem pour savoir si le jeu est perdu (si le jeu n'est ni gagne ni perdu, il est en cours)
-	private static boolean gameLost;
-
 	// Plante selectionne
 	private static String selectedPlant;
 	// Gestionnaire des apparitions de soleil
@@ -60,8 +55,6 @@ public class GameWorld extends GameScreen {
 	 */
 	public GameWorld() {
 		SoundPlayer.stopAll();
-		gameWon=false;
-		gameLost=false;
 
 		// On cree les collections
 		entites = new LinkedList<Entite>();
@@ -194,12 +187,25 @@ public class GameWorld extends GameScreen {
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
-		StdDraw.setPenColor((selectedPlant == Sunflower.class.getName())?StdDraw.RED : StdDraw.YELLOW);
-		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor((selectedPlant == PeasShooter.class.getName())?StdDraw.RED : StdDraw.GREEN);
-		StdDraw.filledSquare(0.3, 0.1, 0.05 - ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/100));
-		StdDraw.setPenColor((selectedPlant == Nuts.class.getName())?StdDraw.RED : StdDraw.ORANGE);
-		StdDraw.filledSquare(0.5, 0.1, 0.05 - ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/400));
+		
+		if(selectedPlant == Sunflower.class.getName())
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);;
+		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\sunflower.png", 0.12, 0.12);
+		double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
+		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
+		
+		if(selectedPlant == PeasShooter.class.getName())
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
+		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\peasShooter.png", 0.12, 0.12);
+		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
+		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
+		
+		if(selectedPlant == Nuts.class.getName())
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
+		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\nuts.png", 0.12, 0.12);
+		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
+		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
+		
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.square(0.1, 0.1, 0.05);		
 		StdDraw.square(0.3, 0.1, 0.05);
