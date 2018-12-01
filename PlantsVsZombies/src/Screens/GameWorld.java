@@ -192,6 +192,8 @@ public class GameWorld extends GameScreen {
 
 		StdDraw.setFont();
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
+		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
 		StdDraw.setPenColor((selectedPlant == Sunflower.class.getName())?StdDraw.RED : StdDraw.YELLOW);
 		StdDraw.filledSquare(0.1, 0.1, 0.05 - ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/100));
 		StdDraw.setPenColor((selectedPlant == PeasShooter.class.getName())?StdDraw.RED : StdDraw.GREEN);

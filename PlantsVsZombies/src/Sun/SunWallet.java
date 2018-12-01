@@ -1,5 +1,7 @@
 package Sun;
 
+import java.io.File;
+
 import Resources.Entite;
 import Resources.StdDraw;
 
@@ -7,6 +9,8 @@ import Resources.StdDraw;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public class SunWallet extends Entite {
+	
+	private File SpriteFilepath;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -19,6 +23,7 @@ public class SunWallet extends Entite {
 	public SunWallet(double x, double y, int bank) {
 		super(x,y);
 		this.bank = bank;
+		SpriteFilepath = new File("sprites\\mob\\sun.png");
 	}
 
 	public int getBank() {
@@ -45,6 +50,7 @@ public class SunWallet extends Entite {
 	public void dessine() {
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.text(0.9, 0.1, "Soleil : "+bank);
+		StdDraw.picture(0.87, 0.1, SpriteFilepath.getAbsolutePath(), 0.04, 0.04);
+		StdDraw.text(0.9, 0.1, ""+bank);
 	}
 }
