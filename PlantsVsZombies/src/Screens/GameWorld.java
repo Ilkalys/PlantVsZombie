@@ -185,63 +185,66 @@ public class GameWorld extends GameScreen {
 	/**
 	 * Dessine les entites du jeu
 	 */
+	@SuppressWarnings("static-access")
 	public void dessine() {
 
 		StdDraw.setFont();
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
-		StdDraw.text(0.9, 0.908, "Remaining : \n" + zombieQuantity);
+		StdDraw.text(0.9, 0.932, "Level : " + zombieSpawn.getCurrentDifficulty());
+		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
 
 		if(selectedPlant == Sunflower.class.getName())
 			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);;
-		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\sunflower.png", 0.12, 0.12);
-		double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
-		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
-		
-		if(selectedPlant == PeasShooter.class.getName())
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
-		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\peasShooter.png", 0.12, 0.12);
-		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
-		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
-		
-		if(selectedPlant == Nuts.class.getName())
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
-		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\nuts.png", 0.12, 0.12);
-		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
-		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
-		
-		
-		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.square(0.1, 0.1, 0.05);	
-		StdDraw.text(0.1, 0.17, Sunflower.getPrice()+"");
-		StdDraw.square(0.3, 0.1, 0.05);
-		StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
-		StdDraw.square(0.5, 0.1, 0.05);
-		StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
-		
-		// Cadriage
-		for (double i = 0.70; i >= 0.10; i -= 0.2) {
-			for (double j = 0.1; j <= 0.9; j += 0.2) {
-					StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
-			}
-		}
-		for (double i = 0.60; i >= 0.20; i -= 0.2) {
-			for (double j = 0.2; j <= 0.8; j += 0.2) {
-					StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
-			}
-		}
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\sunflower.png", 0.12, 0.12);
+			double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
 
-		// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
-		for (float i = 1; i >= 0; i -= 0.1) {
-			for (int j = 0; j < entites.size(); j++) {
-				if(entites.get(j).getY() < i && entites.get(j).getY() >= i-0.1) {
-					entites.get(j).dessine();
+			if(selectedPlant == PeasShooter.class.getName())
+				StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\peasShooter.png", 0.12, 0.12);
+			double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
+
+			if(selectedPlant == Nuts.class.getName())
+				StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\nuts.png", 0.12, 0.12);
+			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
+
+
+			StdDraw.setPenColor(StdDraw.BLACK);
+			StdDraw.square(0.1, 0.1, 0.05);	
+			StdDraw.text(0.1, 0.17, Sunflower.getPrice()+"");
+			StdDraw.square(0.3, 0.1, 0.05);
+			StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
+			StdDraw.square(0.5, 0.1, 0.05);
+			StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
+
+			// Cadriage
+			if(selectedPlant != null) {
+				for (double i = 0.70; i >= 0.10; i -= 0.2) {
+					for (double j = 0.1; j <= 0.9; j += 0.2) {
+						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+					}
+				}
+				for (double i = 0.60; i >= 0.20; i -= 0.2) {
+					for (double j = 0.2; j <= 0.8; j += 0.2) {
+						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+					}
 				}
 			}
-		}
-		for (Entite Sun : suns)
-			Sun.dessine();
+			// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
+			for (float i = 1; i >= 0; i -= 0.1) {
+				for (int j = 0; j < entites.size(); j++) {
+					if(entites.get(j).getY() < i && entites.get(j).getY() >= i-0.1) {
+						entites.get(j).dessine();
+					}
+				}
+			}
+			for (Entite Sun : suns)
+				Sun.dessine();
 	}
 
 	/**
