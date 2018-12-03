@@ -48,7 +48,7 @@ public class MenuStart extends GameScreen {
 			if(fondu == null)
 				fondu = new Timer(2000);
 			else if(fondu.hasFinished())
-				Game.setWorld(new GameWorld());
+				Game.setWorld(new GameWorld(1));
 		}
 			
 			

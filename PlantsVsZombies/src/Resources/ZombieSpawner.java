@@ -27,11 +27,16 @@ public class ZombieSpawner {
 	private Random rand = new Random();
 	private Timer timer;
 	private Integer actualZombie;
+	private static int currentDifficulty =0;
 
 	public ZombieSpawner(int difficulty){
+		this.currentDifficulty = difficulty;
 		this.timer = new Timer(20000);
 		if(difficulty ==1) {
 			level = level1();
+		}
+		else if(difficulty ==3) {
+			level = level3();
 		}
 		actualZombie = 1;
 	}
@@ -45,7 +50,7 @@ public class ZombieSpawner {
 		}
 	}
 
-	public ConcurrentLinkedQueue<ZombieInfos> level1(){
+	private ConcurrentLinkedQueue<ZombieInfos> level1(){
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(5000,false));
@@ -56,25 +61,10 @@ public class ZombieSpawner {
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(0,true));
-		level.add(new ZombieInfos(0,true));
-
-
-
-
 		return level;
 	}
 
-	public ConcurrentLinkedQueue<ZombieInfos> level3(){
+	private ConcurrentLinkedQueue<ZombieInfos> level3(){
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(5000,false));
@@ -103,8 +93,9 @@ public class ZombieSpawner {
 		return level;
 	}
 
-	public void setLevel(ConcurrentLinkedQueue<ZombieInfos> level) {
-		this.level = level;
+	public static int getCurrentDifficulty() {
+		return currentDifficulty;
 	}
+
 
 }

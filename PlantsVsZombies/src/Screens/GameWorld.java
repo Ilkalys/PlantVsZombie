@@ -53,7 +53,7 @@ public class GameWorld extends GameScreen {
 	/**
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
-	public GameWorld() {
+	public GameWorld(int difficulte) {
 		SoundPlayer.stopAll();
 
 		// On cree les collections
@@ -64,7 +64,7 @@ public class GameWorld extends GameScreen {
 		sunSpawn = new SunSpawner();
 		bank = new SunWallet(0, 0, 50);
 		entites.add(bank);
-		zombieSpawn = new ZombieSpawner(1);
+		zombieSpawn = new ZombieSpawner(difficulte);
 		zombieQuantity = zombieSpawn.getLevel().size();
 	}
 
