@@ -74,6 +74,30 @@ public class ZombieSpawner {
 		return level;
 	}
 
+	public ConcurrentLinkedQueue<ZombieInfos> level3(){
+		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,true));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,true));
+		level.add(new ZombieInfos(0,true));
+		level.add(new ZombieInfos(0,true));
+		return level;
+	}
 
 	public ConcurrentLinkedQueue<ZombieInfos> getLevel() {
 		return level;
