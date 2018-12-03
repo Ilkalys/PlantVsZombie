@@ -18,6 +18,7 @@ public class MenuLevelComplete extends GameScreen {
 	private File SpriteFilepath;
 	
 	public MenuLevelComplete() {
+		super();
 		SpriteFilepath = new File("sprites");
 	}
 

@@ -18,6 +18,7 @@ public class MenuGameOver  extends GameScreen {
 	private File SpriteFilepath;
 	
 	public MenuGameOver() {
+		super();
 		SpriteFilepath = new File("sprites");
 	}
 	

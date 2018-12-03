@@ -54,8 +54,12 @@ public class GameWorld extends GameScreen {
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
 	public GameWorld(int difficulte) {
-		// Remises à zéro
-		SoundPlayer.stopAll();
+		super();
+
+		//Musique
+		SoundPlayer.PlayBGM("Western.wav");
+		
+		// Remises à zéro des timers
 		Sunflower.setCooldown(new Timer(0));
 		PeasShooter.setCooldown(new Timer(0));
 		Nuts.setCooldown(new Timer(0));
