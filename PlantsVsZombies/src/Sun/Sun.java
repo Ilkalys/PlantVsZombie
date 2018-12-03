@@ -20,13 +20,11 @@ public class Sun extends Entite {
 	//------------------------------------------------------------------------------
 	
 	private static final int VALUE = 25;
-	//private double animStatus;
 	private Timer lifeTime;
 	private File SpriteFilepath;
 
 	public Sun(double x, double y) {
 		super(x, y);
-		//animStatus = 0;
 		this.lifeTime = new Timer(20000);
 		SpriteFilepath = new File("sprites\\mob\\sun.png");
 	}
@@ -43,11 +41,6 @@ public class Sun extends Entite {
 	}
 	
 	public void step() {
-		/*
-		if(animStatus >= 180)
-			animStatus =0;
-		else animStatus +=5;
-		*/
 		if(this.lifeTime.hasFinished()) {
 			GameWorld.removeEntiteFrom(GameWorld.getSuns(),this);
 			GameWorld.getBank().add(25);
@@ -56,7 +49,7 @@ public class Sun extends Entite {
 
 	// dessine l'entite, aux bonnes coordonnees
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
+		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.1, 0.1);
 	}
 
 	
