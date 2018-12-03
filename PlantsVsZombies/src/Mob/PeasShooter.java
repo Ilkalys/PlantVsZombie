@@ -2,7 +2,6 @@ package Mob;
 
 import java.io.File;
 
-import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
 
@@ -11,14 +10,18 @@ import Screens.GameWorld;
  */
 public class PeasShooter extends Plant {
 	
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------	
+
 	// Temps de rechargement pour tirer
 	private Timer reload;
 	// Prix du pire-pois
 	private static final int PRICE = 100;
-	// Chelin vers le sprite du tire-pois
-	private File SpriteFilepath;
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
 
 	
 	//------------------------------------------------------------------------------
@@ -36,9 +39,9 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		cooldown = new Timer(0);
+		PeasShooter.setCooldown(new Timer(0));
 		this.reload = new Timer(1500);
-		SpriteFilepath = new File("sprites\\mob\\peasShooter.png");
+		this.setSpriteFilepath(new File("sprites\\mob\\peasShooter.png"));
 	}
 	
 	
@@ -59,18 +62,12 @@ public class PeasShooter extends Plant {
 	}
 
 	/**
-	 * Dessine l'entite, aux bonnes coordonnees
-	 */
-	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
-	}
-
-	/**
 	 * Redemarre le compteur de recharge pour l'achat
 	 */
 	public static void restartCooldown() {
-		cooldown = new Timer(5000);
+		PeasShooter.setCooldown(new Timer(5000));
 	}
+	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -78,10 +75,6 @@ public class PeasShooter extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
-	public static Timer getCooldown() {
-		return cooldown;
-	}
-	
 	/**
 	 * Retourne le prix du tire-pois
 	 * 
@@ -91,14 +84,30 @@ public class PeasShooter extends Plant {
 		return PRICE;
 	}
 	
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @return cooldown
+	 */
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+	
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-
-	public static void setCooldown(Timer newCooldown) {
-		cooldown = newCooldown;
+	
+	/**
+	 * Modifie le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @param timer
+	 */
+	public static void setCooldown(Timer timer) {
+		cooldown = timer;
 	}
+	
 
 }

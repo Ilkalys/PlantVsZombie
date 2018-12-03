@@ -1,7 +1,9 @@
 package Mob;
+import java.io.File;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.StdDraw;
 import Screens.GameWorld;
 
 /**
@@ -12,6 +14,8 @@ public abstract class Mob extends Entite {
 	// Points de vie
 	private int life;	
 
+	// Chelin vers le sprite de la plante
+	private File spriteFilepath;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -35,6 +39,13 @@ public abstract class Mob extends Entite {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Dessine l'entite, aux bonnes coordonnees
+	 */
+	public void dessine() {
+		StdDraw.picture(this.getX(), this.getY() + 0.01, this.spriteFilepath.getAbsolutePath(), 0.15, 0.15);
+	}
 	
 	/**
 	 * Verifie si un mob se trouve a un endroit precis parmi une liste d'entites donnee
@@ -89,7 +100,15 @@ public abstract class Mob extends Entite {
 	public boolean isDead() {
 		return (this.life <= 0);
 	}
-	
+
+	/**
+	 * Retourne le chemin du sprite
+	 * 
+	 * @return spriteFilepath
+	 */
+	public File getSpriteFilepath() {
+		return spriteFilepath;
+	}
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -104,6 +123,15 @@ public abstract class Mob extends Entite {
 	 */
 	public void setLife(int life) {
 		this.life = life;
+	}
+
+	/**
+	 * Change le sprite du mob
+	 * 
+	 * @param spriteFilepath chemin du nouveau sprite
+	 */
+	public void setSpriteFilepath(File spriteFilepath) {
+		this.spriteFilepath = spriteFilepath;
 	}
 	
 }

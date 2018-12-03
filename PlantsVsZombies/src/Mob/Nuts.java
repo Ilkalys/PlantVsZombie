@@ -2,7 +2,6 @@ package Mob;
 
 import java.io.File;
 
-import Resources.StdDraw;
 import Resources.Timer;
 
 /**
@@ -10,19 +9,23 @@ import Resources.Timer;
  */
 public class Nuts extends Plant {
 
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+
 	// Prix de la noix
 	private static final int PRICE = 50;
-	// Chelin vers le sprite de la noix
-	private File SpriteFilepath;
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
+	
 	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
 	*/
 	//------------------------------------------------------------------------------
-
 
 	/**
 	 * Constructeur
@@ -33,8 +36,8 @@ public class Nuts extends Plant {
 	public Nuts(double x, double y){
 		super(x, y);
 		this.setLife(1500);
-		cooldown = new Timer(0);
-		SpriteFilepath = new File("sprites\\mob\\nuts.png");
+		Nuts.setCooldown(new Timer(0));
+		this.setSpriteFilepath(new File("sprites\\mob\\nuts.png"));
 	}
 
 	
@@ -52,17 +55,10 @@ public class Nuts extends Plant {
 	}
 	
 	/**
-	 * Dessine l'entite, aux bonnes coordonnees
-	 */
-	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
-	}
-	
-	/**
 	 * Redemarre le compteur de recharge pour l'achat
 	 */
 	public static void restartCooldown() {
-		cooldown = new Timer(20000);
+		Nuts.setCooldown(new Timer(20000));
 	}
 	
 
@@ -72,10 +68,6 @@ public class Nuts extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
-	public static Timer getCooldown() {
-		return cooldown;
-	}
-	
 	/**
 	 * Retourne le prix de la noix
 	 * 
@@ -85,14 +77,30 @@ public class Nuts extends Plant {
 		return PRICE;
 	}
 	
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @return cooldown
+	 */
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+	
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-
-	public static void setCooldown(Timer newCooldown) {
-		cooldown = newCooldown;
+	
+	/**
+	 * Modifie le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @param timer
+	 */
+	public static void setCooldown(Timer timer) {
+		cooldown = timer;
 	}
-
+	
+	
 }

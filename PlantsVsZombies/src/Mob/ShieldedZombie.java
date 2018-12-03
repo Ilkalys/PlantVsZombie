@@ -2,8 +2,6 @@ package Mob;
 
 import java.io.File;
 
-import Resources.StdDraw;
-
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
@@ -15,9 +13,7 @@ public class ShieldedZombie extends Zombie {
 	 */
 	//------------------------------------------------------------------------------
 	
-	// Chelin vers le sprite du zombie
-	private File SpriteFilepath;
-	
+
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
@@ -35,7 +31,7 @@ public class ShieldedZombie extends Zombie {
 		this.setLife(560);
 		this.setDamage(30);
 		this.setSpeed(0.0025);
-		SpriteFilepath = new File("sprites\\mob\\shieldedZombie.png");
+		this.setSpriteFilepath(new File("sprites\\mob\\shieldedZombie.png"));
 	}
 	
 	
@@ -45,11 +41,5 @@ public class ShieldedZombie extends Zombie {
 	*/
 	//------------------------------------------------------------------------------
 	
-	/**
-	 * Dessine l'entite, aux bonnes coordonnees
-	 */
-	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
-	}
-		
+
 }

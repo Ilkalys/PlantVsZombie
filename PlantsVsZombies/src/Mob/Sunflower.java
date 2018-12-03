@@ -10,15 +10,19 @@ import Sun.*;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public class Sunflower extends Plant {
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
 
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
 	// Timerpour l'apparition des Suns gerer par la plante
 	private Timer sunrise;
 	// Prix du tournesol
 	private static final int PRICE = 50;
-	// Chelin vers le sprite du tournesol
-	private File SpriteFilepath;
+	// Temps avant de pouvoir replanter
+	private static Timer cooldown;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -35,9 +39,9 @@ public class Sunflower extends Plant {
 	public Sunflower(double x, double y) {
 		super(x, y);
 		this.setLife(300);
-		cooldown = new Timer(0);
+		Sunflower.setCooldown(new Timer(0));
 		this.sunrise = new Timer(6500);
-		SpriteFilepath = new File("sprites\\mob\\sunflower.png");
+		this.setSpriteFilepath(new File("sprites\\mob\\sunflower.png"));
 	}
 
 	
@@ -59,19 +63,12 @@ public class Sunflower extends Plant {
 			this.sunrise = new Timer(6500);
 		}
 	}
-
-	/**
-	 * Dessine l'entite, aux bonnes coordonnees
-	 */
-	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.2, 0.2);
-	}
 	
 	/**
 	 * Redemarre le compteur de recharge pour l'achat
 	 */
 	public static void restartCooldown() {
-		cooldown = new Timer(5000);
+		Sunflower.setCooldown(new Timer(5000));
 	}
 
 	
@@ -80,10 +77,6 @@ public class Sunflower extends Plant {
 	**      GETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
-	public static Timer getCooldown() {
-		return cooldown;
-	}
 
 	/**
 	 * Retourne le timer gerant l'apparation des Suns
@@ -103,15 +96,21 @@ public class Sunflower extends Plant {
 		return PRICE;
 	}
 	
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @return cooldown
+	 */
+	public static Timer getCooldown() {
+		return cooldown;
+	}
+	
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
-	public static void setCooldown(Timer newCooldown) {
-		cooldown = newCooldown;
-	}
 
 	/**
 	 * Modifie sunrise
@@ -121,5 +120,15 @@ public class Sunflower extends Plant {
 	public void setSunrise(Timer sunrise) {
 		this.sunrise = sunrise;
 	}
+	
+	/**
+	 * Modifie le timer chargé de calculer le temps de rechargement de la plante
+	 * 
+	 * @param timer
+	 */
+	public static void setCooldown(Timer timer) {
+		cooldown = timer;
+	}
+	
 	
 }

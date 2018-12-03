@@ -54,7 +54,11 @@ public class GameWorld extends GameScreen {
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
 	public GameWorld(int difficulte) {
+		// Remises à zéro
 		SoundPlayer.stopAll();
+		Sunflower.setCooldown(new Timer(0));
+		PeasShooter.setCooldown(new Timer(0));
+		Nuts.setCooldown(new Timer(0));
 
 		// On cree les collections
 		entites = new LinkedList<Entite>();
