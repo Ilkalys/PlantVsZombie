@@ -187,7 +187,8 @@ public class GameWorld extends GameScreen {
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
-		
+		StdDraw.text(0.9, 0.908, "Remaining : \n" + zombieQuantity);
+
 		if(selectedPlant == Sunflower.class.getName())
 			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);;
 		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\sunflower.png", 0.12, 0.12);
@@ -205,6 +206,7 @@ public class GameWorld extends GameScreen {
 		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\nuts.png", 0.12, 0.12);
 		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
 		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
+		
 		
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.square(0.1, 0.1, 0.05);	
