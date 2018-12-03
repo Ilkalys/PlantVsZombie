@@ -64,8 +64,8 @@ public class GameWorld extends GameScreen {
 		sunSpawn = new SunSpawner();
 		bank = new SunWallet(0, 0, 50);
 		entites.add(bank);
-		zombieQuantity = 1;
 		zombieSpawn = new ZombieSpawner(1);
+		zombieQuantity = zombieSpawn.getLevel().size();
 	}
 
 
