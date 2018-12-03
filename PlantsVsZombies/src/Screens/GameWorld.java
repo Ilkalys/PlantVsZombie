@@ -207,9 +207,12 @@ public class GameWorld extends GameScreen {
 		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
 		
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.square(0.1, 0.1, 0.05);		
+		StdDraw.square(0.1, 0.1, 0.05);	
+		StdDraw.text(0.1, 0.17, Sunflower.getPrice()+"");
 		StdDraw.square(0.3, 0.1, 0.05);
+		StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
 		StdDraw.square(0.5, 0.1, 0.05);
+		StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
 
 		// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
 		for (float i = 1; i >= 0; i -= 0.1) {
