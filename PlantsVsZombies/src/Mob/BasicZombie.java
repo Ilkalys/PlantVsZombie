@@ -8,7 +8,13 @@ import Resources.*;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public class BasicZombie extends Zombie {
-
+	
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+	
 	// Chelin vers le sprite du zombie
 	private File SpriteFilepath;
 	
