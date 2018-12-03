@@ -1,5 +1,7 @@
 package Mob;
 
+import java.io.File;
+
 import Resources.*;
 import Screens.GameWorld;
 
@@ -9,6 +11,8 @@ public class Peas extends Entite {
 	private int damage;
 	// Vitesse du pois
 	private double speed;
+	private File SpriteFilepath;
+
 	
 	
 	//------------------------------------------------------------------------------
@@ -27,6 +31,7 @@ public class Peas extends Entite {
 		super(x, y);
 		this.setDamage(20);
 		this.setSpeed(0.005);
+		this.SpriteFilepath = new File("sprites\\mob\\peas.png");
 	}
 	
 	
@@ -56,7 +61,7 @@ public class Peas extends Entite {
 	 */
 	public void dessine() {
 		StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
-		StdDraw.filledSquare(this.position.getX(), this.position.getY(), 0.02);
+		StdDraw.picture(this.position.getX()+0.05, this.position.getY()-0.01,this.SpriteFilepath.getAbsolutePath(), 0.02);
 	}
 	
 

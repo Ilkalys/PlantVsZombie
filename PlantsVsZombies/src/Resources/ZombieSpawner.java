@@ -1,8 +1,8 @@
 package Resources;
 
 
-import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import Screens.GameWorld;
 
@@ -10,7 +10,7 @@ public class ZombieSpawner {
 	private class ZombieInfos{
 		private Integer timerValue;
 		private Boolean isShielded;
-		
+
 		public ZombieInfos(Integer timer, boolean isSh){
 			this.timerValue = timer;
 			this.isShielded = isSh;
@@ -23,11 +23,11 @@ public class ZombieSpawner {
 		}
 	}
 
-	private HashMap<Integer,ZombieInfos> level = new HashMap<Integer,ZombieInfos>();
+	private ConcurrentLinkedQueue<ZombieInfos> level;
 	private Random rand = new Random();
 	private Timer timer;
 	private Integer actualZombie;
-	
+
 	public ZombieSpawner(int difficulty){
 		this.timer = new Timer(20000);
 		if(difficulty ==1) {
@@ -35,38 +35,38 @@ public class ZombieSpawner {
 		}
 		actualZombie = 1;
 	}
-	
+
 	public void step() {
 		if(timer.hasFinished() && !level.isEmpty()) {
-				GameWorld.addZombie(1.2, (double)rand.nextInt(5)/10 +0.3, level.get(actualZombie).getIsShielded());
-				timer = new Timer(level.get(actualZombie).getTimerValue());
-				level.remove(actualZombie);
-				actualZombie ++;
+			ZombieInfos tmp = level.poll();
+			GameWorld.addZombie(1.2, (double)rand.nextInt(5)/10 +0.3, tmp.getIsShielded());
+			timer = new Timer(tmp.getTimerValue());
+			actualZombie ++;
 		}
 	}
-	
-	public HashMap<Integer,ZombieInfos> level1(){
-		HashMap<Integer,ZombieInfos> level = new HashMap<Integer,ZombieInfos>();
-		level.put(1,new ZombieInfos(5000,false));
-		level.put(2,new ZombieInfos(5000,false));
-		level.put(3,new ZombieInfos(5000,false));
-		level.put(4,new ZombieInfos(5000,false));
-		level.put(5,new ZombieInfos(5000,false));
-		level.put(6,new ZombieInfos(5000,false));
-		level.put(7,new ZombieInfos(5000,false));
-		level.put(8,new ZombieInfos(5000,false));
-		level.put(9,new ZombieInfos(0,false));
-		level.put(10,new ZombieInfos(5000,false));
-		level.put(11,new ZombieInfos(5000,false));
-		level.put(12,new ZombieInfos(5000,true));
-		level.put(13,new ZombieInfos(5000,false));
-		level.put(14,new ZombieInfos(5000,false));
-		level.put(15,new ZombieInfos(5000,false));
-		level.put(16,new ZombieInfos(5000,false));
-		level.put(17,new ZombieInfos(5000,false));
-		level.put(18,new ZombieInfos(5000,true));
-		level.put(19,new ZombieInfos(0,true));
-		level.put(20,new ZombieInfos(0,true));
+
+	public ConcurrentLinkedQueue<ZombieInfos> level1(){
+		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,true));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,false));
+		level.add(new ZombieInfos(5000,true));
+		level.add(new ZombieInfos(0,true));
+		level.add(new ZombieInfos(0,true));
 
 
 
@@ -74,13 +74,13 @@ public class ZombieSpawner {
 		return level;
 	}
 
-	
-	public HashMap<Integer, ZombieInfos> getLevel() {
+
+	public ConcurrentLinkedQueue<ZombieInfos> getLevel() {
 		return level;
 	}
 
-	public void setLevel(HashMap<Integer, ZombieInfos> level) {
+	public void setLevel(ConcurrentLinkedQueue<ZombieInfos> level) {
 		this.level = level;
 	}
-	
+
 }
