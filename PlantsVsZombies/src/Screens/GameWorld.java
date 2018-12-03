@@ -215,6 +215,18 @@ public class GameWorld extends GameScreen {
 		StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
 		StdDraw.square(0.5, 0.1, 0.05);
 		StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
+		
+		// Cadriage
+		for (double i = 0.70; i >= 0.10; i -= 0.2) {
+			for (double j = 0.1; j <= 0.9; j += 0.2) {
+					StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+			}
+		}
+		for (double i = 0.60; i >= 0.20; i -= 0.2) {
+			for (double j = 0.2; j <= 0.8; j += 0.2) {
+					StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+			}
+		}
 
 		// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
 		for (float i = 1; i >= 0; i -= 0.1) {
