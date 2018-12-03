@@ -181,13 +181,15 @@ public class GameWorld extends GameScreen {
 	/**
 	 * Dessine les entites du jeu
 	 */
+	@SuppressWarnings("static-access")
 	public void dessine() {
 
 		StdDraw.setFont();
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
-		StdDraw.text(0.9, 0.908, "Remaining : \n" + zombieQuantity);
+		StdDraw.text(0.9, 0.932, "Level : " + zombieSpawn.getCurrentDifficulty());
+		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
 
 		if(selectedPlant == Sunflower.class.getName())
 			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);;
