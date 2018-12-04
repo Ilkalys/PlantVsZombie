@@ -213,7 +213,7 @@ public class GameWorld extends GameScreen {
 
 			if(selectedPlant == Nuts.class.getName())
 				StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts.png", 0.12, 0.12);
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts/nuts_0.png", 0.12, 0.12);
 			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
 			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadNuts,heightLoadNuts);
 
