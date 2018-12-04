@@ -31,7 +31,7 @@ public class Peas extends Entite {
 		super(x, y);
 		this.setDamage(20);
 		this.setSpeed(0.005);
-		this.SpriteFilepath = new File("sprites\\mob\\peas.png");
+		this.SpriteFilepath = new File("sprites/mob/peas.png");
 	}
 	
 	

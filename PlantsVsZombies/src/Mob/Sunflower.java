@@ -41,7 +41,7 @@ public class Sunflower extends Plant {
 		this.setLife(300);
 		Sunflower.setCooldown(new Timer(0));
 		this.sunrise = new Timer(6500);
-		this.setSpriteFilepath(new File("sprites\\mob\\sunflower.png"));
+		this.setSpriteFilepath(new File("sprites/mob/sunflower.png"));
 	}
 
 	

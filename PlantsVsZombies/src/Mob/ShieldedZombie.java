@@ -31,7 +31,7 @@ public class ShieldedZombie extends Zombie {
 		this.setLife(560);
 		this.setDamage(30);
 		this.setSpeed(0.0025);
-		this.setSpriteFilepath(new File("sprites\\mob\\shieldedZombie.png"));
+		this.setSpriteFilepath(new File("sprites/mob/shieldedZombie.png"));
 	}
 	
 	

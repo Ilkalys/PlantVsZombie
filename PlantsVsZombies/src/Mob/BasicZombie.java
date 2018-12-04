@@ -31,7 +31,7 @@ public class BasicZombie extends Zombie {
 		this.setLife(200);
 		this.setDamage(30);
 		this.setSpeed(0.0025);
-		this.setSpriteFilepath(new File("sprites\\mob\\basicZombie.png"));
+		this.setSpriteFilepath(new File("sprites/mob/basicZombie.png"));
 	}
 		
 	

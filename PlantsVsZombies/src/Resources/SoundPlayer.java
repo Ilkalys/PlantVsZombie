@@ -47,7 +47,7 @@ public class SoundPlayer {
 	 */
 	public static void PlayBGM(String file) {
 		try {
-			File BGMFilepath = new File("sounds\\bgm\\" + file);
+			File BGMFilepath = new File("sounds/bgm/" + file);
 			AudioInputStream BGMStream = AudioSystem.getAudioInputStream(BGMFilepath);
 			if(BGMClip != null) BGMClip.stop();
 			BGMClip = AudioSystem.getClip();
@@ -66,7 +66,7 @@ public class SoundPlayer {
 	 */
 	public static void PlayBGS(String file) {
 		try {
-			File BGSFilepath = new File("sounds\\bgs\\" + file);
+			File BGSFilepath = new File("sounds/bgs/" + file);
 			AudioInputStream BGSStream = AudioSystem.getAudioInputStream(BGSFilepath);
 			if(BGSClip != null) BGSClip.stop();
 			BGSClip = AudioSystem.getClip();
@@ -85,7 +85,7 @@ public class SoundPlayer {
 	 */
 	public static void PlayME(String file) {
 		try {
-			File MEFilepath = new File("sounds\\me\\" + file);
+			File MEFilepath = new File("sounds/me/" + file);
 			AudioInputStream MEStream = AudioSystem.getAudioInputStream(MEFilepath);
 			MEClip = AudioSystem.getClip();
 			MEClip.open(MEStream);
@@ -102,7 +102,7 @@ public class SoundPlayer {
 	 */
 	public static void PlaySE(String file) {
 		try {
-			File SEFilepath = new File("sounds\\se\\" + file);
+			File SEFilepath = new File("sounds/se/" + file);
 			AudioInputStream SEStream = AudioSystem.getAudioInputStream(SEFilepath);
 			SEClip = AudioSystem.getClip();
 			SEClip.open(SEStream);

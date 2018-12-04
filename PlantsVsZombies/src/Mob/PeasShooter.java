@@ -41,7 +41,7 @@ public class PeasShooter extends Plant {
 		this.setLife(300);
 		PeasShooter.setCooldown(new Timer(0));
 		this.reload = new Timer(1500);
-		this.setSpriteFilepath(new File("sprites\\mob\\peasShooter.png"));
+		this.setSpriteFilepath(new File("sprites/mob/peasShooter.png"));
 	}
 	
 	

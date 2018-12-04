@@ -37,7 +37,7 @@ public class Nuts extends Plant {
 		super(x, y);
 		this.setLife(1500);
 		Nuts.setCooldown(new Timer(0));
-		this.setSpriteFilepath(new File("sprites\\mob\\nuts.png"));
+		this.setSpriteFilepath(new File("sprites/mob/nuts.png"));
 	}
 
 	
