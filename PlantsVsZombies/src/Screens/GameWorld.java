@@ -40,6 +40,8 @@ public class GameWorld extends GameScreen {
 	private static final char PEASSHOOTER_KEY = 'p';
 	// Touche pour selectionner une noix
 	private static final char NUTS_KEY = 'n';
+	// Touche pour selectionner une dynamite
+	private static final char DYNAMITE_KEY = 'd';
 	private File SpriteFilepath = new File("sprites");
 
 
@@ -63,6 +65,7 @@ public class GameWorld extends GameScreen {
 		Sunflower.setCooldown(new Timer(0));
 		PeasShooter.setCooldown(new Timer(0));
 		Nuts.setCooldown(new Timer(0));
+		Dynamite.setCooldown(new Timer(0));
 
 		// On cree les collections
 		entites = new LinkedList<Entite>();
@@ -70,7 +73,7 @@ public class GameWorld extends GameScreen {
 
 		selectedPlant = null;
 		sunSpawn = new SunSpawner();
-		bank = new SunWallet(0, 0, 50);
+		bank = new SunWallet(0, 0, 550);
 		entites.add(bank);
 		zombieSpawn = new ZombieSpawner(difficulte);
 		zombieQuantity = zombieSpawn.getLevel().size();
@@ -100,6 +103,9 @@ public class GameWorld extends GameScreen {
 		case NUTS_KEY:
 			selectNuts();
 			break;
+		case DYNAMITE_KEY:
+			selectDynamite();
+			break;
 		default:
 			System.out.println("Touche non prise en charge.");
 			break;
@@ -120,48 +126,64 @@ public class GameWorld extends GameScreen {
 			bank.add(Sun.getValue());
 			suns.remove(sunHere);
 		} else {
-			// Selection d'un tournesol à la souris
-			if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
-				selectSunflower();
-			}
-			// Selection d'un tire-pois à la souris
-			if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
-				selectPeasShooter();
-			}
-			// Selection d'une noix à la souris
-			if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
-				selectNuts();
-			}
-			// Plantation
-			if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
-				double rx, ry;
-				rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
-				ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
-				// Verification que la case souhaité soit vide
-				if(Mob.somethingHere(entites, rx, ry) == null) {
-					if(selectedPlant == Sunflower.class.getName()) {
-						bank.add(-50);
-						entites.add(new Sunflower(rx, ry));
-						Sunflower.restartCooldown();
-						selectedPlant = null;
-					}
-					if(selectedPlant == PeasShooter.class.getName()) {
-						bank.add(-100);
-						entites.add(new PeasShooter(rx, ry));
-						PeasShooter.restartCooldown();
-						selectedPlant = null;
-					}
-					if(selectedPlant == Nuts.class.getName()) {
-						bank.add(-50);
-						entites.add(new Nuts(rx, ry));
-						Nuts.restartCooldown();
-						selectedPlant = null;
-					}
-					if(selectedPlant == null) {
-						System.out.println("Pas de plante selectionne.");
-					}
+			// Explosition d'une dynamite
+			Dynamite dynamiteHere = Dynamite.somethingHere(entites, x, y);
+			if(dynamiteHere != null) {
+				dynamiteHere.explose();
+			} else {
+				// Selection d'un tournesol à la souris
+				if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
+					selectSunflower();
 				}
-				else System.out.println("Il y a deja quelque chose ici.");
+				// Selection d'un tire-pois à la souris
+				if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
+					selectPeasShooter();
+				}
+				// Selection d'une noix à la souris
+				if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
+					selectNuts();
+				}
+				// Selection d'une dynamite à la souris
+				if(x >= 0.65 && x <= 0.75 && y >= 0.05 && y <= 0.15) {
+					selectDynamite();
+				}
+				// Plantation
+				if(x < 0.95 && x > 0.05 && y < 0.75 && y > 0.25) {
+					double rx, ry;
+					rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
+					ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
+					// Verification que la case souhaité soit vide
+					if(Mob.somethingHere(entites, rx, ry) == null) {
+						if(selectedPlant == Sunflower.class.getName()) {
+							bank.add(-Sunflower.getPrice());
+							entites.add(new Sunflower(rx, ry));
+							Sunflower.restartCooldown();
+							selectedPlant = null;
+						}
+						if(selectedPlant == PeasShooter.class.getName()) {
+							bank.add(-PeasShooter.getPrice());
+							entites.add(new PeasShooter(rx, ry));
+							PeasShooter.restartCooldown();
+							selectedPlant = null;
+						}
+						if(selectedPlant == Nuts.class.getName()) {
+							bank.add(-Nuts.getPrice());
+							entites.add(new Nuts(rx, ry));
+							Nuts.restartCooldown();
+							selectedPlant = null;
+						}
+						if(selectedPlant == Dynamite.class.getName()) {
+							bank.add(-Dynamite.getPrice());
+							entites.add(new Dynamite(rx, ry));
+							Dynamite.restartCooldown();
+							selectedPlant = null;
+						}
+						if(selectedPlant == null) {
+							System.out.println("Pas de plante selectionne.");
+						}
+					}
+					else System.out.println("Il y a deja quelque chose ici.");
+				}
 			}
 		}
 	}
@@ -191,7 +213,6 @@ public class GameWorld extends GameScreen {
 	 */
 	@SuppressWarnings("static-access")
 	public void dessine() {
-
 		StdDraw.setFont();
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"/bg/PanneauMonnaie.png", 0.15, 0.15);
@@ -201,21 +222,27 @@ public class GameWorld extends GameScreen {
 
 		if(selectedPlant == Sunflower.class.getName())
 			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);;
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/sunflower.png", 0.12, 0.12);
-			double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
+		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/sunflower.png", 0.12, 0.12);
+		double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
+		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
 
-			if(selectedPlant == PeasShooter.class.getName())
-				StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter.png", 0.12, 0.12);
-			double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
+		if(selectedPlant == PeasShooter.class.getName())
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter.png", 0.12, 0.12);
+		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
+		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
 
-			if(selectedPlant == Nuts.class.getName())
-				StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts/nuts_0.png", 0.12, 0.12);
-			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadNuts,heightLoadNuts);
+		if(selectedPlant == Nuts.class.getName())
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts/nuts_0.png", 0.12, 0.12);
+		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
+		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadNuts,heightLoadNuts);
+
+		if(selectedPlant == Dynamite.class.getName())
+			StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/dynamite.png", 0.12, 0.12);
+		double heightLoadDynamite = ((Dynamite.getCooldown() == null)? 0 : Dynamite.getCooldown().getActualTime()/300);
+		StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadDynamite,heightLoadDynamite);
 
 
 			StdDraw.setPenColor(StdDraw.BLACK);
@@ -225,6 +252,8 @@ public class GameWorld extends GameScreen {
 			StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
 			StdDraw.square(0.5, 0.1, 0.05);
 			StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
+			StdDraw.square(0.7, 0.1, 0.05);
+			StdDraw.text(0.7, 0.17, Dynamite.getPrice()+"");
 
 			// Cadriage
 			if(selectedPlant != null) {
@@ -305,6 +334,28 @@ public class GameWorld extends GameScreen {
 				if(bank.enoughSun(Nuts.getPrice())) {
 					System.out.println("Noix selectionnee !");
 					selectedPlant = Nuts.class.getName();
+				}
+				else
+					System.out.println("Mais il ne possede pas assez de soleil.");
+			else
+				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
+		}
+		else {
+			System.out.println("Pas de plante selectionne.");
+			selectedPlant = null;
+		}
+	}
+
+	/**
+	 * Selectionne ou deselectionne la dynamite
+	 */
+	private void selectDynamite() {
+		if(selectedPlant != Dynamite.class.getName()) {
+			System.out.println("Le joueur souhaite selectionner une dynamite...");
+			if(Dynamite.getCooldown() == null || Dynamite.getCooldown().hasFinished())
+				if(bank.enoughSun(Dynamite.getPrice())) {
+					System.out.println("Dynamite selectionnee !");
+					selectedPlant = Dynamite.class.getName();
 				}
 				else
 					System.out.println("Mais il ne possede pas assez de soleil.");

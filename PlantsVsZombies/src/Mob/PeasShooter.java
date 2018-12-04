@@ -16,12 +16,14 @@ public class PeasShooter extends Plant {
 	 */
 	//------------------------------------------------------------------------------	
 
-	// Temps de rechargement pour tirer
-	private Timer reload;
-	// Prix du pire-pois
+	// Prix
 	private static final int PRICE = 100;
+	// Chemin vers le sprite
+	private static final String SPRITE_FILEPATH = "sprites/mob/peasShooter.png";
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
+	// Temps de rechargement pour tirer
+	private Timer reload;
 
 	
 	//------------------------------------------------------------------------------
@@ -41,7 +43,6 @@ public class PeasShooter extends Plant {
 		this.setLife(300);
 		PeasShooter.setCooldown(new Timer(0));
 		this.reload = new Timer(1500);
-		this.setSpriteFilepath(new File("sprites/mob/peasShooter.png"));
 	}
 	
 	

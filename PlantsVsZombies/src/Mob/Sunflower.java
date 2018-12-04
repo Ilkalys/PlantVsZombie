@@ -16,13 +16,15 @@ public class Sunflower extends Plant {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-
-	// Timerpour l'apparition des Suns gerer par la plante
-	private Timer sunrise;
-	// Prix du tournesol
+	
+	// Prix
 	private static final int PRICE = 50;
+	// Chemin vers le sprite
+	private static final String SPRITE_FILEPATH = "sprites/mob/sunflower.png";
 	// Temps avant de pouvoir replanter
 	private static Timer cooldown;
+	// Timer pour l'apparition des soleils gerer par la plante
+	private Timer sunrise;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -41,7 +43,6 @@ public class Sunflower extends Plant {
 		this.setLife(300);
 		Sunflower.setCooldown(new Timer(0));
 		this.sunrise = new Timer(24000);
-		this.setSpriteFilepath(new File("sprites/mob/sunflower.png"));
 	}
 
 	

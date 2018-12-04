@@ -8,7 +8,7 @@ import Screens.GameWorld;
 public class Peas extends Entite {
 
 	// Nombre de degat qu'inflige un pois
-	private int damage;
+	private static final int DAMAGE = 20;
 	// Vitesse du pois
 	private double speed;
 	private File SpriteFilepath;
@@ -29,7 +29,6 @@ public class Peas extends Entite {
 	 */
 	public Peas(double x, double y) {
 		super(x, y);
-		this.setDamage(20);
 		this.setSpeed(0.005);
 		this.SpriteFilepath = new File("sprites/mob/peas.png");
 	}
@@ -49,7 +48,7 @@ public class Peas extends Entite {
 		if(obstacle == null)
 			this.position.setX(this.position.getX() + this.getSpeed());
 		else {
-			obstacle.takeDamage(this.damage);
+			obstacle.takeDamage(Peas.DAMAGE);
 			GameWorld.removeEntiteFrom(GameWorld.getEntites(), this);
 		}
 		if(this.getX() >= 1.2)
@@ -77,7 +76,7 @@ public class Peas extends Entite {
 	 * @return damage
 	 */
 	public int getDamage() {
-		return damage;
+		return DAMAGE;
 	}
 	
 	/**
@@ -95,15 +94,6 @@ public class Peas extends Entite {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-
-	/**
-	 * Modifie damage
-	 * 
-	 * @param damage nombre de degat qu'inflige un pois
-	 */
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
 	
 	/**
 	 * Modifie speed
