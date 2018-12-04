@@ -193,29 +193,29 @@ public class GameWorld extends GameScreen {
 	public void dessine() {
 
 		StdDraw.setFont();
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"\\bg\\FondLevel.png", 1, 1);
-		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauMonnaie.png", 0.15, 0.15);
-		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"\\bg\\PanneauScore.png", 0.2, 0.2);
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
+		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"/bg/PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"/bg/PanneauScore.png", 0.2, 0.2);
 		StdDraw.text(0.9, 0.932, "Level : " + zombieSpawn.getCurrentDifficulty());
 		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
 
 		if(selectedPlant == Sunflower.class.getName())
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);;
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\sunflower.png", 0.12, 0.12);
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);;
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/sunflower.png", 0.12, 0.12);
 			double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
+			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
 
 			if(selectedPlant == PeasShooter.class.getName())
-				StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\peasShooter.png", 0.12, 0.12);
+				StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter.png", 0.12, 0.12);
 			double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
+			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
 
 			if(selectedPlant == Nuts.class.getName())
-				StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Selection.png",0.1,0.1);
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"\\mob\\nuts.png", 0.12, 0.12);
+				StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts.png", 0.12, 0.12);
 			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",heightLoadNuts,heightLoadNuts);
+			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadNuts,heightLoadNuts);
 
 
 			StdDraw.setPenColor(StdDraw.BLACK);
@@ -230,12 +230,12 @@ public class GameWorld extends GameScreen {
 			if(selectedPlant != null) {
 				for (double i = 0.70; i >= 0.10; i -= 0.2) {
 					for (double j = 0.1; j <= 0.9; j += 0.2) {
-						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
 					}
 				}
 				for (double i = 0.60; i >= 0.20; i -= 0.2) {
 					for (double j = 0.2; j <= 0.8; j += 0.2) {
-						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png", 0.1, 0.1);
+						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
 					}
 				}
 			}

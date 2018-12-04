@@ -26,7 +26,7 @@ public class Sun extends Entite {
 	public Sun(double x, double y) {
 		super(x, y);
 		this.lifeTime = new Timer(20000);
-		SpriteFilepath = new File("sprites\\mob\\sun.png");
+		SpriteFilepath = new File("sprites/mob/sun.png");
 	}
 
 	public static Sun somethingHere(List<Entite> entites, double x, double y) {

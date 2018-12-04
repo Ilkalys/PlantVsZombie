@@ -64,16 +64,16 @@ public class MenuStart extends GameScreen {
 
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.picture(0.5, 0.5,(start)?SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil2.png":SpriteFilepath.getAbsolutePath() + "\\bg\\Accueil1.png", 1, 1);
-		StdDraw.picture(0+ecart, 0.8,SpriteFilepath.getAbsolutePath() + "\\set\\CloudDown.png", 0.51, 0.51);
-		StdDraw.picture(1-ecart, 0.97,SpriteFilepath.getAbsolutePath() + "\\set\\CouldUp.png", 0.51, 0.51);
-		StdDraw.picture(0.509, 0.57,SpriteFilepath.getAbsolutePath() + "\\set\\Affichage.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.5,(start)?SpriteFilepath.getAbsolutePath() + "/bg/Accueil2.png":SpriteFilepath.getAbsolutePath() + "/bg/Accueil1.png", 1, 1);
+		StdDraw.picture(0+ecart, 0.8,SpriteFilepath.getAbsolutePath() + "/set/CloudDown.png", 0.51, 0.51);
+		StdDraw.picture(1-ecart, 0.97,SpriteFilepath.getAbsolutePath() + "/set/CouldUp.png", 0.51, 0.51);
+		StdDraw.picture(0.509, 0.57,SpriteFilepath.getAbsolutePath() + "/set/Affichage.png", 0.51, 0.51);
 		StdDraw.setFont(new Font("sans serif",10,20));
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 		StdDraw.text(0.509, 0.57,"Choix Level");
 		StdDraw.text(0.509, 0.05,"Quitter le Jeu");
 		if(start)
-			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "\\bg\\Fondu.png",5,5);
+			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",5,5);
 
 
 	}
