@@ -61,7 +61,7 @@ public class Peas extends Entite {
 	 */
 	public void dessine() {
 		StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
-		StdDraw.picture(this.position.getX()+0.05, this.position.getY()-0.01,this.SpriteFilepath.getAbsolutePath(), 0.02);
+		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003,this.SpriteFilepath.getAbsolutePath(), 0.02);
 	}
 	
 
