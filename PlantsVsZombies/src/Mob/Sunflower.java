@@ -40,7 +40,7 @@ public class Sunflower extends Plant {
 		super(x, y);
 		this.setLife(300);
 		Sunflower.setCooldown(new Timer(0));
-		this.sunrise = new Timer(6500);
+		this.sunrise = new Timer(24000);
 		this.setSpriteFilepath(new File("sprites/mob/sunflower.png"));
 	}
 
@@ -56,11 +56,11 @@ public class Sunflower extends Plant {
 	 */
 	public void step() {
 		if(Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) != null)
-			this.sunrise = new Timer(6500);
+			this.sunrise = new Timer(24000);
 
 		else if(sunrise.hasFinished()) {
 			GameWorld.addSun( this.getX(),this.getY());
-			this.sunrise = new Timer(6500);
+			this.sunrise = new Timer(24000);
 		}
 	}
 	
