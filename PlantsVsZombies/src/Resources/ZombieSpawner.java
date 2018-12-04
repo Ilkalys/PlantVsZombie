@@ -61,7 +61,7 @@ public class ZombieSpawner {
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
-		level.add(new ZombieInfos(10000,false));
+		level.add(new ZombieInfos(0,false));
 		level.add(new ZombieInfos(0,false));
 		return level;
 	}
@@ -97,15 +97,15 @@ public class ZombieSpawner {
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(5000,false));
 		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,false));
-		level.add(new ZombieInfos(5000,true));
+		level.add(new ZombieInfos(4000,false));
+		level.add(new ZombieInfos(4000,false));
+		level.add(new ZombieInfos(4000,true));
+		level.add(new ZombieInfos(4000,false));
+		level.add(new ZombieInfos(4000,false));
+		level.add(new ZombieInfos(4000,false));
+		level.add(new ZombieInfos(3000,false));
+		level.add(new ZombieInfos(3000,false));
+		level.add(new ZombieInfos(3000,true));
 		level.add(new ZombieInfos(0,true));
 		level.add(new ZombieInfos(0,true));
 		return level;
