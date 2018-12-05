@@ -6,7 +6,6 @@ import java.util.List;
 
 import Mob.*;
 import Resources.*;
-import Sun.*;
 
 /**
  * @author TERMIER Alexandre, GAUGET--BERLIOZ Matthieu, COCHET Julien
