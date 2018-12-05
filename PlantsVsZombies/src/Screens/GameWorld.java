@@ -224,7 +224,7 @@ public class GameWorld extends GameScreen {
 
 		if(selectedPlant == PeasShooter.class.getName())
 			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter.png", 0.12, 0.12);
+		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter/peasShooter_0.png", 0.12, 0.12);
 		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
 		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
 
