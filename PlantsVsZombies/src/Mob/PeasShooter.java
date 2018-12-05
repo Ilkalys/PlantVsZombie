@@ -30,8 +30,7 @@ public class PeasShooter extends Plant {
 	
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
-	// Status de l'animation
-	private int actualAnim;
+
 
 	// Temps (en ms) pour recharger
 	private static final int RELOAD_TIME = 1_500;
@@ -54,7 +53,6 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y, ICONE.getAbsolutePath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
-		this.actualAnim = 0;
 		this.Reload = new Timer(RELOAD_TIME);
 	}
 
@@ -84,11 +82,6 @@ public class PeasShooter extends Plant {
 	 * Calcul la prochaine image de l'animation
 	 */
 	private String Animate(){
-		if(this.actualAnim == 75)
-			this.actualAnim = 0;
-		else
-			this.actualAnim++;
-
 		if( this.Reload.getActualTime()*1000 <= 500)
 			return "0";
 		else if(this.Reload.getActualTime()*1000 >= 500 && this.Reload.getActualTime()*1000 <= 600)
