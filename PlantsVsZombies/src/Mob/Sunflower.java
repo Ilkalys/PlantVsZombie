@@ -4,7 +4,6 @@ import java.io.File;
 
 import Resources.*;
 import Screens.GameWorld;
-import Sun.*;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
