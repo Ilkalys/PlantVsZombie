@@ -20,7 +20,7 @@ public class Sunflower extends Plant {
 	// Touche pour selectionner un tournesol
 	private static final char KEY = 't';
 	// Icone du tournesol
-	private static final File ICONE = new File("sprites/mob/sunflower.png");
+	private static final File ICONE = new File("sprites/mob/sunflower/sunflower_0.png");
 	// Point de vie de depart d'un tournesol
 	private static final int HPMAX = 300;
 	// Prix du tournesol
@@ -30,6 +30,9 @@ public class Sunflower extends Plant {
 	// Timer du replantage d'un tournesol
 	private static Timer Cooldown;
 
+	// Chemin vers les sprites d'animation
+	private static final File SpriteAnim = new File("sprites/mob/sunflower/sunflower_");
+		
 	// Temps (en ms) pour l'apparition des soleils
 	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
@@ -77,6 +80,43 @@ public class Sunflower extends Plant {
 		}
 	}
 
+
+	/**
+	 * Dessine le mob, aux bonnes coordonnees
+	 */
+	@Override
+	public void dessine() {
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+	}
+
+	/**
+	 * Calcul la prochaine image de l'animation
+	 */
+
+	private String Animate(){
+		if( this.Sunrise.getActualTime()*1000 >= 3_000)
+			return "0";
+		else if(this.Sunrise.getActualTime()*1000 >= 2_750 && this.Sunrise.getActualTime()*1000 <= 3_000)
+			return "2";
+		else if(this.Sunrise.getActualTime()*1000 >= 2_500 && this.Sunrise.getActualTime()*1000 <= 2_750)
+			return "1";
+		else if(this.Sunrise.getActualTime()*1000 >= 2_250 && this.Sunrise.getActualTime()*1000 <= 2_500)
+			return "2";
+		else if(this.Sunrise.getActualTime()*1000 >= 2_000 && this.Sunrise.getActualTime()*1000 <= 2_250)
+			return "1";
+		else if(this.Sunrise.getActualTime()*1000 >= 1_000 && this.Sunrise.getActualTime()*1000 <= 2_000 )
+			return "0";
+		else if(this.Sunrise.getActualTime()*1000 >= 750 && this.Sunrise.getActualTime()*1000 <= 1_000)
+			return "3";
+		else if(this.Sunrise.getActualTime()*1000 >= 500 && this.Sunrise.getActualTime()*1000 <= 750)
+			return "4";
+		else if(this.Sunrise.getActualTime()*1000 >= 250 && this.Sunrise.getActualTime()*1000 <= 500)
+			return "3";
+		else if(this.Sunrise.getActualTime()*1000 >= 0 && this.Sunrise.getActualTime()*1000 <= 250)
+			return "4";
+
+		else return "0";
+	}
 	
 	//------------------------------------------------------------------------------
 	/*
