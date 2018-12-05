@@ -2,8 +2,8 @@ package Resources;
 
 import java.util.Random;
 
+import Mob.Sun;
 import Screens.GameWorld;
-import Sun.Sun;
 
 public class SunSpawner {
 	
