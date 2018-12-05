@@ -2,6 +2,8 @@ package Mob;
 
 import java.io.File;
 
+import Resources.StdDraw;
+
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
@@ -13,13 +15,10 @@ public class ShieldedZombie extends Zombie {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Sprite d'un zombie blinde
-	private static final File SPRITE_DEFAULT = new File("sprites/mob/shieldedZombie.png");
+	// Chemin vers le sprites d'un zombie blinde
+	private static final File SPRITE_PATH = new File("sprites/mob/shieldedZombie/shieldedZombie_");
 	// Point de vie de depart d'un zombie blinde
 	private static final int HPMAX = 560;
-	
-	// Chemin vers les sprites d'animation
-		private static final File SpriteAnim = new File("sprites/mob/shieldedZombie/shieldedZombie_");
 
 	//------------------------------------------------------------------------------
 	/*
@@ -34,7 +33,7 @@ public class ShieldedZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public ShieldedZombie(double x, double y) {
-		super(x, y, SPRITE_DEFAULT.getAbsolutePath(), HPMAX);
+		super(x, y, SPRITE_PATH.getAbsolutePath() + "walk_0.png", HPMAX);
 	}
 	
 	
@@ -44,7 +43,10 @@ public class ShieldedZombie extends Zombie {
 	*/
 	//------------------------------------------------------------------------------
 
-	
+	@Override
+	public void dessine() {
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+	}
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -53,12 +55,12 @@ public class ShieldedZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le sprite d'un zombie blinde
+	 * Retourne le sprite d'un zombie blindes
 	 * 
 	 * @return SPRITE
 	 */
-	public static File getSpriteDefault() {
-		return SPRITE_DEFAULT;
+	public static File getSpritePath() {
+		return SPRITE_PATH;
 	}
 	
 	/**
