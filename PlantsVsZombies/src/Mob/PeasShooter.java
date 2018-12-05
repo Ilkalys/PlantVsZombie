@@ -84,29 +84,26 @@ public class PeasShooter extends Plant {
 	 * Calcul la prochaine image de l'animation
 	 */
 	private String Animate(){
-		if(this.actualAnim == 250)
+		if(this.actualAnim == 75)
 			this.actualAnim = 0;
 		else
 			this.actualAnim++;
 
-		if(this.actualAnim >= 100 && this.actualAnim <= 105)
+		if( this.Reload.getActualTime()*1000 <= 500)
+			return "0";
+		else if(this.Reload.getActualTime()*1000 >= 500 && this.Reload.getActualTime()*1000 <= 600)
+			return "3";
+		else if(this.Reload.getActualTime()*1000 >= 600 && this.Reload.getActualTime()*1000 <= 700)
+			return "4";
+		else if(this.Reload.getActualTime()*1000 >= 700 && this.Reload.getActualTime()*1000 <= 800)
+			return "3";
+		else if(this.Reload.getActualTime()*1000 >= 800 && this.Reload.getActualTime()*1000 <= 1300)
+			return "0";
+		else if(this.Reload.getActualTime()*1000 >= 1300 && this.Reload.getActualTime()*1000 <= 1400)
 			return "1";
-		else if(this.actualAnim >= 105 && this.actualAnim <= 110)
-			return "0";
-		else if(this.actualAnim >= 110 && this.actualAnim <= 115)
+		else if(this.Reload.getActualTime()*1000 >= 1400 && this.Reload.getActualTime()*1000 <= 1500)
 			return "2";
-		else if(this.actualAnim >= 115 && this.actualAnim <= 140)
-			return "0";
-		else if(this.actualAnim >= 140 && this.actualAnim <= 145)
-			return "3";
-		else if(this.actualAnim >= 145 && this.actualAnim <= 150)
-			return "4";
-		else if(this.actualAnim >= 150 && this.actualAnim <= 155)
-			return "3";
-		else if(this.actualAnim >= 155 && this.actualAnim <= 160)
-			return "4";
-		else if(this.actualAnim >= 160 && this.actualAnim <= 165)
-			return "3";
+
 		else return "0";
 	}
 	/**
