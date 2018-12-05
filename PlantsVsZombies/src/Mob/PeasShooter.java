@@ -33,7 +33,7 @@ public class PeasShooter extends Plant {
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
 
-	// Temps (en ms) pour recharger
+	// Temps (en ms) pour recharger, doit être superieur à 1_000
 	private static final int RELOAD_TIME = 1_500;
 	// Timer du rechargement pour tirer
 	private Timer Reload;
@@ -84,19 +84,17 @@ public class PeasShooter extends Plant {
 	 */
 
 	private String Animate(){
-		if( this.Reload.getActualTime()*1000 <= 500)
-			return "0";
-		else if(this.Reload.getActualTime()*1000 >= 500 && this.Reload.getActualTime()*1000 <= 600)
+		if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 1_000 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 900)
 			return "3";
-		else if(this.Reload.getActualTime()*1000 >= 600 && this.Reload.getActualTime()*1000 <= 700)
+		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 900 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 800)
 			return "4";
-		else if(this.Reload.getActualTime()*1000 >= 700 && this.Reload.getActualTime()*1000 <= 800)
+		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 800 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 700)
 			return "3";
-		else if(this.Reload.getActualTime()*1000 >= 800 && this.Reload.getActualTime()*1000 <= 1300)
+		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 700 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 200)
 			return "0";
-		else if(this.Reload.getActualTime()*1000 >= 1300 && this.Reload.getActualTime()*1000 <= 1400)
+		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 200 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 100)
 			return "1";
-		else if(this.Reload.getActualTime()*1000 >= 1400 && this.Reload.getActualTime()*1000 <= 1500)
+		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 100 && this.Reload.getActualTime()*1000 <= RELOAD_TIME)
 			return "2";
 
 		else return "0";

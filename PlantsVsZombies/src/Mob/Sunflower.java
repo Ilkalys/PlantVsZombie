@@ -32,7 +32,7 @@ public class Sunflower extends Plant {
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/sunflower/sunflower_");
 		
-	// Temps (en ms) pour l'apparition des soleils
+	// Temps (en ms) pour l'apparition des soleils, doit être supérieur à 2_000
 	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
 	private Timer Sunrise;
@@ -93,25 +93,23 @@ public class Sunflower extends Plant {
 	 */
 
 	private String Animate(){
-		if( this.Sunrise.getActualTime()*1000 >= 3_000)
-			return "0";
-		else if(this.Sunrise.getActualTime()*1000 >= 2_750 && this.Sunrise.getActualTime()*1000 <= 3_000)
+		if(this.Sunrise.getActualTime()*1000 >= 1_750 && this.Sunrise.getActualTime()*1000 <= 2_000)
 			return "2";
-		else if(this.Sunrise.getActualTime()*1000 >= 2_500 && this.Sunrise.getActualTime()*1000 <= 2_750)
+		else if(this.Sunrise.getActualTime()*1000 >= 1_500 && this.Sunrise.getActualTime()*1000 <= 1_750)
 			return "1";
-		else if(this.Sunrise.getActualTime()*1000 >= 2_250 && this.Sunrise.getActualTime()*1000 <= 2_500)
+		else if(this.Sunrise.getActualTime()*1000 >= 1_250 && this.Sunrise.getActualTime()*1000 <= 1_500)
 			return "2";
-		else if(this.Sunrise.getActualTime()*1000 >= 2_000 && this.Sunrise.getActualTime()*1000 <= 2_250)
+		else if(this.Sunrise.getActualTime()*1000 >= 1_000 && this.Sunrise.getActualTime()*1000 <= 1_250)
 			return "1";
-		else if(this.Sunrise.getActualTime()*1000 >= 1_000 && this.Sunrise.getActualTime()*1000 <= 2_000 )
+		else if(this.Sunrise.getActualTime()*1000 >= 800 && this.Sunrise.getActualTime()*1000 <= 1_000 )
 			return "0";
-		else if(this.Sunrise.getActualTime()*1000 >= 750 && this.Sunrise.getActualTime()*1000 <= 1_000)
+		else if(this.Sunrise.getActualTime()*1000 >= 600 && this.Sunrise.getActualTime()*1000 <= 800)
 			return "3";
-		else if(this.Sunrise.getActualTime()*1000 >= 500 && this.Sunrise.getActualTime()*1000 <= 750)
+		else if(this.Sunrise.getActualTime()*1000 >= 400 && this.Sunrise.getActualTime()*1000 <= 600)
 			return "4";
-		else if(this.Sunrise.getActualTime()*1000 >= 250 && this.Sunrise.getActualTime()*1000 <= 500)
+		else if(this.Sunrise.getActualTime()*1000 >= 200 && this.Sunrise.getActualTime()*1000 <= 400)
 			return "3";
-		else if(this.Sunrise.getActualTime()*1000 >= 0 && this.Sunrise.getActualTime()*1000 <= 250)
+		else if(this.Sunrise.getActualTime()*1000 >= 0 && this.Sunrise.getActualTime()*1000 <= 200)
 			return "4";
 
 		else return "0";

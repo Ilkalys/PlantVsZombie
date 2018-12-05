@@ -15,7 +15,7 @@ public abstract class Zombie extends Mob {
 	private static final int DAMAGE = 30;
 	// Vitesse d'un zombie
 	private static final double SPEED = 0.25;
-	// Temps avant la prochaine attaque
+	// Temps avant la prochaine attaque, doit être supérieur à 1_000.
 	private static final int ATTACK_TIME = 1_000;
 	// Timer pour l'attaque d'un zombie
 	private Timer Attack;
@@ -82,17 +82,17 @@ public abstract class Zombie extends Mob {
 
 	protected String Animate(){
 		if(this.Attack != null) {
-			if(this.Attack.getActualTime()*1000 >= 650 && this.Attack.getActualTime()*1000 <= 900)
+			if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 350 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 100)
 				return "attack_0";
-			else if(this.Attack.getActualTime()*1000 >= 600 && this.Attack.getActualTime()*1000 <= 650)
+			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 400 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 350)
 				return "attack_1";
-			else if(this.Attack.getActualTime()*1000 >= 550 && this.Attack.getActualTime()*1000 <= 600)
+			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME -450 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 400)
 				return "attack_2";
-			else if(this.Attack.getActualTime()*1000 >= 500 && this.Attack.getActualTime()*1000 <= 550)
+			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 500 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 450)
 				return "attack_3";
-			else if(this.Attack.getActualTime()*1000 >= 250 && this.Attack.getActualTime()*1000 <= 500 )
+			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 750 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 500 )
 				return "attack_4";
-			else if(this.Attack.getActualTime()*1000 >= 50 && this.Attack.getActualTime()*1000 <= 250)
+			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 950 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 750)
 				return "attack_5";
 			else return "walk_0";
 		}
