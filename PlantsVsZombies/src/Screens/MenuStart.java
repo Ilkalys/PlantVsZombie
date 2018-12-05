@@ -33,12 +33,16 @@ public class MenuStart extends GameScreen {
 	}
 
 	public void processMouseClick(double x, double y) {
-		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68)
+		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
+			SoundPlayer.PlaySE("fire.wav");
 			start = true;
+		}
 		else if(x <= 0.589 && x >= 0.429 && y >= 0.54 && y <= 0.59) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new MenuSelectionLevel());
 		}
 		else if(x <= 0.589 && x >= 0.429 && y >= 0.02 && y <= 0.07) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setStopGame(true);
 		}
 	}

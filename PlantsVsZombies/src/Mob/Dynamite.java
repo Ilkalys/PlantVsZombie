@@ -116,7 +116,8 @@ public class Dynamite extends Plant {
 		zombieHere = Zombie.somethingHere(GameWorld.getEntites(), this.getX(), this.getY() + 0.1);
 		if(zombieHere != null)
 			zombieHere.takeDamage(DAMAGE);
-		
+
+		SoundPlayer.PlaySE("explosion.wav");
 		GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
 	}
 	

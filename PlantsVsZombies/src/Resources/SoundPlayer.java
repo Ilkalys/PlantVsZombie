@@ -16,8 +16,8 @@ public class SoundPlayer {
 	 */
 	//------------------------------------------------------------------------------
 	
-	// Clips pour chaque type de sons
-	private static Clip BGMClip, BGSClip, MEClip, SEClip;
+	// Clips pour la musique de fond, le bruitage de fond et la musique evenementielle
+	private static Clip BGMClip, BGSClip, MEClip;
 	
 	
 	//------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ public class SoundPlayer {
 	 * Constructeur de la classe, met tous les attributs à null.
 	 */
 	public SoundPlayer() {
-		BGMClip = null; BGSClip = null; MEClip = null; SEClip = null;
+		BGMClip = null; BGSClip = null; MEClip = null;
 	}
 	
 	
@@ -104,7 +104,7 @@ public class SoundPlayer {
 		try {
 			File SEFilepath = new File("sounds/se/" + file);
 			AudioInputStream SEStream = AudioSystem.getAudioInputStream(SEFilepath);
-			SEClip = AudioSystem.getClip();
+			Clip SEClip = AudioSystem.getClip();
 			SEClip.open(SEStream);
 			SEClip.start();
 		} catch (Exception e) {
@@ -133,19 +133,22 @@ public class SoundPlayer {
 	}
 	
 	/**
+	 * Arrete la musique evenementielle
+	 */
+	public static void StopME() {
+		if(MEClip != null) {
+			MEClip.stop();
+			MEClip = null;
+		}
+	}
+	
+	/**
 	 * Arrete tous les sons
 	 */
 	public static void stopAll() {
 		StopBGM();
 		StopBGS();
-		if(MEClip != null) {
-			MEClip.stop();
-			MEClip = null;
-		}
-		if(SEClip != null) {
-			SEClip.stop();
-			SEClip = null;
-		}
+		StopME();
 	}
 
 	
@@ -181,16 +184,6 @@ public class SoundPlayer {
 	public static Clip getMEClip() {
 		return MEClip;
 	}
-
-	/**
-	 * Retourne le Clip de bruitage evenementielle
-	 * 
-	 * @return SEClip
-	 */
-	public static Clip getSEClip() {
-		return SEClip;
-	}
-	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -223,15 +216,6 @@ public class SoundPlayer {
 	 */
 	public static void setMEClip(Clip mEClip) {
 		MEClip = mEClip;
-	}
-
-	/**
-	 * Retourne le Clip de bruitage evenementielle
-	 * 
-	 * @param bGMClip clip de bruitage evenementielle
-	 */
-	public static void setSEClip(Clip sEClip) {
-		SEClip = sEClip;
 	}
 	
 }

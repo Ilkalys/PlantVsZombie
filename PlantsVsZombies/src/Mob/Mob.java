@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Screens.GameWorld;
 
@@ -84,8 +85,11 @@ public abstract class Mob extends Entite {
 	 */
 	public void takeDamage(int damage) {
 		this.life -= damage;
-		if(this.life <= 0)
+		if(this.life <= 0) {
+			if(!(this instanceof Dynamite))
+				SoundPlayer.PlaySE("death.wav");
 			GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
+		}
 	}
 	
 	//------------------------------------------------------------------------------

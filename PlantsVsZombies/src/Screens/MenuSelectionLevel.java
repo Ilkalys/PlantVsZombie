@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.io.File;
 
 import Resources.Game;
+import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.ZombieSpawner;
 
@@ -30,34 +31,43 @@ public class MenuSelectionLevel extends GameScreen {
 	public void processMouseClick(double x, double y) {
 
 		if(x >= 0.075 && x <=  0.225 && y >= 0.515 && y <= 0.685) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(1));
 		}
 		else if(x >= 0.25 && x <=  0.4 && y >= 0.490 && y <= 0.660) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(2));
 		}
 		else if(x >= 0.425 && x <=  0.575 && y >= 0.515 && y <= 0.685) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(3));
 		}
 		else if(x >= 0.600 && x <= 0.750  && y >= 0.490 && y <= 0.660) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(4));
 		}
 		else if(x >= 0.775 && x <=  0.925 && y >= 0.515 && y <= 0.685) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(5));
 		}
-		else 
-		if(x >= 0.075 && x <=  0.225 && y >= 0.265 && y <= 0.435) {
+		else if(x >= 0.075 && x <=  0.225 && y >= 0.265 && y <= 0.435) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(6));
 		}
 		else if(x >= 0.25 && x <=  0.4 && y >= 0.240 && y <= 0.410) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(7));
 		}
 		else if(x >= 0.425 && x <=  0.575 && y >= 0.265 && y <= 0.435) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(8));
 		}
 		else if(x >= 0.600 && x <= 0.750  && y >= 0.240 && y <= 0.345) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(9));
 		}
 		else if(x >= 0.775 && x <=  0.925 && y >= 0.265 && y <= 0.435) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(10));
 		}
 

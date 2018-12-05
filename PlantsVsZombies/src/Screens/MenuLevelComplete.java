@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.io.File;
 
 import Resources.Game;
+import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.ZombieSpawner;
 
@@ -29,9 +30,11 @@ public class MenuLevelComplete extends GameScreen {
 	@Override
 	public void processMouseClick(double x, double y) {
 		if(x <= 0.68 && x >= 0.52 && y >= 0.57 && y <= 0.63) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()+1));
 		}
 		else if(x <= 0.48 && x >= 0.32 && y >= 0.57 && y <= 0.63) {
+			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new MenuStart());
 		}
 		 
