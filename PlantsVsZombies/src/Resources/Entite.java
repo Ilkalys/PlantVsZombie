@@ -58,7 +58,7 @@ public abstract class Entite {
 	/**
 	 * Retourne la coordonne X de l'entité
 	 * 
-	 * @return X
+	 * @return position.positionX
 	 */
 	public double getX() {
 		return position.getX();
@@ -67,7 +67,7 @@ public abstract class Entite {
 	/**
 	 * Retourne la coordonne Y de l'entité
 	 * 
-	 * @return Y
+	 * @return position.positionY
 	 */
 	public double getY() {
 		return this.position.getY();
