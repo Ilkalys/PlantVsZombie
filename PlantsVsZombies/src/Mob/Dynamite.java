@@ -17,6 +17,8 @@ public class Dynamite extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	// Touche pour selectionner une dynamite
+	private static final char KEY = 'd';
 	// Icone de la dynamite
 	private static final File ICONE = new File("sprites/mob/dynamite.png");
 	// Point de vie de depart d'une dynamite
@@ -125,6 +127,15 @@ public class Dynamite extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne la touche pour selectionner une dynamite
+	 * 
+	 * @return KEY
+	 */
+	public static char getKey() {
+		return KEY;
+	}
+	
 	/**
 	 * Retourne l'icone de la dynamite
 	 * 

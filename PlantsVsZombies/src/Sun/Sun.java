@@ -18,15 +18,15 @@ public class Sun extends Entite {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
+
+	// Icone du soleil
+	private static final File ICONE = new File("sprites/mob/sun.png");
 	// Valeur du soleil
 	private static final int VALUE = 25;
 	// Temps de vie du soleil
 	private static final int LIFE_TIME = 20_000;
 	// Timer du temps de vie
-	private Timer lifeTimer;
-	// Chemin vers le sprite
-	private File SpriteFilepath;
+	private Timer Life;
 
 	
 	//------------------------------------------------------------------------------
@@ -37,8 +37,7 @@ public class Sun extends Entite {
 	
 	public Sun(double x, double y) {
 		super(x, y);
-		this.lifeTimer = new Timer(LIFE_TIME);
-		SpriteFilepath = new File("sprites/mob/sun.png");
+		this.Life = new Timer(LIFE_TIME);
 	}
 
 	
@@ -52,9 +51,8 @@ public class Sun extends Entite {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public void step() {
-		if(this.lifeTimer.hasFinished()) {
-			GameWorld.removeEntiteFrom(GameWorld.getSuns(),this);
-			GameWorld.getBank().add(VALUE);
+		if(this.Life.hasFinished()) {
+			GameWorld.removeEntiteFrom(GameWorld.getSuns(), this);
 		}
 	}
 	
@@ -62,7 +60,7 @@ public class Sun extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteFilepath.getAbsolutePath(), 0.1, 0.1);
+		StdDraw.picture(this.getX(), this.getY(), ICONE.getAbsolutePath(), 0.1, 0.1);
 	}
 
 	/**
@@ -91,6 +89,15 @@ public class Sun extends Entite {
 	//------------------------------------------------------------------------------
 
 	/**
+	 * Retourne l'icone du soleil
+	 * 
+	 * @return ICONE
+	 */
+	public static File getIcone() {
+		return ICONE;
+	}
+	
+	/**
 	 * Retourne la valeur du soleil
 	 * 
 	 * @return VALUE
@@ -106,6 +113,31 @@ public class Sun extends Entite {
 	 */
 	public static int getLifeTime() {
 		return LIFE_TIME;
+	}
+	
+	/**
+	 * Retourne le timer pour le temps de vie d'un soleil
+	 * 
+	 * @return Life
+	 */
+	public Timer getSunrise() {
+		return this.Life;
+	}
+	
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      SETTERS
+	*/
+	//------------------------------------------------------------------------------
+	
+	/**
+	 * Modifie le timer pour le temps de vie d'un soleil
+	 * 
+	 * @param timer nouveau timer
+	 */
+	public void setLife(Timer timer) {
+		this.Life = timer;
 	}
 	
 }

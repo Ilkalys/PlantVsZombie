@@ -17,6 +17,8 @@ public class Sunflower extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	// Touche pour selectionner un tournesol
+	private static final char KEY = 't';
 	// Icone du tournesol
 	private static final File ICONE = new File("sprites/mob/sunflower.png");
 	// Point de vie de depart d'un tournesol
@@ -82,6 +84,15 @@ public class Sunflower extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne la touche pour selectionner un tournesol
+	 * 
+	 * @return KEY
+	 */
+	public static char getKey() {
+		return KEY;
+	}
+	
 	/**
 	 * Retourne l'icone du tournesol
 	 * 

@@ -16,6 +16,8 @@ public class Nuts extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	// Touche pour selectionner une noix
+	private static final char KEY = 'n';
 	// Icone de la noix
 	private static final File ICONE = new File("sprites/mob/nuts/nuts_0.png");
 	// Point de vie de depart d'une noix
@@ -114,6 +116,15 @@ public class Nuts extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne la touche pour selectionner une noix
+	 * 
+	 * @return KEY
+	 */
+	public static char getKey() {
+		return KEY;
+	}
+	
 	/**
 	 * Retourne l'icone de la noix
 	 * 

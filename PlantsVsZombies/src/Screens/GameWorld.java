@@ -19,31 +19,22 @@ public class GameWorld extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
+	// Chemin vers les sprites
+	private static final File SPRITES = new File("sprites");
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
-	// L'ensemble des Suns qui apparaitront.
+	// L'ensemble des soleils qui apparaitront
 	private static List<Entite> suns;
+	// Gestionnaire des apparitions de zombies
+	private static ZombieSpawner ZombieSpawn;
+	// Gestionnaire des apparitions de soleil
+	private static SunSpawner SunSpawn;
 	// Plante selectionne
 	private static String selectedPlant;
-	// Gestionnaire des apparitions de soleil
-	private static SunSpawner sunSpawn;
 	// Porte-feuille du joueur
-	private static SunWallet bank;
-	// Gestionnaire des apparitions de zombies
-	private static ZombieSpawner zombieSpawn;
-	// Quantité de zombies du niveau
+	private static int wallet;
+	// Quantité de zombies restant a apparaitre
 	private static int zombieQuantity;
-
-	// Touche pour selectionner un tournesol
-	private static final char SUNFLOWER_KEY = 't';
-	// Touche pour selectionner un tire-pois
-	private static final char PEASSHOOTER_KEY = 'p';
-	// Touche pour selectionner une noix
-	private static final char NUTS_KEY = 'n';
-	// Touche pour selectionner une dynamite
-	private static final char DYNAMITE_KEY = 'd';
-	private File SpriteFilepath = new File("sprites");
-
 
 
 	//------------------------------------------------------------------------------
@@ -71,12 +62,13 @@ public class GameWorld extends GameScreen {
 		entites = new LinkedList<Entite>();
 		suns = new LinkedList<Entite>();
 
+		// Gestionnaire des appartions
+		ZombieSpawn = new ZombieSpawner(difficulte);
+		SunSpawn = new SunSpawner();
+		
 		selectedPlant = null;
-		sunSpawn = new SunSpawner();
-		bank = new SunWallet(0, 0, 1000);
-		entites.add(bank);
-		zombieSpawn = new ZombieSpawner(difficulte);
-		zombieQuantity = zombieSpawn.getLevel().size();
+		wallet = 50;
+		zombieQuantity = ZombieSpawn.getLevel().size();
 	}
 
 
@@ -93,23 +85,16 @@ public class GameWorld extends GameScreen {
 	 * @param key Touche pressee par l'utilisateur
 	 */
 	public void processUserInput(char key) {
-		switch (key) {
-		case SUNFLOWER_KEY:
+		if(key == Sunflower.getKey())
 			selectSunflower();
-			break;
-		case PEASSHOOTER_KEY:
+		else if(key == PeasShooter.getKey())
 			selectPeasShooter();
-			break;
-		case NUTS_KEY:
+		else if(key == Nuts.getKey())
 			selectNuts();
-			break;
-		case DYNAMITE_KEY:
+		else if(key == Dynamite.getKey())
 			selectDynamite();
-			break;
-		default:
+		else
 			System.out.println("Touche non prise en charge.");
-			break;
-		}
 	}
 
 	/**
@@ -123,14 +108,14 @@ public class GameWorld extends GameScreen {
 		// Recuperation d'un soleil
 		Sun sunHere = Sun.somethingHere(suns, x, y);
 		if(sunHere != null) {
-			bank.add(Sun.getValue());
+			wallet += Sun.getValue();
 			suns.remove(sunHere);
 		} else {
-			// Explosition d'une dynamite
+			// Explosion d'une dynamite
 			Dynamite dynamiteHere = Dynamite.somethingHere(entites, x, y);
-			if(dynamiteHere != null) {
+			if(dynamiteHere != null)
 				dynamiteHere.explose();
-			} else {
+			else {
 				// Selection d'un tournesol à la souris
 				if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
 					selectSunflower();
@@ -155,22 +140,22 @@ public class GameWorld extends GameScreen {
 					// Verification que la case souhaité soit vide
 					if(Mob.somethingHere(entites, rx, ry) == null) {
 						if(selectedPlant == Sunflower.class.getName()) {
-							bank.add(-Sunflower.getPrice());
+							wallet -= Sunflower.getPrice();
 							entites.add(new Sunflower(rx, ry));
 							selectedPlant = null;
 						}
 						if(selectedPlant == PeasShooter.class.getName()) {
-							bank.add(-PeasShooter.getPrice());
+							wallet -= PeasShooter.getPrice();
 							entites.add(new PeasShooter(rx, ry));
 							selectedPlant = null;
 						}
 						if(selectedPlant == Nuts.class.getName()) {
-							bank.add(-Nuts.getPrice());
+							wallet -= Nuts.getPrice();
 							entites.add(new Nuts(rx, ry));
 							selectedPlant = null;
 						}
 						if(selectedPlant == Dynamite.class.getName()) {
-							bank.add(-Dynamite.getPrice());
+							wallet -= Dynamite.getPrice();
 							entites.add(new Dynamite(rx, ry));
 							selectedPlant = null;
 						}
@@ -188,7 +173,6 @@ public class GameWorld extends GameScreen {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {
-
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) != null) {
 				entites.get(i).step();
@@ -199,81 +183,177 @@ public class GameWorld extends GameScreen {
 				suns.get(i).step();
 			}
 		}
-		zombieSpawn.step();
-		sunSpawn.step();
-
-
+		ZombieSpawn.step();
+		SunSpawn.step();
 	}
+	
 	/**
 	 * Dessine les entites du jeu
 	 */
 	@SuppressWarnings("static-access")
 	public void dessine() {
+		// Affichage fond
 		StdDraw.setFont();
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
-		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() +"/bg/PanneauMonnaie.png", 0.15, 0.15);
-		StdDraw.picture(0.9, 0.95, SpriteFilepath.getAbsolutePath() +"/bg/PanneauScore.png", 0.2, 0.2);
-		StdDraw.text(0.9, 0.932, "Level : " + zombieSpawn.getCurrentDifficulty());
+		StdDraw.picture(0.5, 0.5, SPRITES.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
+		
+		// Affichage du porte-monnaie
+		StdDraw.picture(0.9, 0.05, SPRITES.getAbsolutePath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.text(0.9, 0.1, "" + wallet);
+		StdDraw.picture(0.87, 0.1, Sun.getIcone().getAbsolutePath(), 0.04, 0.04);
+		
+		// Affichage du nombre de zombies
+		StdDraw.picture(0.9, 0.95, SPRITES.getAbsolutePath() + "/bg/PanneauScore.png", 0.2, 0.2);
+		StdDraw.text(0.9, 0.932, "Level : " + ZombieSpawn.getCurrentDifficulty());
 		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
 
+		// Affichage des icones
 		if(selectedPlant == Sunflower.class.getName())
-			StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);;
-		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/sunflower.png", 0.12, 0.12);
-		double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime()/50);
-		StdDraw.picture(0.1, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadSunFlo,heightLoadSunFlo);
+			StdDraw.picture(0.1, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png", 0.1, 0.1);;
+		StdDraw.picture(0.1, 0.1, Sunflower.getIcone().getAbsolutePath(), 0.12, 0.12);
+		double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime() / (Sunflower.getCooldownTime() / 100));
+		StdDraw.picture(0.1, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadSunFlo, heightLoadSunFlo);
 
 		if(selectedPlant == PeasShooter.class.getName())
-			StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/peasShooter/peasShooter_0.png", 0.12, 0.12);
-		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime()/50);
-		StdDraw.picture(0.3, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadPeasSh,heightLoadPeasSh);
+			StdDraw.picture(0.3, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png", 0.1, 0.1);
+		StdDraw.picture(0.3, 0.1, PeasShooter.getIcone().getAbsolutePath(), 0.12, 0.12);
+		double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime() / (PeasShooter.getCooldownTime() / 100));
+		StdDraw.picture(0.3, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadPeasSh, heightLoadPeasSh);
 
 		if(selectedPlant == Nuts.class.getName())
-			StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/nuts/nuts_0.png", 0.12, 0.12);
-		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime()/200);
-		StdDraw.picture(0.5, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadNuts,heightLoadNuts);
+			StdDraw.picture(0.5, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+		StdDraw.picture(0.5, 0.1, Nuts.getIcone().getAbsolutePath(), 0.12, 0.12);
+		double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime() / (Nuts.getCooldownTime() / 100));
+		StdDraw.picture(0.5, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadNuts, heightLoadNuts);
 
 		if(selectedPlant == Dynamite.class.getName())
-			StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-		StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() +"/mob/dynamite.png", 0.12, 0.12);
-		double heightLoadDynamite = ((Dynamite.getCooldown() == null)? 0 : Dynamite.getCooldown().getActualTime()/300);
-		StdDraw.picture(0.7, 0.1, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",heightLoadDynamite,heightLoadDynamite);
+			StdDraw.picture(0.7, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.1, Dynamite.getIcone().getAbsolutePath(), 0.12, 0.12);
+		double heightLoadDynamite = ((Dynamite.getCooldown() == null)? 0 : Dynamite.getCooldown().getActualTime() / (Dynamite.getCooldownTime() / 100));
+		StdDraw.picture(0.7, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadDynamite, heightLoadDynamite);
 
 
-			StdDraw.setPenColor(StdDraw.BLACK);
-			StdDraw.square(0.1, 0.1, 0.05);	
-			StdDraw.text(0.1, 0.17, Sunflower.getPrice()+"");
-			StdDraw.square(0.3, 0.1, 0.05);
-			StdDraw.text(0.3, 0.17, PeasShooter.getPrice()+"");
-			StdDraw.square(0.5, 0.1, 0.05);
-			StdDraw.text(0.5, 0.17, Nuts.getPrice()+"");
-			StdDraw.square(0.7, 0.1, 0.05);
-			StdDraw.text(0.7, 0.17, Dynamite.getPrice()+"");
+		// Affichage des prix
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.square(0.1, 0.1, 0.05);	
+		StdDraw.text(0.1, 0.17, Sunflower.getPrice() + "");
+		StdDraw.square(0.3, 0.1, 0.05);
+		StdDraw.text(0.3, 0.17, PeasShooter.getPrice() + "");
+		StdDraw.square(0.5, 0.1, 0.05);
+		StdDraw.text(0.5, 0.17, Nuts.getPrice() + "");
+		StdDraw.square(0.7, 0.1, 0.05);
+		StdDraw.text(0.7, 0.17, Dynamite.getPrice() + "");
 
-			// Cadriage
-			if(selectedPlant != null) {
-				for (double i = 0.70; i >= 0.10; i -= 0.2) {
-					for (double j = 0.1; j <= 0.9; j += 0.2) {
-						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
-					}
-				}
-				for (double i = 0.60; i >= 0.20; i -= 0.2) {
-					for (double j = 0.2; j <= 0.8; j += 0.2) {
-						StdDraw.picture(j, i, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
-					}
+		// Cadriage
+		if(selectedPlant != null) {
+			for (double i = 0.70; i >= 0.10; i -= 0.2) {
+				for (double j = 0.1; j <= 0.9; j += 0.2) {
+					StdDraw.picture(j, i, SPRITES.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
 				}
 			}
-			// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
-			for (float i = 1; i >= 0; i -= 0.1) {
-				for (int j = 0; j < entites.size(); j++) {
-					if(entites.get(j).getY() < i && entites.get(j).getY() >= i-0.1) {
-						entites.get(j).dessine();
-					}
+			for (double i = 0.60; i >= 0.20; i -= 0.2) {
+				for (double j = 0.2; j <= 0.8; j += 0.2) {
+					StdDraw.picture(j, i, SPRITES.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
 				}
 			}
-			for (Entite Sun : suns)
-				Sun.dessine();
+		}
+		
+		// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
+		for (float i = 1; i >= 0; i -= 0.1) {
+			for (int j = 0; j < entites.size(); j++) {
+				if(entites.get(j).getY() < i && entites.get(j).getY() >= (i - 0.1)) {
+					entites.get(j).dessine();
+				}
+			}
+		}
+		for (Entite Sun : suns)
+			Sun.dessine();
+	}
+
+	/**
+	 * Fait apparaitre un nouveau soleil
+	 * @param x la position x du soleil
+	 * @param y la position y du soleil
+	 */
+	public static void addSun(double x, double y) {
+		suns.add(new Sun(x,y));
+	}
+
+	/**
+	 * Fait apparaitre un nouveau Zombie(Sun)
+	 * @param x la position x du zombie
+	 * @param y la position y du zombie
+	 * @param shielded le zombie est blinde ou non
+	 */
+	public static void addZombie(double x, double y, boolean shielded) {
+		if(zombieQuantity !=0) {
+			if(shielded)
+				entites.add(new ShieldedZombie(x,y));
+			else
+				entites.add(new BasicZombie(x,y));
+			zombieQuantity--;
+		}
+
+	}
+
+	/**
+	 * Fait apparaitre un nouveau pois
+	 * @param x la position x du pois
+	 * @param y la position y du pois
+	 */
+	public static void addPeas(double x, double y) {
+		entites.add(new Peas(x,y));
+	}
+
+	/**
+	 * retire une entitée d'une des listes d'entitées
+	 * @param entitesList la liste d'entitées selectionnée
+	 * @param entite l'entitée que l'on veut supprimer
+	 */
+	public static void removeEntiteFrom(List<Entite> entitesList, Entite entite) {
+		if(entite instanceof Sun)
+			wallet += Sun.getValue();
+		entitesList.remove(entite);
+	}
+
+	/**
+	 * Verifie qu'il reste des zombies vivants sur la scene
+	 * 
+	 * @return si il en reste
+	 */
+	public boolean AnyZombie() {
+		if (entites != null) {
+			for (Entite entite : entites)
+				if(entite instanceof Zombie)
+					return true;
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Verifie si le niveau est reussi
+	 * 
+	 * @return true si le niveau est gagne
+	 */
+	public boolean LevelComplete(){
+		if(!AnyZombie() && zombieQuantity == 0) {
+			return true;
+		}
+		return false;
+
+	}
+
+	/**
+	 * Retourne true si le jeu est perdu
+	 * 
+	 * @return gameLost
+	 */
+	public boolean gameLost() {
+		if (entites != null)
+			for(Entite entite  :entites)
+				if(entite.getX() < 0) 
+					return true;
+		return false;
 	}
 
 	/**
@@ -283,7 +363,7 @@ public class GameWorld extends GameScreen {
 		if(selectedPlant != Sunflower.class.getName()) {
 			System.out.println("Le joueur souhaite selectionner un tounesol...");
 			if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
-				if(bank.enoughSun(Sunflower.getPrice())) {
+				if(wallet >= Sunflower.getPrice()) {
 					System.out.println("Tournesol selectionne !");
 					selectedPlant = Sunflower.class.getName();
 				}
@@ -305,7 +385,7 @@ public class GameWorld extends GameScreen {
 		if(selectedPlant != PeasShooter.class.getName()) {
 			System.out.println("Le joueur souhaite selectionner un tire-pois...");
 			if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
-				if(bank.enoughSun(PeasShooter.getPrice())) {
+				if(wallet >= PeasShooter.getPrice()) {
 					System.out.println("Tire-pois selectionne !");
 					selectedPlant = PeasShooter.class.getName();
 				}
@@ -327,7 +407,7 @@ public class GameWorld extends GameScreen {
 		if(selectedPlant != Nuts.class.getName()) {
 			System.out.println("Le joueur souhaite selectionner une noix...");
 			if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
-				if(bank.enoughSun(Nuts.getPrice())) {
+				if(wallet >= Nuts.getPrice()) {
 					System.out.println("Noix selectionnee !");
 					selectedPlant = Nuts.class.getName();
 				}
@@ -349,7 +429,7 @@ public class GameWorld extends GameScreen {
 		if(selectedPlant != Dynamite.class.getName()) {
 			System.out.println("Le joueur souhaite selectionner une dynamite...");
 			if(Dynamite.getCooldown() == null || Dynamite.getCooldown().hasFinished())
-				if(bank.enoughSun(Dynamite.getPrice())) {
+				if(wallet >= Dynamite.getPrice()) {
 					System.out.println("Dynamite selectionnee !");
 					selectedPlant = Dynamite.class.getName();
 				}
@@ -363,86 +443,7 @@ public class GameWorld extends GameScreen {
 			selectedPlant = null;
 		}
 	}
-
-	/**
-	 * Fait apparaitre un nouveau Soleil(Sun)
-	 * @param x la position x du soleil
-	 * @param y la position y du soleil
-	 */
-	public static void addSun(double x, double y) {
-		suns.add(new Sun(x,y));
-	}
-
-	/**
-	 * Fait apparaitre un nouveau Zombie(Sun)
-	 * @param x la position x du zombie
-	 * @param y la position y du zombie
-	 * @param shielded le zombie est-il blindé?
-	 */
-	public static void addZombie(double x, double y, boolean shielded) {
-		if(zombieQuantity !=0) {
-			if(shielded)
-				entites.add(new ShieldedZombie(x,y));
-			else
-				entites.add(new BasicZombie(x,y));
-			zombieQuantity--;
-		}
-
-	}
-
-	/**
-	 * Fait apparaitre un nouveau Pois(Peas)
-	 * @param x la position x du pois
-	 * @param y la position y du pois
-	 */
-	public static void addPeas(double x, double y) {
-		entites.add(new Peas(x,y));
-	}
-
-	/**
-	 * retire une entitée d'une des listes d'entitées
-	 * @param entitesList la liste d'entitées selectionnée
-	 * @param entite l'entitée que l'on veut supprimer
-	 */
-	public static void removeEntiteFrom(List<Entite> entitesList, Entite entite) {
-		entitesList.remove(entite);
-	}
-
-	/**
-	 * Retourne true si le jeu est perdu
-	 * 
-	 * @return gameLost
-	 */
-	public boolean gameLost() {
-		if (entites != null)
-			for(Entite entite  :entites)
-				if(entite.getX() < 0) 
-					return true;
-		return false;
-	}
-
-	public boolean LevelComplete(){
-		if(!AnyZombie() && zombieQuantity == 0) {
-			return true;
-		}
-		return false;
-
-	}
-
-	/**
-	 * Verifie qu'il reste des zombies vivants sur la scène
-	 * @return si il en reste
-	 */
-	public boolean AnyZombie() {
-		if (entites != null) {
-			for (Entite entite : entites)
-				if(entite instanceof Zombie)
-					return true;
-			return false;
-		}
-		return true;
-	}
-
+	
 
 	//------------------------------------------------------------------------------
 	/*
@@ -450,6 +451,15 @@ public class GameWorld extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne le chemin vers l'ensemble des sprites
+	 * 
+	 * @return SPRITES
+	 */
+	public File getSprites() {
+		return SPRITES;
+	}
+	
 	/**
 	 * Retourne l'ensemble des plantes et zombies de la scene
 	 * 
@@ -469,23 +479,118 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
+	 * Retourne le gestionnaire des apparitions de zombies
+	 * 
+	 * @return ZombieSpawn
+	 */
+	public static ZombieSpawner getZombieSpawn() {
+		return ZombieSpawn;
+	}
+	
+	/**
+	 * Retourne le gestionnaire des apparitions de soleils
+	 * 
+	 * @return SunSpawn
+	 */
+	public static SunSpawner getSunSpawn() {
+		return SunSpawn;
+	}
+	
+	/**
+	 * Retourne la plante selectionne
+	 * 
+	 * @return selectedPlant
+	 */
+	public static String getSelectedPlant() {
+		return selectedPlant;
+	}
+	
+	/**
 	 * Retourne le porte-feuille du joueur
 	 * 
-	 * @return bank
+	 * @return wallet
 	 */
-	public static SunWallet getBank() {
-		return bank;
+	public static int getWallet() {
+		return wallet;
 	}
 
-
+	/**
+	 * Retourne la quantité de zombies restant a apparaitre
+	 * 
+	 * @return zombieQuantity
+	 */
 	public static int getZombieQuantity() {
 		return zombieQuantity;
 	}
 
 
-	public static void setZombieQuantity(int zombieQuantity) {
-		GameWorld.zombieQuantity = zombieQuantity;
+	//------------------------------------------------------------------------------
+	/*
+	 **      SETTERS
+	 */
+	//------------------------------------------------------------------------------
+	
+	/**
+	 * Modifie l'ensemble des plantes et zombies de la scene
+	 * 
+	 * @param list la liste des plantes et zombies
+	 */
+	public static void setEntites(List<Entite> list) {
+		entites = list;
 	}
 
+	/**
+	 * Modifie l'ensemble des soleils de la scene
+	 * 
+	 * @param list la liste des soleils 
+	 */
+	public static void setSuns(List<Entite> list) {
+		suns = list;
+	}
+
+	/**
+	 * Modifie le gestionnaire des apparitions de zombies
+	 * 
+	 * @param ZombieSpawner nouveau spawner
+	 */
+	public static void setZombieSpawn(ZombieSpawner ZombieSpawner) {
+		ZombieSpawn = ZombieSpawner;
+	}
+	
+	/**
+	 * Modifie le gestionnaire des apparitions de soleils
+	 * 
+	 * @return SunSpawner nouveau spawner
+	 */
+	public static void setSunSpawn(SunSpawner SunSpawner) {
+		SunSpawn = SunSpawner;
+	}
+	
+	/**
+	 * Modifie la plante selectionne
+	 * 
+	 * @return string nouvelle plante
+	 */
+	public static void setSelectedPlant(String string) {
+		selectedPlant = string;
+	}
+	
+	/**
+	 * Modifie le porte-feuille du joueur
+	 * 
+	 * @return value nouvelle valeur
+	 */
+	public static void setWallet(int value) {
+		wallet = value;
+	}
+
+	/**
+	 * Modifie la quantité de zombies restant a apparaitre
+	 * 
+	 * @return value nouvelle valeur
+	 */
+	public static void setZombieQuantity(int value) {
+		zombieQuantity = value;
+	}
 
 }

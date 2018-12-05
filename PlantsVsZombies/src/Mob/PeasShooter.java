@@ -17,8 +17,10 @@ public class PeasShooter extends Plant {
 	 */
 	//------------------------------------------------------------------------------	
 
+	// Touche pour selectionner un tire-pois
+	private static final char KEY = 'p';
 	// Icone du tire-pois
-	private static final File ICONE = new File("sprites/mob/peasShooter_0.png");
+	private static final File ICONE = new File("sprites/mob/peasShooter/peasShooter_0.png");
 	// Point de vie de depart d'un tire-pois
 	private static final int HPMAX = 300;
 	// Prix du tire-pois
@@ -30,9 +32,6 @@ public class PeasShooter extends Plant {
 	
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
-	// Status de l'animation
-	private int actualAnim;
-
 	// Temps (en ms) pour recharger
 	private static final int RELOAD_TIME = 1_500;
 	// Timer du rechargement pour tirer
@@ -54,7 +53,6 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y, ICONE.getAbsolutePath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
-		this.actualAnim = 0;
 		this.Reload = new Timer(RELOAD_TIME);
 	}
 
@@ -83,34 +81,26 @@ public class PeasShooter extends Plant {
 	/**
 	 * Calcul la prochaine image de l'animation
 	 */
-	private String Animate(){
-		if(this.actualAnim == 250)
-			this.actualAnim = 0;
-		else
-			this.actualAnim++;
-
-		if(this.actualAnim >= 100 && this.actualAnim <= 105)
+	private String Animate() {
+		if( this.Reload.getActualTime()*1000 <= 500)
+			return "0";
+		else if(this.Reload.getActualTime()*1000 >= 500 && this.Reload.getActualTime()*1000 <= 600)
+			return "3";
+		else if(this.Reload.getActualTime()*1000 >= 600 && this.Reload.getActualTime()*1000 <= 700)
+			return "4";
+		else if(this.Reload.getActualTime()*1000 >= 700 && this.Reload.getActualTime()*1000 <= 800)
+			return "3";
+		else if(this.Reload.getActualTime()*1000 >= 800 && this.Reload.getActualTime()*1000 <= 1300)
+			return "0";
+		else if(this.Reload.getActualTime()*1000 >= 1300 && this.Reload.getActualTime()*1000 <= 1400)
 			return "1";
-		else if(this.actualAnim >= 105 && this.actualAnim <= 110)
-			return "0";
-		else if(this.actualAnim >= 110 && this.actualAnim <= 115)
+		else if(this.Reload.getActualTime()*1000 >= 1400 && this.Reload.getActualTime()*1000 <= 1500)
 			return "2";
-		else if(this.actualAnim >= 115 && this.actualAnim <= 140)
-			return "0";
-		else if(this.actualAnim >= 140 && this.actualAnim <= 145)
-			return "3";
-		else if(this.actualAnim >= 145 && this.actualAnim <= 150)
-			return "4";
-		else if(this.actualAnim >= 150 && this.actualAnim <= 155)
-			return "3";
-		else if(this.actualAnim >= 155 && this.actualAnim <= 160)
-			return "4";
-		else if(this.actualAnim >= 160 && this.actualAnim <= 165)
-			return "3";
+
 		else return "0";
 	}
 	/**
-	 * Tire un pois devant le tire-pois
+	 * Fait apparaitre un pois devant le tire-pois
 	 */
 	private void Tirer() {
 		if(this.Reload.hasFinished()) {
@@ -126,6 +116,15 @@ public class PeasShooter extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne la touche pour selectionner un tire-pois
+	 * 
+	 * @return KEY
+	 */
+	public static char getKey() {
+		return KEY;
+	}
+	
 	/**
 	 * Retourne l'icone du tire-pois
 	 * 
@@ -169,6 +168,15 @@ public class PeasShooter extends Plant {
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
+	}
+	
+	/**
+	 * Retourne le chemin vers les sprites d'animation
+	 * 
+	 * @return SpriteAnim
+	 */
+	public static File getSpriteAnim() {
+		return SpriteAnim;
 	}
 
 	/**
