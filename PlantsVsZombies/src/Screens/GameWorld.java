@@ -73,7 +73,7 @@ public class GameWorld extends GameScreen {
 
 		selectedPlant = null;
 		sunSpawn = new SunSpawner();
-		bank = new SunWallet(0, 0, 550);
+		bank = new SunWallet(0, 0, 50);
 		entites.add(bank);
 		zombieSpawn = new ZombieSpawner(difficulte);
 		zombieQuantity = zombieSpawn.getLevel().size();
@@ -157,25 +157,21 @@ public class GameWorld extends GameScreen {
 						if(selectedPlant == Sunflower.class.getName()) {
 							bank.add(-Sunflower.getPrice());
 							entites.add(new Sunflower(rx, ry));
-							Sunflower.restartCooldown();
 							selectedPlant = null;
 						}
 						if(selectedPlant == PeasShooter.class.getName()) {
 							bank.add(-PeasShooter.getPrice());
 							entites.add(new PeasShooter(rx, ry));
-							PeasShooter.restartCooldown();
 							selectedPlant = null;
 						}
 						if(selectedPlant == Nuts.class.getName()) {
 							bank.add(-Nuts.getPrice());
 							entites.add(new Nuts(rx, ry));
-							Nuts.restartCooldown();
 							selectedPlant = null;
 						}
 						if(selectedPlant == Dynamite.class.getName()) {
 							bank.add(-Dynamite.getPrice());
 							entites.add(new Dynamite(rx, ry));
-							Dynamite.restartCooldown();
 							selectedPlant = null;
 						}
 						if(selectedPlant == null) {

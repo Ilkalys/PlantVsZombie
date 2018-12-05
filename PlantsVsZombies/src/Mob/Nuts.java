@@ -2,7 +2,6 @@ package Mob;
 
 import java.io.File;
 
-import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 
@@ -17,11 +16,20 @@ public class Nuts extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	// Icone de la noix
+	private static final File ICONE = new File("sprites/mob/nuts/nuts_0.png");
+	// Point de vie de depart d'une noix
+	private static final int HPMAX = 1_500;
 	// Prix de la noix
 	private static final int PRICE = 50;
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
+	// Temps (en ms) avant de pouvoir replanter une noix
+	private static final int COOLDOWN_TIME = 20_000;
+	// Timer du replantage d'une noix
+	private static Timer Cooldown;
 	
+	// Chemin vers les sprites d'animation
+	private static final File SpriteAnim = new File("sprites/mob/nuts/nuts_");
+	// Status de l'animation
 	private int actualAnim;
 	
 	//------------------------------------------------------------------------------
@@ -37,11 +45,10 @@ public class Nuts extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Nuts(double x, double y){
-		super(x, y);
-		this.setLife(1500);
-		Nuts.setCooldown(new Timer(0));
-		actualAnim =0;
-		this.setSpriteFilepath(new File("sprites/mob/nuts/nuts_"));
+		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		setCooldown(new Timer(COOLDOWN_TIME));
+		
+		this.actualAnim = 0;
 	}
 
 	
@@ -50,55 +57,56 @@ public class Nuts extends Plant {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
-	public  void step() {
-		if(actualAnim == 250) {
-			actualAnim =0;
-		}
-		else actualAnim++;
-	}
-	
-	@Override
-	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, this.getSpriteFilepath().getAbsolutePath() + anim() + ".png", 0.15, 0.15);
+	public void step() {
+		
 	}
 	
 	/**
-	 * Redemarre le compteur de recharge pour l'achat
+	 * Dessine le mob, aux bonnes coordonnees
 	 */
-	public static void restartCooldown() {
-		Nuts.setCooldown(new Timer(20000));
+	@Override
+	public void dessine() {
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
-	private String anim(){
-		if(actualAnim >= 100 && actualAnim<=105)
+	/**
+	 * Calcul la prochaine image de l'animation
+	 */
+	private String Animate(){
+		if(this.actualAnim == 250)
+			this.actualAnim = 0;
+		else
+			this.actualAnim++;
+		
+		if(this.actualAnim >= 100 && this.actualAnim <= 105)
 			return "1";
-		else if(actualAnim >= 105 && actualAnim<=110)
+		else if(this.actualAnim >= 105 && this.actualAnim <= 110)
 			return "2";
-		else if(actualAnim >= 110 && actualAnim<=115)
+		else if(this.actualAnim >= 110 && this.actualAnim <= 115)
 			return "3";
-		else if(actualAnim >= 115 && actualAnim<=120)
+		else if(this.actualAnim >= 115 && this.actualAnim <= 120)
 			return "4";
-		else if(actualAnim >= 120 && actualAnim<=125)
+		else if(this.actualAnim >= 120 && this.actualAnim <= 125)
 			return "5";
-		else if(actualAnim >= 125 && actualAnim<=150)
+		else if(this.actualAnim >= 125 && this.actualAnim <= 150)
 			return "6";
-		else if(actualAnim >= 150 && actualAnim<=155)
+		else if(this.actualAnim >= 150 && this.actualAnim <= 155)
 			return "5";
-		else if(actualAnim >= 155 && actualAnim<=160)
+		else if(this.actualAnim >= 155 && this.actualAnim <= 160)
 			return "4";
-		else if(actualAnim >= 160 && actualAnim<=165)
+		else if(this.actualAnim >= 160 && this.actualAnim <= 165)
 			return "3";
-		else if(actualAnim >= 165 && actualAnim<=170)
+		else if(this.actualAnim >= 165 && this.actualAnim <= 170)
 			return "2";
-		else if(actualAnim >= 170 && actualAnim<=175)
+		else if(this.actualAnim >= 170 && this.actualAnim <= 175)
 			return "1";
 		else return "0";
-		
 	}
+	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -106,6 +114,24 @@ public class Nuts extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne l'icone de la noix
+	 * 
+	 * @return ICONE
+	 */
+	public static File getIcone() {
+		return ICONE;
+	}
+	
+	/**
+	 * Retourne le nombre de point de vie de depart d'une noix
+	 * 
+	 * @return HPMAX
+	 */
+	public static int getHPMax() {
+		return HPMAX;
+	}
+	
 	/**
 	 * Retourne le prix de la noix
 	 * 
@@ -116,14 +142,40 @@ public class Nuts extends Plant {
 	}
 	
 	/**
-	 * Retourne le timer chargï¿½ de calculer le temps de rechargement de la plante
+	 * Retourne le temps (en ms) avant de pouvoir replanter une noix
 	 * 
-	 * @return cooldown
+	 * @return COOLDOWN_TIME
 	 */
-	public static Timer getCooldown() {
-		return cooldown;
+	public static int getCooldownTime() {
+		return COOLDOWN_TIME;
 	}
 	
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une noix
+	 * 
+	 * @return Cooldown
+	 */
+	public static Timer getCooldown() {
+		return Cooldown;
+	}
+	
+	/**
+	 * Retourne le chemin vers les sprites d'animation
+	 * 
+	 * @return SpriteAnim
+	 */
+	public static File getSpriteAnim() {
+		return SpriteAnim;
+	}
+	
+	/**
+	 * Retourne le status de l'animation
+	 * 
+	 * @return actualAnim
+	 */
+	public int getActualAnim() {
+		return this.actualAnim;
+	}
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -132,13 +184,21 @@ public class Nuts extends Plant {
 	//------------------------------------------------------------------------------
 	
 	/**
-	 * Modifie le timer chargï¿½ de calculer le temps de rechargement de la plante
+	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tire-pois
 	 * 
-	 * @param timer
+	 * @param timer nouveau timer
 	 */
 	public static void setCooldown(Timer timer) {
-		cooldown = timer;
+		Cooldown = timer;
 	}
 	
+	/**
+	 * Modifie le status de l'animation
+	 * 
+	 * @param actualAnim nouvelle valeur
+	 */
+	public void setActualAnim(int actualAnim) {
+		this.actualAnim = actualAnim;
+	}
 	
 }

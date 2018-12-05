@@ -17,12 +17,19 @@ public class Dynamite extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Nombre de degat qu'inflige un pois
+	// Icone de la dynamite
+	private static final File ICONE = new File("sprites/mob/nuts/dynamite.png");
+	// Point de vie de depart d'une dynamite
+	private static final int HPMAX = 750;
+	// Prix de la dynamite
+	private static final int PRICE = 300;
+	// Temps (en ms) avant de pouvoir replanter une dynamite
+	private static final int COOLDOWN_TIME = 30_000;
+	// Timer du replantage d'une dynamite
+	private static Timer Cooldown;
+	
+	// Nombre de degat qu'inflige une dynamite
 	private static final int DAMAGE = 500;
-	// Prix du tournesol
-	private static final int PRICE = 250;
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -37,10 +44,8 @@ public class Dynamite extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Dynamite(double x, double y) {
-		super(x, y);
-		this.setLife(750);
-		Dynamite.setCooldown(new Timer(0));
-		this.setSpriteFilepath(new File("sprites/mob/dynamite.png"));
+		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		setCooldown(new Timer(COOLDOWN_TIME));
 	}
 
 	
@@ -49,6 +54,13 @@ public class Dynamite extends Plant {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Met a jour l'entite : deplacement, effectuer une action
+	 */
+	public void step() {
+		
+	}
 	
 	/**
 	 * Verifie si une dynamite se trouve a un endroit precis parmi une liste d'entites donnee
@@ -79,13 +91,6 @@ public class Dynamite extends Plant {
 		this.setLife(this.getLife() - damage);
 		if(this.getLife() <= 0)
 			explose();
-	}
-	
-	/**
-	 * Redemarre le compteur de recharge pour l'achat
-	 */
-	public static void restartCooldown() {
-		Dynamite.setCooldown(new Timer(30_000));
 	}
 
 	/**
@@ -120,9 +125,26 @@ public class Dynamite extends Plant {
 	*/
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Retourne l'icone de la dynamite
+	 * 
+	 * @return ICONE
+	 */
+	public static File getIcone() {
+		return ICONE;
+	}
 	
 	/**
-	 * Retourne le prix du tournesol
+	 * Retourne le nombre de point de vie de depart d'une dynamite
+	 * 
+	 * @return HPMAX
+	 */
+	public static int getHPMax() {
+		return HPMAX;
+	}
+	
+	/**
+	 * Retourne le prix de la dynamite
 	 * 
 	 * @return PRICE
 	 */
@@ -131,21 +153,30 @@ public class Dynamite extends Plant {
 	}
 	
 	/**
-	 * Retourne le nombre de damage du pois
+	 * Retourne le temps (en ms) avant de pouvoir replanter une dynamite
 	 * 
-	 * @return damage
+	 * @return COOLDOWN_TIME
 	 */
-	public int getDamage() {
-		return DAMAGE;
+	public static int getCooldownTime() {
+		return COOLDOWN_TIME;
 	}
 	
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement de la plante
+	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une dynamite
 	 * 
-	 * @return cooldown
+	 * @return Cooldown
 	 */
 	public static Timer getCooldown() {
-		return cooldown;
+		return Cooldown;
+	}
+	
+	/**
+	 * Retourne le nombre de degat qu'inflige une dynamite
+	 * 
+	 * @return DAMAGE
+	 */
+	public static int getDamage() {
+		return DAMAGE;
 	}
 	
 	
@@ -154,22 +185,14 @@ public class Dynamite extends Plant {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-
+	
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement de la plante
+	 * Modifie le timer chargé de calculer le temps de rechargement pour planter une dynamite
 	 * 
-	 * @param timer
+	 * @param timer nouveau timer
 	 */
 	public static void setCooldown(Timer timer) {
-		cooldown = timer;
+		Cooldown = timer;
 	}
-
-
-	@Override
-	public void step() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }

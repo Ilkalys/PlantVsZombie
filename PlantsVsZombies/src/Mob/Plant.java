@@ -27,8 +27,8 @@ public abstract class Plant extends Mob {
 	 * @param x coordonne X de la plante
 	 * @param y coordonne Y de la plante
 	 */
-	public Plant(double x, double y) {
-		super(x,y);
+	public Plant(double x, double y, String SpriteFilepath, int life) {
+		super(x,y, SpriteFilepath, life);
 	}
 
 	
@@ -44,7 +44,7 @@ public abstract class Plant extends Mob {
 	 * @param entites liste des entites a verifier
 	 * @param x coordonne X a verifier
 	 * @param y coordonne Y a verifier
-	 * @return la plante � l'endroit demand�
+	 * @return la plante trouvee
 	 */
 	public static Plant somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
@@ -63,6 +63,7 @@ public abstract class Plant extends Mob {
 	**      GETTERS
 	*/
 	//------------------------------------------------------------------------------
+
 	
 	
 	//------------------------------------------------------------------------------
@@ -70,6 +71,6 @@ public abstract class Plant extends Mob {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
+
 
 }

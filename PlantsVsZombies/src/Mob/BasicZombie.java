@@ -12,7 +12,11 @@ public class BasicZombie extends Zombie {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
+
+	// Sprite d'un zombie basique
+	private static final File SPRITE_DEFAULT = new File("sprites/mob/basicZombie.png");
+	// Point de vie de depart d'un zombie basique
+	private static final int HPMAX = 200;
 
 	//------------------------------------------------------------------------------
 	/*
@@ -27,11 +31,7 @@ public class BasicZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public BasicZombie(double x, double y) {
-		super(x, y);
-		this.setLife(200);
-		this.setDamage(30);
-		this.setSpeed(0.0025);
-		this.setSpriteFilepath(new File("sprites/mob/basicZombie.png"));
+		super(x, y, SPRITE_DEFAULT.getAbsolutePath(), HPMAX);
 	}
 		
 	
@@ -40,6 +40,39 @@ public class BasicZombie extends Zombie {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
+
 	
-		
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      GETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	/**
+	 * Retourne le sprite d'un zombie basique
+	 * 
+	 * @return SPRITE
+	 */
+	public static File getSpriteDefault() {
+		return SPRITE_DEFAULT;
+	}
+	
+	/**
+	 * Retourne le nombre de point de vie de depart d'un zombie basique
+	 * 
+	 * @return HPMAX
+	 */
+	public static int getHPMax() {
+		return HPMAX;
+	}
+	
+
+	//------------------------------------------------------------------------------
+	/*
+	**      SETTERS
+	*/
+	//------------------------------------------------------------------------------
+	
+	
 }

@@ -16,15 +16,22 @@ public class Sunflower extends Plant {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
-	// Prix
+
+	// Icone du tournesol
+	private static final File ICONE = new File("sprites/mob/sunflower.png");
+	// Point de vie de depart d'un tournesol
+	private static final int HPMAX = 300;
+	// Prix du tournesol
 	private static final int PRICE = 50;
-	// Chemin vers le sprite
-	private static final String SPRITE_FILEPATH = "sprites/mob/sunflower.png";
-	// Temps avant de pouvoir replanter
-	private static Timer cooldown;
+	// Temps (en ms) avant de pouvoir replanter un tournesol
+	private static final int COOLDOWN_TIME = 5_000;
+	// Timer du replantage d'un tournesol
+	private static Timer Cooldown;
+
+	// Temps (en ms) pour l'apparition des soleils
+	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
-	private Timer sunrise;
+	private Timer Sunrise;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -39,10 +46,10 @@ public class Sunflower extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Sunflower(double x, double y) {
-		super(x, y);
-		this.setLife(300);
-		Sunflower.setCooldown(new Timer(0));
-		this.sunrise = new Timer(24000);
+		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		setCooldown(new Timer(COOLDOWN_TIME));
+
+		this.Sunrise = new Timer(SUNRISE_TIME);
 	}
 
 	
@@ -56,20 +63,16 @@ public class Sunflower extends Plant {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public void step() {
-		if(Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) != null)
-			this.sunrise = new Timer(24000);
-
-		else if(sunrise.hasFinished()) {
-			GameWorld.addSun( this.getX(),this.getY());
-			this.sunrise = new Timer(24000);
-		}
+		this.AddSun();
 	}
 	
-	/**
-	 * Redemarre le compteur de recharge pour l'achat
-	 */
-	public static void restartCooldown() {
-		Sunflower.setCooldown(new Timer(5000));
+	private void AddSun() {
+		if(Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) != null)
+			this.setSunrise(new Timer(SUNRISE_TIME));
+		else if(this.Sunrise.hasFinished()) {
+			GameWorld.addSun( this.getX(),this.getY());
+			this.setSunrise(new Timer(SUNRISE_TIME));
+		}
 	}
 
 	
@@ -80,12 +83,21 @@ public class Sunflower extends Plant {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le timer gerant l'apparation des Suns
+	 * Retourne l'icone du tournesol
 	 * 
-	 * @return sunrise
+	 * @return ICONE
 	 */
-	public Timer getSunrise() {
-		return this.sunrise;
+	public static File getIcone() {
+		return ICONE;
+	}
+	
+	/**
+	 * Retourne le nombre de point de vie de depart d'un tournesol
+	 * 
+	 * @return HPMAX
+	 */
+	public static int getHPMax() {
+		return HPMAX;
 	}
 	
 	/**
@@ -98,12 +110,39 @@ public class Sunflower extends Plant {
 	}
 	
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement de la plante
+	 * Retourne le temps (en ms) avant de pouvoir replanter un tournesol
 	 * 
-	 * @return cooldown
+	 * @return COOLDOWN_TIME
+	 */
+	public static int getCooldownTime() {
+		return COOLDOWN_TIME;
+	}
+	
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement pour planter un tournesol
+	 * 
+	 * @return Cooldown
 	 */
 	public static Timer getCooldown() {
-		return cooldown;
+		return Cooldown;
+	}
+	
+	/**
+	 * Retourne le temps (en ms) pour l'apparition des soleils
+	 * 
+	 * @return SUNRISE_TIME
+	 */
+	public static int getSunriseTime() {
+		return SUNRISE_TIME;
+	}
+	
+	/**
+	 * Retourne le timer pour l'apparition des soleils gerer par la plante
+	 * 
+	 * @return Sunrise
+	 */
+	public Timer getSunrise() {
+		return this.Sunrise;
 	}
 	
 	
@@ -112,24 +151,23 @@ public class Sunflower extends Plant {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-
-	/**
-	 * Modifie sunrise
-	 * 
-	 * @param sunrise timer gerant l'apparation des Suns
-	 */
-	public void setSunrise(Timer sunrise) {
-		this.sunrise = sunrise;
-	}
 	
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement de la plante
+	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tournesol
 	 * 
-	 * @param timer
+	 * @param timer nouveau timer
 	 */
 	public static void setCooldown(Timer timer) {
-		cooldown = timer;
+		Cooldown = timer;
 	}
 	
+	/**
+	 * Modifie le timer pour l'apparition des soleils gerer par la plante
+	 * 
+	 * @param timer nouveau timer
+	 */
+	public void setSunrise(Timer timer) {
+		this.Sunrise = timer;
+	}
 	
 }

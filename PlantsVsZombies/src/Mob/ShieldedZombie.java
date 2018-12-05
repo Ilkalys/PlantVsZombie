@@ -12,7 +12,11 @@ public class ShieldedZombie extends Zombie {
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
+
+	// Sprite d'un zombie blinde
+	private static final File SPRITE_DEFAULT = new File("sprites/mob/shieldedZombie.png");
+	// Point de vie de depart d'un zombie blinde
+	private static final int HPMAX = 560;
 
 	//------------------------------------------------------------------------------
 	/*
@@ -27,11 +31,7 @@ public class ShieldedZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public ShieldedZombie(double x, double y) {
-		super(x, y);
-		this.setLife(560);
-		this.setDamage(30);
-		this.setSpeed(0.0025);
-		this.setSpriteFilepath(new File("sprites/mob/shieldedZombie.png"));
+		super(x, y, SPRITE_DEFAULT.getAbsolutePath(), HPMAX);
 	}
 	
 	
@@ -40,6 +40,39 @@ public class ShieldedZombie extends Zombie {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
+
+	
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      GETTERS
+	*/
+	//------------------------------------------------------------------------------
+
+	/**
+	 * Retourne le sprite d'un zombie blinde
+	 * 
+	 * @return SPRITE
+	 */
+	public static File getSpriteDefault() {
+		return SPRITE_DEFAULT;
+	}
+	
+	/**
+	 * Retourne le nombre de point de vie de depart d'un zombie blinde
+	 * 
+	 * @return HPMAX
+	 */
+	public static int getHPMax() {
+		return HPMAX;
+	}
 	
 
+	//------------------------------------------------------------------------------
+	/*
+	**      SETTERS
+	*/
+	//------------------------------------------------------------------------------
+	
+	
 }

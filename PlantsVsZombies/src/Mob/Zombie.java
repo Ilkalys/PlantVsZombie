@@ -11,11 +11,14 @@ import Screens.GameWorld;
  */
 public abstract class Zombie extends Mob {
 
-	private static Timer attack;
 	// Nombre de degat qu'inflige un zombie
-	private int damage;
-	// Vitesse du zombie
-	private double speed;
+	private static final int DAMAGE = 30;
+	// Vitesse d'un zombie
+	private static final double SPEED = 0.25;
+	// Temps avant la prochaine attaque
+	private static final int ATTACK_TIME = 1_000;
+	// Timer pour l'attaque d'un zombie
+	private Timer Attack;
 	
 	
 	//------------------------------------------------------------------------------
@@ -30,9 +33,9 @@ public abstract class Zombie extends Mob {
 	 * @param x coordonne X de la plante
 	 * @param y coordonne Y de la plante
 	 */
-	public Zombie(double x, double y) {
-		super(x, y);
-		attack = new Timer(0);
+	public Zombie(double x, double y, String SpriteFilepath, int life) {
+		super(x, y, SpriteFilepath, life);
+		this.Attack = new Timer(ATTACK_TIME);
 	}
 	
 	
@@ -41,14 +44,27 @@ public abstract class Zombie extends Mob {
 	**      METHODES
 	*/
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Met a jour l'entite : deplacement, effectuer une action
+	 */
+	public void step() {
+		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 100), this.getY());
+		if(obstacle == null)
+			this.position.setX(this.position.getX() - (SPEED / 100));
+		else if(this.Attack.hasFinished()) {
+			obstacle.takeDamage(DAMAGE);
+			this.Attack = new Timer(ATTACK_TIME);
+		}
+	}
 	
 	/**
-	 * Verifie si une plante se trouve a un endroit precis parmi une liste d'entites donnee
+	 * Verifie si un zombie se trouve a un endroit precis parmi une liste d'entites donnee
 	 * 
 	 * @param entites liste des entites a verifier
 	 * @param x coordonne X a verifier
 	 * @param y coordonne Y a verifier
-	 * @return la plante à l'endroit demandé
+	 * @return la zombie trouve
 	 */
 	public static Zombie somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
@@ -61,19 +77,6 @@ public abstract class Zombie extends Mob {
 		return null;
 	}
 	
-	/**
-	 * Met a jour l'entite : deplacement, effectuer une action
-	 */
-	public  void step() {
-		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - this.getSpeed(), this.getY());
-		if(obstacle == null)
-			this.position.setX(this.position.getX() - this.getSpeed());
-		else if(attack.hasFinished()) {
-			obstacle.takeDamage(this.damage);
-			attack = new Timer(1000);
-		}
-	}
-	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -84,44 +87,53 @@ public abstract class Zombie extends Mob {
 	/**
 	 * Retourne le nombre de damage du zombie
 	 * 
-	 * @return damage
+	 * @return DAMAGE
 	 */
-	public int getDamage() {
-		return damage;
+	public static int getDamage() {
+		return DAMAGE;
 	}
-	
+
 	/**
 	 * Retourne la vitesse du zombie
 	 * 
-	 * @return speed
+	 * @return SPEED
 	 */
-	public double getSpeed() {
-		return speed;
+	public static double getSpeed() {
+		return SPEED;
 	}
 
+	/**
+	 * Retourne le temps d'attaque d'un zombie
+	 * 
+	 * @return ATTACK_TIME
+	 */
+	public static double getAttackTime() {
+		return ATTACK_TIME;
+	}
+
+	/**
+	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
+	 * 
+	 * @return Attack
+	 */
+	public Timer getAttack() {
+		return this.Attack;
+	}
+	
 	
 	//------------------------------------------------------------------------------
 	/*
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
+
 	/**
-	 * Modifie damage
+	 * Modifie le timer chargé de calculer le temps de rechargement pour attaquer
 	 * 
-	 * @param damage nombre de degat qu'inflige un zombie
+	 * @param Attack nouveau timer
 	 */
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-	
-	/**
-	 * Modifie speed
-	 * 
-	 * @param speed vitesse du zombie
-	 */
-	public void setSpeed(double speed) {
-		this.speed = speed;
+	public void setAttack(Timer timer) {
+		this.Attack = timer;
 	}
 	
 }

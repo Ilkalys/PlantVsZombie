@@ -1,4 +1,5 @@
 package Mob;
+
 import java.io.File;
 import java.util.List;
 
@@ -10,12 +11,18 @@ import Screens.GameWorld;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public abstract class Mob extends Entite {
-	
-	// Points de vie
-	private int life;	
 
-	// Chelin vers le sprite de la plante
-	private File spriteFilepath;
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------	
+
+	// Sprite de depart
+	private File Sprite;
+	// Points de vie de depart
+	private int life;
+
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -26,11 +33,15 @@ public abstract class Mob extends Entite {
 	/**
 	 * Constructeur
 	 * 
-	 * @param x coordonne X du mob
-	 * @param y coordonne Y du mob
+	 * @param x coordonne X
+	 * @param y coordonne Y
+	 * @param SpriteFilepath chemin vers le sprite de depart
+	 * @param life point de vie de depart
 	 */
-	public Mob(double x, double y) {
+	public Mob(double x, double y, String SpriteFilepath, int life) {
 		super(x, y);
+		this.Sprite = new File(SpriteFilepath);
+		this.life = life;
 	}
 	
 	
@@ -41,10 +52,10 @@ public abstract class Mob extends Entite {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Dessine l'entite, aux bonnes coordonnees
+	 * Dessine le mob, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, this.spriteFilepath.getAbsolutePath(), 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite.getAbsolutePath(), 0.15, 0.15);
 	}
 	
 	/**
@@ -53,7 +64,7 @@ public abstract class Mob extends Entite {
 	 * @param entites liste des entites a verifier
 	 * @param x coordonne X a verifier
 	 * @param y coordonne Y a verifier
-	 * @return boolean
+	 * @return le mob trouve
 	 */
 	public static Mob somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
@@ -67,7 +78,7 @@ public abstract class Mob extends Entite {
 	}
 
 	/**
-	 * Retire des points de vie
+	 * Retire des points de vie au mob
 	 * 
 	 * @param damage nombre de points a retirer
 	 */
@@ -82,33 +93,25 @@ public abstract class Mob extends Entite {
 	**      GETTERS
 	*/
 	//------------------------------------------------------------------------------
-
+	
 	/**
-	 * Retourne le nombre de points de vie
+	 * Retourne le sprite actuel
+	 * 
+	 * @return Sprite
+	 */
+	public File getSprite() {
+		return this.Sprite;
+	}
+	
+	/**
+	 * Retourne le nombre de points de vie actuel
 	 * 
 	 * @return life
 	 */
 	public int getLife() {
-		return life;
+		return this.life;
 	}
-
-	/**
-	 * Retourne true si le mob n'a plus de points de vie
-	 * 
-	 * @return boolean
-	 */
-	public boolean isDead() {
-		return (this.life <= 0);
-	}
-
-	/**
-	 * Retourne le chemin du sprite
-	 * 
-	 * @return spriteFilepath
-	 */
-	public File getSpriteFilepath() {
-		return spriteFilepath;
-	}
+	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -117,21 +120,21 @@ public abstract class Mob extends Entite {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Modifie les points de vie du mod
+	 * Modifie le sprite
 	 * 
-	 * @param life nombre de points de vie
+	 * @param Sprite nouveau sprite
+	 */
+	public void setSprite(File Sprite) {
+		this.Sprite = Sprite;
+	}
+	
+	/**
+	 * Modifie les points de vie du mob
+	 * 
+	 * @param life nouveau nombre de points de vie
 	 */
 	public void setLife(int life) {
 		this.life = life;
-	}
-
-	/**
-	 * Change le sprite du mob
-	 * 
-	 * @param spriteFilepath chemin du nouveau sprite
-	 */
-	public void setSpriteFilepath(File spriteFilepath) {
-		this.spriteFilepath = spriteFilepath;
 	}
 	
 }

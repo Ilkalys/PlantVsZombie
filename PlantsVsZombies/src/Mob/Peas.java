@@ -5,15 +5,18 @@ import java.io.File;
 import Resources.*;
 import Screens.GameWorld;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class Peas extends Entite {
 
 	// Nombre de degat qu'inflige un pois
 	private static final int DAMAGE = 20;
-	// Vitesse du pois
-	private double speed;
-	private File SpriteFilepath;
+	// Vitesse d'un pois
+	private static final double SPEED = 0.5;
+	// Sprite d'un zombie basique
+	private static final File SPRITE_DEFAULT = new File("sprites/mob/peas.png");
 
-	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -29,8 +32,6 @@ public class Peas extends Entite {
 	 */
 	public Peas(double x, double y) {
 		super(x, y);
-		this.setSpeed(0.005);
-		this.SpriteFilepath = new File("sprites/mob/peas.png");
 	}
 	
 	
@@ -44,11 +45,11 @@ public class Peas extends Entite {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public  void step() {
-		Zombie obstacle = Zombie.somethingHere(GameWorld.getEntites(), this.getX() - 0.02 + this.getSpeed(), this.getY());
+		Zombie obstacle = Zombie.somethingHere(GameWorld.getEntites(), this.getX() - 0.02 + (SPEED / 100), this.getY());
 		if(obstacle == null)
-			this.position.setX(this.position.getX() + this.getSpeed());
+			this.position.setX(this.position.getX() + (SPEED / 100));
 		else {
-			obstacle.takeDamage(Peas.DAMAGE);
+			obstacle.takeDamage(DAMAGE);
 			GameWorld.removeEntiteFrom(GameWorld.getEntites(), this);
 		}
 		if(this.getX() >= 1.2)
@@ -59,8 +60,7 @@ public class Peas extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
-		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003,this.SpriteFilepath.getAbsolutePath(), 0.02);
+		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003, SPRITE_DEFAULT.getAbsolutePath(), 0.02);
 	}
 	
 
@@ -69,25 +69,33 @@ public class Peas extends Entite {
 	**      GETTERS
 	*/
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Retourne le nombre de damage du pois
 	 * 
-	 * @return damage
+	 * @return DAMAGE
 	 */
-	public int getDamage() {
+	public static int getDamage() {
 		return DAMAGE;
 	}
-	
+
 	/**
 	 * Retourne la vitesse du pois
 	 * 
-	 * @return speed
+	 * @return SPEED
 	 */
-	public double getSpeed() {
-		return speed;
+	public static double getSpeed() {
+		return SPEED;
 	}
 
+	/**
+	 * Retourne le sprite d'un pois
+	 * 
+	 * @return SPRITE
+	 */
+	public static File getSpriteDefault() {
+		return SPRITE_DEFAULT;
+	}
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -95,12 +103,5 @@ public class Peas extends Entite {
 	*/
 	//------------------------------------------------------------------------------
 	
-	/**
-	 * Modifie speed
-	 * 
-	 * @param speed vitesse du zombie
-	 */
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
+	
 }
