@@ -8,18 +8,18 @@ import Resources.StdDraw;
 import Resources.ZombieSpawner;
 
 public class MenuSelectionLevel extends GameScreen {
-	
+
 	//------------------------------------------------------------------------------
 	/*
 	 **      ATTRIBUTS
 	 */
 	//------------------------------------------------------------------------------
-	
+
 	private File SpriteFilepath;
-	
+
 	public MenuSelectionLevel() {
 		super();
-		SpriteFilepath = new File("sprites");
+		SpriteFilepath = new File("sprites/bg");
 	}
 
 	@Override
@@ -28,25 +28,39 @@ public class MenuSelectionLevel extends GameScreen {
 
 	@Override
 	public void processMouseClick(double x, double y) {
-		if(x >= 0.15 && x <=  0.25 && y >= 0.55 && y <= 0.65) {
+
+		if(x >= 0.075 && x <=  0.225 && y >= 0.515 && y <= 0.685) {
 			Game.setWorld(new GameWorld(1));
 		}
-		else if(x >= 0.35 && x <=  0.45 && y >= 0.55 && y <= 0.65) {
+		else if(x >= 0.25 && x <=  0.4 && y >= 0.490 && y <= 0.660) {
 			Game.setWorld(new GameWorld(2));
 		}
-		else if(x >= 0.55 && x <=  0.65 && y >= 0.55 && y <= 0.65) {
+		else if(x >= 0.425 && x <=  0.575 && y >= 0.515 && y <= 0.685) {
 			Game.setWorld(new GameWorld(3));
 		}
-		else if(x >= 0.75 && x <=  0.85 && y >= 0.55 && y <= 0.65) {
+		else if(x >= 0.600 && x <= 0.750  && y >= 0.490 && y <= 0.660) {
 			Game.setWorld(new GameWorld(4));
 		}
-		else if(x >= 0.45 && x <=  0.55 && y >= 0.35 && y <= 0.45) {
+		else if(x >= 0.775 && x <=  0.925 && y >= 0.515 && y <= 0.685) {
 			Game.setWorld(new GameWorld(5));
 		}
-		else if(x >= 0.41 && x <=  0.59 && y >= 0.07 && y <= 0.13) {
-			Game.setWorld(new MenuStart());
+		else 
+		if(x >= 0.075 && x <=  0.225 && y >= 0.265 && y <= 0.435) {
+			Game.setWorld(new GameWorld(6));
 		}
-		 
+		else if(x >= 0.25 && x <=  0.4 && y >= 0.240 && y <= 0.410) {
+			Game.setWorld(new GameWorld(7));
+		}
+		else if(x >= 0.425 && x <=  0.575 && y >= 0.265 && y <= 0.435) {
+			Game.setWorld(new GameWorld(8));
+		}
+		else if(x >= 0.600 && x <= 0.750  && y >= 0.240 && y <= 0.345) {
+			Game.setWorld(new GameWorld(9));
+		}
+		else if(x >= 0.775 && x <=  0.925 && y >= 0.265 && y <= 0.435) {
+			Game.setWorld(new GameWorld(10));
+		}
+
 	}
 
 	@Override
@@ -55,29 +69,42 @@ public class MenuSelectionLevel extends GameScreen {
 
 	@Override
 	public void dessine() {
-		StdDraw.setPenColor(StdDraw.ORANGE);
-		StdDraw.filledSquare(0.2, 0.6, 0.05);	
-		StdDraw.filledSquare(0.4, 0.6, 0.05);	
-		StdDraw.filledSquare(0.6, 0.6, 0.05);	
-		StdDraw.filledSquare(0.8, 0.6, 0.05);	
-		StdDraw.filledSquare(0.5, 0.4, 0.05);	
 
-		StdDraw.setPenColor(StdDraw.RED);
-		StdDraw.filledRectangle(0.5, 0.1, 0.09, 0.03);
-		
-		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.setFont();
 		StdDraw.setFont(new Font("sans serif",10,40));
-		StdDraw.text(0.2, 0.6, "1");
-		StdDraw.text(0.4, 0.6, "2");
-		StdDraw.text(0.6, 0.6, "3");
-		StdDraw.text(0.8, 0.6, "4");
-		StdDraw.text(0.5, 0.4, "5");
-		StdDraw.text(0.5, 0.1, "Retour");
-		StdDraw.setFont(new Font("sans serif",10,50));
-		StdDraw.text(0.5, 0.9, "Choose Your Level");
+		StdDraw.picture(0.5, 0.5,SpriteFilepath.getAbsolutePath() + "/MenuLevel.png", 1, 1);
+		StdDraw.picture(0.15, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.15, 0.6, "1");
 
+		StdDraw.picture(0.325, 0.575,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.325, 0.575, "2");
+
+		StdDraw.picture(0.5, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.5, 0.6, "3");
+
+		StdDraw.picture(0.675, 0.575,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.675, 0.575, "4");
+
+		StdDraw.picture(0.85, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.85, 0.6, "5");
+
+		StdDraw.picture(0.15, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.15, 0.35, "6");
+
+		StdDraw.picture(0.325, 0.325,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.325, 0.325, "7");
+
+		StdDraw.picture(0.5, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.5, 0.35, "8");
+
+		StdDraw.picture(0.675, 0.325,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.675, 0.325, "9");
+
+		StdDraw.picture(0.85, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.text(0.85, 0.35, "10");
 
 
 	}
+
 
 }
