@@ -47,7 +47,7 @@ public class ZombieSpawner {
 	public void step() {
 		if(timer.hasFinished() && !level.isEmpty()) {
 			ZombieInfos tmp = level.poll();
-			GameWorld.addZombie(1.2, (double)rand.nextInt(5)/10 +0.3, tmp.getIsShielded());
+			GameWorld.addZombie(1.05, (double)rand.nextInt(5)/10 +0.3, tmp.getIsShielded());
 			timer = new Timer(tmp.getTimerValue());
 		}
 	}
@@ -55,14 +55,14 @@ public class ZombieSpawner {
 	private ConcurrentLinkedQueue<ZombieInfos> level1(){
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
 		level.add(new ZombieInfos(10000,false));
-		level.add(new ZombieInfos(10000,false));
+	/*	level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(10000,false));
 		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(0,false));*/
 		return level;
 	}
 	

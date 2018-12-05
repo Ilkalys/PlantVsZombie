@@ -73,7 +73,7 @@ public class GameWorld extends GameScreen {
 
 		selectedPlant = null;
 		sunSpawn = new SunSpawner();
-		bank = new SunWallet(0, 0, 50);
+		bank = new SunWallet(0, 0, 1000);
 		entites.add(bank);
 		zombieSpawn = new ZombieSpawner(difficulte);
 		zombieQuantity = zombieSpawn.getLevel().size();

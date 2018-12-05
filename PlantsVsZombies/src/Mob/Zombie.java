@@ -49,9 +49,9 @@ public abstract class Zombie extends Mob {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public void step() {
-		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 100), this.getY());
+		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 300), this.getY());
 		if(obstacle == null)
-			this.position.setX(this.position.getX() - (SPEED / 100));
+			this.position.setX(this.position.getX() - (SPEED/300));
 		else if(this.Attack.hasFinished()) {
 			obstacle.takeDamage(DAMAGE);
 			this.Attack = new Timer(ATTACK_TIME);

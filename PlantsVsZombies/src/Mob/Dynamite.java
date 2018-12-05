@@ -18,7 +18,7 @@ public class Dynamite extends Plant {
 	//------------------------------------------------------------------------------
 
 	// Icone de la dynamite
-	private static final File ICONE = new File("sprites/mob/nuts/dynamite.png");
+	private static final File ICONE = new File("sprites/mob/dynamite.png");
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Prix de la dynamite

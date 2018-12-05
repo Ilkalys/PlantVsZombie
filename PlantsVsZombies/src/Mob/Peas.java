@@ -13,7 +13,7 @@ public class Peas extends Entite {
 	// Nombre de degat qu'inflige un pois
 	private static final int DAMAGE = 20;
 	// Vitesse d'un pois
-	private static final double SPEED = 0.5;
+	private static final double SPEED = 1.5;
 	// Sprite d'un zombie basique
 	private static final File SPRITE_DEFAULT = new File("sprites/mob/peas.png");
 
@@ -45,9 +45,9 @@ public class Peas extends Entite {
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public  void step() {
-		Zombie obstacle = Zombie.somethingHere(GameWorld.getEntites(), this.getX() - 0.02 + (SPEED / 100), this.getY());
+		Zombie obstacle = Zombie.somethingHere(GameWorld.getEntites(), this.getX() - 0.02 + (SPEED / 300), this.getY());
 		if(obstacle == null)
-			this.position.setX(this.position.getX() + (SPEED / 100));
+			this.position.setX(this.position.getX() + (SPEED / 300));
 		else {
 			obstacle.takeDamage(DAMAGE);
 			GameWorld.removeEntiteFrom(GameWorld.getEntites(), this);
