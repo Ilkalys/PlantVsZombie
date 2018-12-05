@@ -19,15 +19,16 @@ public abstract class Zombie extends Mob {
 	private static final int ATTACK_TIME = 1_000;
 	// Timer pour l'attaque d'un zombie
 	private Timer Attack;
-	
-	
-	
+	// Status de l'animation de marche
+	private int actualAnim;
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      CONSTRUCTEUR
-	*/
+	 **      CONSTRUCTEUR
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -37,13 +38,14 @@ public abstract class Zombie extends Mob {
 	public Zombie(double x, double y, String SpriteFilepath, int life) {
 		super(x, y, SpriteFilepath, life);
 		this.Attack = null;
+		this.actualAnim = 0;
 	}
-	
-	
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      METHODES
-	*/
+	 **      METHODES
+	 */
 	//------------------------------------------------------------------------------
 
 	/**
@@ -58,7 +60,7 @@ public abstract class Zombie extends Mob {
 			this.Attack = new Timer(ATTACK_TIME);
 		}
 	}
-	
+
 	/**
 	 * Verifie si un zombie se trouve a un endroit precis parmi une liste d'entites donnee
 	 * 
@@ -70,40 +72,50 @@ public abstract class Zombie extends Mob {
 	public static Zombie somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
 			if(entites.get(i) instanceof Zombie
-			&& entites.get(i).getX() <= x+0.09
-			&& entites.get(i).getX() >= x-0.09
-			&& entites.get(i).getY() <= y+0.09
-			&& entites.get(i).getY() >= y-0.09)
+					&& entites.get(i).getX() <= x+0.09
+					&& entites.get(i).getX() >= x-0.09
+					&& entites.get(i).getY() <= y+0.09
+					&& entites.get(i).getY() >= y-0.09)
 				return (Zombie)entites.get(i);
 		return null;
 	}
-	
+
 	protected String Animate(){
 		if(this.Attack != null) {
-		if( this.Attack.getActualTime()*1000 >= 750)
-			return "walk_0";
-		else if(this.Attack.getActualTime()*1000 >= 650 && this.Attack.getActualTime()*1000 <= 750)
-			return "attack_0";
-		else if(this.Attack.getActualTime()*1000 >= 600 && this.Attack.getActualTime()*1000 <= 650)
-			return "attack_1";
-		else if(this.Attack.getActualTime()*1000 >= 550 && this.Attack.getActualTime()*1000 <= 600)
-			return "attack_2";
-		else if(this.Attack.getActualTime()*1000 >= 500 && this.Attack.getActualTime()*1000 <= 550)
-			return "attack_3";
-		else if(this.Attack.getActualTime()*1000 >= 250 && this.Attack.getActualTime()*1000 <= 500 )
-			return "attack_4";
-		else if(this.Attack.getActualTime()*1000 >= 50 && this.Attack.getActualTime()*1000 <= 250)
-			return "attack_5";
-		else return "walk_0";
+			if(this.Attack.getActualTime()*1000 >= 650 && this.Attack.getActualTime()*1000 <= 900)
+				return "attack_0";
+			else if(this.Attack.getActualTime()*1000 >= 600 && this.Attack.getActualTime()*1000 <= 650)
+				return "attack_1";
+			else if(this.Attack.getActualTime()*1000 >= 550 && this.Attack.getActualTime()*1000 <= 600)
+				return "attack_2";
+			else if(this.Attack.getActualTime()*1000 >= 500 && this.Attack.getActualTime()*1000 <= 550)
+				return "attack_3";
+			else if(this.Attack.getActualTime()*1000 >= 250 && this.Attack.getActualTime()*1000 <= 500 )
+				return "attack_4";
+			else if(this.Attack.getActualTime()*1000 >= 50 && this.Attack.getActualTime()*1000 <= 250)
+				return "attack_5";
+			else return "walk_0";
 		}
-		else return "walk_0";
+		else {
+			if(this.actualAnim == 20)
+				this.actualAnim = 0;
+			else
+				this.actualAnim++;
+			if(this.actualAnim >= 15 && this.actualAnim <= 20)
+				return "walk_1";
+			else if(this.actualAnim >= 10 && this.actualAnim <= 15)
+				return "walk_2";
+			else if(this.actualAnim >= 5 && this.actualAnim <= 10)
+				return "walk_3";
+			else return "walk_0";
+		}
 	}
 	//------------------------------------------------------------------------------
 	/*
-	**      GETTERS
-	*/
+	 **      GETTERS
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Retourne le nombre de damage du zombie
 	 * 
@@ -139,12 +151,12 @@ public abstract class Zombie extends Mob {
 	public Timer getAttack() {
 		return this.Attack;
 	}
-	
-	
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      SETTERS
-	*/
+	 **      SETTERS
+	 */
 	//------------------------------------------------------------------------------
 
 	/**
@@ -155,5 +167,5 @@ public abstract class Zombie extends Mob {
 	public void setAttack(Timer timer) {
 		this.Attack = timer;
 	}
-	
+
 }
