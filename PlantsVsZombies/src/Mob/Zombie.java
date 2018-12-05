@@ -21,6 +21,7 @@ public abstract class Zombie extends Mob {
 	private Timer Attack;
 	
 	
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
@@ -35,7 +36,7 @@ public abstract class Zombie extends Mob {
 	 */
 	public Zombie(double x, double y, String SpriteFilepath, int life) {
 		super(x, y, SpriteFilepath, life);
-		this.Attack = new Timer(ATTACK_TIME);
+		this.Attack = null;
 	}
 	
 	
@@ -52,7 +53,7 @@ public abstract class Zombie extends Mob {
 		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 300), this.getY());
 		if(obstacle == null)
 			this.position.setX(this.position.getX() - (SPEED/300));
-		else if(this.Attack.hasFinished()) {
+		else if(this.Attack == null || this.Attack.hasFinished() ) {
 			obstacle.takeDamage(DAMAGE);
 			this.Attack = new Timer(ATTACK_TIME);
 		}
@@ -77,7 +78,26 @@ public abstract class Zombie extends Mob {
 		return null;
 	}
 	
-	
+	protected String Animate(){
+		if(this.Attack != null) {
+		if( this.Attack.getActualTime()*1000 >= 750)
+			return "walk_0";
+		else if(this.Attack.getActualTime()*1000 >= 650 && this.Attack.getActualTime()*1000 <= 750)
+			return "attack_0";
+		else if(this.Attack.getActualTime()*1000 >= 600 && this.Attack.getActualTime()*1000 <= 650)
+			return "attack_1";
+		else if(this.Attack.getActualTime()*1000 >= 550 && this.Attack.getActualTime()*1000 <= 600)
+			return "attack_2";
+		else if(this.Attack.getActualTime()*1000 >= 500 && this.Attack.getActualTime()*1000 <= 550)
+			return "attack_3";
+		else if(this.Attack.getActualTime()*1000 >= 250 && this.Attack.getActualTime()*1000 <= 500 )
+			return "attack_4";
+		else if(this.Attack.getActualTime()*1000 >= 50 && this.Attack.getActualTime()*1000 <= 250)
+			return "attack_5";
+		else return "walk_0";
+		}
+		else return "walk_0";
+	}
 	//------------------------------------------------------------------------------
 	/*
 	**      GETTERS

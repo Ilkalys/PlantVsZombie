@@ -17,6 +17,9 @@ public class ShieldedZombie extends Zombie {
 	private static final File SPRITE_DEFAULT = new File("sprites/mob/shieldedZombie.png");
 	// Point de vie de depart d'un zombie blinde
 	private static final int HPMAX = 560;
+	
+	// Chemin vers les sprites d'animation
+		private static final File SpriteAnim = new File("sprites/mob/shieldedZombie/shieldedZombie_");
 
 	//------------------------------------------------------------------------------
 	/*
