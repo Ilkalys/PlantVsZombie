@@ -69,6 +69,10 @@ public class MenuSelectionLevel extends GameScreen {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(10));
 		}
+		else if(x >= 0.35 && x <= 0.65 && y >= 0.03 && y <=0.07) {
+			SoundPlayer.PlaySE("fire.wav");
+			Game.setWorld(new MenuStart());
+		}
 
 	}
 
@@ -111,7 +115,8 @@ public class MenuSelectionLevel extends GameScreen {
 
 		StdDraw.picture(0.85, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.85, 0.35, "10");
-
+		
+		StdDraw.text(0.5, 0.05, "Retour au Menu");
 
 	}
 

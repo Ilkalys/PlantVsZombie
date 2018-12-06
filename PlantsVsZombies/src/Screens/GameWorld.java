@@ -1,9 +1,10 @@
 package Screens;
 
+import java.awt.Font;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.awt.event.KeyEvent;
 import Mob.*;
 import Resources.*;
 
@@ -90,10 +91,16 @@ public class GameWorld extends GameScreen {
 			selectNuts();
 		else if(key == Dynamite.getKey())
 			selectDynamite();
+		else if(StdDraw.isKeyPressed(27)) {
+			Game.setPause(true);
+			Timer.setPause(true);
+		}
 		else
 			System.out.println("Touche non prise en charge.");
+
 	}
 
+	
 	/**
 	 * Gestion des interactions souris avec l'utilisateur (la souris a ete clique)
 	 * 
@@ -191,18 +198,24 @@ public class GameWorld extends GameScreen {
 	public void dessine() {
 		// Affichage fond
 		StdDraw.setFont();
+		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(0.5, 0.5, SPRITES.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
 		
-		// Affichage du porte-monnaie
-		StdDraw.picture(0.9, 0.05, SPRITES.getAbsolutePath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
-		StdDraw.text(0.9, 0.1, "" + wallet);
-		StdDraw.picture(0.87, 0.1, Sun.getIcone().getAbsolutePath(), 0.04, 0.04);
+		StdDraw.setFont(new Font("sans serif",10,20));
 		
 		// Affichage du nombre de zombies
 		StdDraw.picture(0.9, 0.95, SPRITES.getAbsolutePath() + "/bg/PanneauScore.png", 0.2, 0.2);
 		StdDraw.text(0.9, 0.932, "Level : " + ZombieSpawn.getCurrentDifficulty());
 		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
 
+		StdDraw.setFont(new Font("sans serif",10,40));
+		
+		// Affichage du porte-monnaie
+		StdDraw.picture(0.9, 0.05, SPRITES.getAbsolutePath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.text(0.93, 0.094, "" + wallet);
+		StdDraw.picture(0.84, 0.1, Sun.getIcone().getAbsolutePath(), 0.04, 0.04);
+		
+		
 		// Affichage des icones
 		if(selectedPlant == Sunflower.class.getName())
 			StdDraw.picture(0.1, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png", 0.1, 0.1);;
@@ -230,13 +243,16 @@ public class GameWorld extends GameScreen {
 
 
 		// Affichage des prix
-		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.setPenColor((wallet >= Sunflower.getPrice())? StdDraw.BLACK : StdDraw.RED);
 		StdDraw.square(0.1, 0.1, 0.05);	
 		StdDraw.text(0.1, 0.17, Sunflower.getPrice() + "");
+		StdDraw.setPenColor((wallet >= PeasShooter.getPrice())? StdDraw.BLACK : StdDraw.RED);
 		StdDraw.square(0.3, 0.1, 0.05);
 		StdDraw.text(0.3, 0.17, PeasShooter.getPrice() + "");
+		StdDraw.setPenColor((wallet >= Nuts.getPrice())? StdDraw.BLACK : StdDraw.RED);
 		StdDraw.square(0.5, 0.1, 0.05);
 		StdDraw.text(0.5, 0.17, Nuts.getPrice() + "");
+		StdDraw.setPenColor((wallet >= Dynamite.getPrice())? StdDraw.BLACK : StdDraw.RED);
 		StdDraw.square(0.7, 0.1, 0.05);
 		StdDraw.text(0.7, 0.17, Dynamite.getPrice() + "");
 
