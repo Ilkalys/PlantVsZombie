@@ -46,8 +46,10 @@ public class MenuLevelComplete extends GameScreen {
 
 	@Override
 	public void dessine() {
-		StdDraw.setFont(new Font("sans serif",10,50));
 		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.filledSquare(0.5, 0.5, 0.5);
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setFont(new Font("sans serif",10,50));
 		StdDraw.text(0.5, 0.9, "Congratulation");
 		StdDraw.setFont(new Font("sans serif",10,40));
 		StdDraw.text(0.5, 0.8, "Level Complete!");
