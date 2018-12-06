@@ -15,7 +15,7 @@ public class Game {
 	//------------------------------------------------------------------------------
 	
 	// Scene chargee a l'ecran
-	private static GameScreen World = new MenuStart();
+	private static GameScreen World = new MenuLevelComplete();
 	// Determine si le jeu est fini ou non
 	private static boolean stopGame = false;
 	// Determine si la souris est enfoncee ou non
