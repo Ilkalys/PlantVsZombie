@@ -46,9 +46,7 @@ public class GameWorld extends GameScreen {
 	 * Constructeur, il faut initialiser notre monde virtuel
 	 */
 	public GameWorld(int difficulte) {
-		super();
-
-		//Musique
+		// Musique
 		SoundPlayer.PlayBGM("Western.wav");
 		
 		// Remises à zéro des timers

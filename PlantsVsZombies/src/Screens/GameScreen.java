@@ -10,7 +10,7 @@ public abstract class GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 	public GameScreen() {
-		SoundPlayer.stopAll();
+		
 	}
 	
 	public abstract void processUserInput(char key);

@@ -19,7 +19,7 @@ public class MenuGameOver  extends GameScreen {
 	private File SpriteFilepath;
 	
 	public MenuGameOver() {
-		super();
+		SoundPlayer.PlayBGM("SadWestern.wav");
 		SpriteFilepath = new File("sprites");
 	}
 	

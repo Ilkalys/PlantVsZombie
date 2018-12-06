@@ -22,7 +22,6 @@ public class MenuStart extends GameScreen {
 	private File SpriteFilepath;
 
 	public MenuStart() {
-		super();
 		this.ecart = 0;
 		SpriteFilepath = new File("sprites");
 		SoundPlayer.PlayBGM("Blues.wav");

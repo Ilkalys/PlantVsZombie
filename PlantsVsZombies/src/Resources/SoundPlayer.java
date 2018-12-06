@@ -16,8 +16,8 @@ public class SoundPlayer {
 	 */
 	//------------------------------------------------------------------------------
 	
-	// Clips pour la musique de fond, le bruitage de fond et la musique evenementielle
-	private static Clip BGMClip, BGSClip, MEClip;
+	// Clip pour la musique de fond
+	private static Clip BGMClip;
 	
 	
 	//------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ public class SoundPlayer {
 	 * Constructeur de la classe, met tous les attributs à null.
 	 */
 	public SoundPlayer() {
-		BGMClip = null; BGSClip = null; MEClip = null;
+		BGMClip = null;
 	}
 	
 	
@@ -60,42 +60,6 @@ public class SoundPlayer {
 	}
 
 	/**
-	 * Joue un bruitage de fond
-	 * 
-	 * @param file nom du ficher (avec extension)
-	 */
-	public static void PlayBGS(String file) {
-		try {
-			File BGSFilepath = new File("sounds/bgs/" + file);
-			AudioInputStream BGSStream = AudioSystem.getAudioInputStream(BGSFilepath);
-			if(BGSClip != null) BGSClip.stop();
-			BGSClip = AudioSystem.getClip();
-			BGSClip.open(BGSStream);
-			BGSClip.loop(Clip.LOOP_CONTINUOUSLY);
-			BGSClip.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Joue une musique evenementielle
-	 * 
-	 * @param file nom du ficher (avec extension)
-	 */
-	public static void PlayME(String file) {
-		try {
-			File MEFilepath = new File("sounds/me/" + file);
-			AudioInputStream MEStream = AudioSystem.getAudioInputStream(MEFilepath);
-			MEClip = AudioSystem.getClip();
-			MEClip.open(MEStream);
-			MEClip.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
 	 * Joue un bruitage evenementiel
 	 * 
 	 * @param file nom du ficher (avec extension)
@@ -122,36 +86,6 @@ public class SoundPlayer {
 		}
 	}
 	
-	/**
-	 * Arrete le bruitage de fond
-	 */
-	public static void StopBGS() {
-		if(BGMClip != null) {
-			BGMClip.stop();
-			BGMClip = null;
-		}
-	}
-	
-	/**
-	 * Arrete la musique evenementielle
-	 */
-	public static void StopME() {
-		if(MEClip != null) {
-			MEClip.stop();
-			MEClip = null;
-		}
-	}
-	
-	/**
-	 * Arrete tous les sons
-	 */
-	public static void stopAll() {
-		StopBGM();
-		StopBGS();
-		StopME();
-	}
-
-	
 	//------------------------------------------------------------------------------
 	/*
 	 **      GETTERS
@@ -165,24 +99,6 @@ public class SoundPlayer {
 	 */
 	public static Clip getBGMClip() {
 		return BGMClip;
-	}
-
-	/**
-	 * Retourne le Clip de bruitage de fond
-	 * 
-	 * @return BGSClip
-	 */
-	public static Clip getBGSClip() {
-		return BGSClip;
-	}
-
-	/**
-	 * Retourne le Clip de musique evenementielle
-	 * 
-	 * @return MEClip
-	 */
-	public static Clip getMEClip() {
-		return MEClip;
 	}
 	
 	//------------------------------------------------------------------------------
@@ -198,24 +114,6 @@ public class SoundPlayer {
 	 */
 	public static void setBGMClip(Clip bGMClip) {
 		BGMClip = bGMClip;
-	}
-
-	/**
-	 * Retourne le Clip de bruitage de fond
-	 * 
-	 * @param bGMClip clip de bruitage de fond
-	 */
-	public static void setBGSClip(Clip bGSClip) {
-		BGSClip = bGSClip;
-	}
-
-	/**
-	 * Retourne le Clip de musique evenementielle
-	 * 
-	 * @param bGMClip clip de musique evenementielle
-	 */
-	public static void setMEClip(Clip mEClip) {
-		MEClip = mEClip;
 	}
 	
 }

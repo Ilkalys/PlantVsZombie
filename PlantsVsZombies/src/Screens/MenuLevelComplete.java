@@ -19,7 +19,7 @@ public class MenuLevelComplete extends GameScreen {
 	private File SpriteFilepath;
 	
 	public MenuLevelComplete() {
-		super();
+		SoundPlayer.PlayBGM("Ragtime.wav");
 		SpriteFilepath = new File("sprites");
 	}
 

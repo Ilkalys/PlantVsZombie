@@ -19,7 +19,6 @@ public class MenuSelectionLevel extends GameScreen {
 	private File SpriteFilepath;
 
 	public MenuSelectionLevel() {
-		super();
 		SpriteFilepath = new File("sprites/bg");
 	}
 
