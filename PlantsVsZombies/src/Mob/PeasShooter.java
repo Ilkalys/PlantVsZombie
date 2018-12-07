@@ -18,7 +18,7 @@ public class PeasShooter extends Plant {
 	//------------------------------------------------------------------------------	
 
 	// Touche pour selectionner un tire-pois
-	private static final char KEY = 'p';
+	private static char key = 'p';
 	// Icone du tire-pois
 	private static final File ICONE = new File("sprites/mob/peasShooter/peasShooter_0.png");
 	// Point de vie de depart d'un tire-pois
@@ -122,7 +122,7 @@ public class PeasShooter extends Plant {
 	 * @return KEY
 	 */
 	public static char getKey() {
-		return KEY;
+		return key;
 	}
 	
 	/**
@@ -204,6 +204,15 @@ public class PeasShooter extends Plant {
 	 */
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Modifie la touche de selection du TirePois
+	 * 
+	 * @param key la touche voulu
+	 */
+	public static void setKey(char key) {
+		PeasShooter.key = key;
+	}
+	
 	/**
 	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tire-pois
 	 * 

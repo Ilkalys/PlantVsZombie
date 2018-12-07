@@ -17,7 +17,7 @@ public class Nuts extends Plant {
 	//------------------------------------------------------------------------------
 
 	// Touche pour selectionner une noix
-	private static final char KEY = 'n';
+	private static char key = 'n';
 	// Icone de la noix
 	private static final File ICONE = new File("sprites/mob/nuts/nuts_0.png");
 	// Point de vie de depart d'une noix
@@ -122,7 +122,7 @@ public class Nuts extends Plant {
 	 * @return KEY
 	 */
 	public static char getKey() {
-		return KEY;
+		return key;
 	}
 	
 	/**
@@ -193,6 +193,15 @@ public class Nuts extends Plant {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
+	
+	/**
+	 * Modifie la touche de selection de la noix
+	 * 
+	 * @param key la touche voulu
+	 */
+	public static void setKey(char key) {
+		Nuts.key = key;
+	}
 	
 	/**
 	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tire-pois

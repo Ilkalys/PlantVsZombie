@@ -38,13 +38,21 @@ public class MenuStart extends GameScreen {
 	@Override
 	public void processUserInput(char key) {	
 		if(changeButton == Sunflower.getKey()) {
-			
+			if(key != PeasShooter.getKey() && key != Nuts.getKey() && key != Dynamite.getKey() && key != 'i')
+				Sunflower.setKey(key);
+			changeButton = ' ';
 		} else if(changeButton == PeasShooter.getKey()) {
-			
+			if(key != Sunflower.getKey() && key != Nuts.getKey() && key != Dynamite.getKey() && key != 'i')
+				PeasShooter.setKey(key);
+			changeButton = ' ';
 		} else if(changeButton == Nuts.getKey()) {
-			
+			if(key != PeasShooter.getKey() && key != Sunflower.getKey() && key != Dynamite.getKey() && key != 'i')
+				Nuts.setKey(key);
+			changeButton = ' ';
 		} else if(changeButton == Dynamite.getKey()) {
-			
+			if(key != PeasShooter.getKey() && key != Nuts.getKey() && key != Sunflower.getKey() && key != 'i')
+				Dynamite.setKey(key);
+			changeButton = ' ';
 		}
 	}
 
@@ -53,6 +61,22 @@ public class MenuStart extends GameScreen {
 			if(x <= 0.6  && x >= 0.3 && y >= 0.13 && y <= 0.18) {
 				SoundPlayer.PlaySE("fire.wav");
 				menuSetButton = false;
+			}
+			else if(x <= 0.6  && x >= 0.4 && y >= 0.58 && y <= 0.62) {
+				SoundPlayer.PlaySE("fire.wav");
+				changeButton = Sunflower.getKey();
+			}
+			else if(x <= 0.6  && x >= 0.4 && y >= 0.48 && y <= 0.52) {
+				SoundPlayer.PlaySE("fire.wav");
+				changeButton = PeasShooter.getKey();
+			}
+			else if(x <= 0.6  && x >= 0.4 && y >= 0.38 && y <= 0.42) {
+				SoundPlayer.PlaySE("fire.wav");
+				changeButton = Nuts.getKey();
+			}
+			else if(x <= 0.6  && x >= 0.4 && y >= 0.28 && y <= 0.32) {
+				SoundPlayer.PlaySE("fire.wav");
+				changeButton = Dynamite.getKey();
 			}
 		}
 		else {
@@ -121,27 +145,27 @@ public class MenuStart extends GameScreen {
 	private void menuSetButton() {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.setFont(new Font("sans serif",15,40));
-		
+
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.text(0.5, 0.85,"Changement de touches :");
 
-		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setPenColor((changeButton == Sunflower.getKey())?StdDraw.RED : StdDraw.WHITE);
 		StdDraw.text(0.5, 0.6,"Spawn Sherif : " + Sunflower.getKey());
 
-		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setPenColor((changeButton == PeasShooter.getKey())?StdDraw.RED : StdDraw.WHITE);
 		StdDraw.text(0.5, 0.5,"Spawn CowBoy :" + PeasShooter.getKey());
 
-		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setPenColor((changeButton == Nuts.getKey())?StdDraw.RED : StdDraw.WHITE);
 		StdDraw.text(0.5, 0.4,"Spawn Tonneau :" + Nuts.getKey());
 
-		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setPenColor((changeButton == Dynamite.getKey())?StdDraw.RED : StdDraw.WHITE);
 		StdDraw.text(0.5, 0.3,"Spawn Dynamite :" + Dynamite.getKey());
 
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.text(0.5, 0.15,"Retour");
-		
+
 		StdDraw.setPenColor(StdDraw.BLACK);
 	}
 
