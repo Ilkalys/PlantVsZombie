@@ -24,13 +24,13 @@ public abstract class Mob extends Entite {
 	// Points de vie de depart
 	private int life;
 
-	
+
 	//------------------------------------------------------------------------------
 	/*
-	**      CONSTRUCTEUR
-	*/
+	 **      CONSTRUCTEUR
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -44,12 +44,12 @@ public abstract class Mob extends Entite {
 		this.Sprite = new File(SpriteFilepath);
 		this.life = life;
 	}
-	
-	
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      METHODES
-	*/
+	 **      METHODES
+	 */
 	//------------------------------------------------------------------------------
 
 	/**
@@ -58,7 +58,7 @@ public abstract class Mob extends Entite {
 	public void dessine() {
 		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite.getAbsolutePath(), 0.15, 0.15);
 	}
-	
+
 	/**
 	 * Verifie si un mob se trouve a un endroit precis parmi une liste d'entites donnee
 	 * 
@@ -70,10 +70,10 @@ public abstract class Mob extends Entite {
 	public static Mob somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
 			if(entites.get(i) instanceof Mob
-			&& entites.get(i).getX() <= x+0.09
-			&& entites.get(i).getX() >= x-0.09
-			&& entites.get(i).getY() <= y+0.09
-			&& entites.get(i).getY() >= y-0.09)
+					&& entites.get(i).getX() <= x+0.09
+					&& entites.get(i).getX() >= x-0.09
+					&& entites.get(i).getY() <= y+0.09
+					&& entites.get(i).getY() >= y-0.09)
 				return (Mob)entites.get(i);
 		return null;
 	}
@@ -86,18 +86,18 @@ public abstract class Mob extends Entite {
 	public void takeDamage(int damage) {
 		this.life -= damage;
 		if(this.life <= 0) {
-			if(!(this instanceof Dynamite))
-				SoundPlayer.PlaySE("death.wav");
+			SoundPlayer.PlaySE("death.wav");
 			GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
+			GameWorld.addDeadMob(this.getX(), this.getY(), this.getClass().getName());
 		}
 	}
-	
+
 	//------------------------------------------------------------------------------
 	/*
-	**      GETTERS
-	*/
+	 **      GETTERS
+	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Retourne le sprite actuel
 	 * 
@@ -106,7 +106,7 @@ public abstract class Mob extends Entite {
 	public File getSprite() {
 		return this.Sprite;
 	}
-	
+
 	/**
 	 * Retourne le nombre de points de vie actuel
 	 * 
@@ -115,12 +115,12 @@ public abstract class Mob extends Entite {
 	public int getLife() {
 		return this.life;
 	}
-	
-	
+
+
 	//------------------------------------------------------------------------------
 	/*
-	**      SETTERS
-	*/
+	 **      SETTERS
+	 */
 	//------------------------------------------------------------------------------
 
 	/**
@@ -131,7 +131,7 @@ public abstract class Mob extends Entite {
 	public void setSprite(File Sprite) {
 		this.Sprite = Sprite;
 	}
-	
+
 	/**
 	 * Modifie les points de vie du mob
 	 * 
@@ -140,5 +140,5 @@ public abstract class Mob extends Entite {
 	public void setLife(int life) {
 		this.life = life;
 	}
-	
+
 }

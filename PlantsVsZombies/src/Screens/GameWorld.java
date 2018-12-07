@@ -354,6 +354,16 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
+	 * Fait apparaitre un mob mort
+	 * @param x la position x du mob
+	 * @param y la position y du mob
+	 * @param classe le type de mob
+	 */
+	public static void addDeadMob(double x, double y, String classe) {
+		entites.add(new DeadMob(x,y,classe));
+	}
+	
+	/**
 	 * Fait apparaitre une explosion
 	 * @param x la position x de l'explosion
 	 * @param y la position y de l'explosion
