@@ -165,6 +165,8 @@ public class MenuStart extends GameScreen {
 
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.text(0.5, 0.15,"Retour");
+		StdDraw.setFont(new Font("sans serif",15,20));
+		StdDraw.text(0.5, 0.7,"Touche i = Infos");
 
 		StdDraw.setPenColor(StdDraw.BLACK);
 	}
