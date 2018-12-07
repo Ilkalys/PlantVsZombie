@@ -21,10 +21,13 @@ public class MenuLevelComplete extends GameScreen {
 	private double durationSong = 22.857;
 	private Timer launchSong;
 	private double actualTime;
+	// L'effet sonore a-t'il ete joue ou non
+	private boolean sePlayded;
 
 	public MenuLevelComplete() {
 		launchSong = new Timer((int)(2_000));
 		SpriteFilepath = new File("sprites");
+		this.sePlayded = false;
 		SoundPlayer.StopBGM();
 	}
 
@@ -58,6 +61,11 @@ public class MenuLevelComplete extends GameScreen {
 			if(launchSong.hasFinished())
 				launchSong = new Timer((int)(durationSong * 1_000));
 		}
+
+		if(launchSong.getActualTime() <= 0.5 && !this.sePlayded) {
+			SoundPlayer.PlaySE("spot.wav");
+			this.sePlayded = true;
+		}
 	}
 
 	@Override
@@ -79,6 +87,7 @@ public class MenuLevelComplete extends GameScreen {
 
 		if(SoundPlayer.getBGMClip() != null)
 			StdDraw.picture(0.5, 0.2, SpriteFilepath.getAbsolutePath() + "/bg/dancefloor.png", 0.5, 0.5);
+
 
 		//affichage Danse
 		if( SoundPlayer.getBGMClip() != null) {
