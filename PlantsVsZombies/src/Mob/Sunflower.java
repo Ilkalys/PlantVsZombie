@@ -71,9 +71,7 @@ public class Sunflower extends Plant {
 	}
 	
 	private void AddSun() {
-		if(Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) != null)
-			this.setSunrise(new Timer(SUNRISE_TIME));
-		else if(this.Sunrise.hasFinished()) {
+		if(this.Sunrise.hasFinished() && Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) == null) {
 			GameWorld.addSun( this.getX(),this.getY());
 			this.setSunrise(new Timer(SUNRISE_TIME));
 		}
