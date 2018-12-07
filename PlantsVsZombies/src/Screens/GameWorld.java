@@ -35,6 +35,7 @@ public class GameWorld extends GameScreen {
 	private static int wallet;
 	// Quantité de zombies restant a apparaitre
 	private static int zombieQuantity;
+	private static boolean dispInfos;
 
 	//------------------------------------------------------------------------------
 	/*
@@ -66,6 +67,7 @@ public class GameWorld extends GameScreen {
 		selectedPlant = null;
 		wallet = 50;
 		zombieQuantity = ZombieSpawn.getLevel().size();
+		dispInfos = false;
 	}
 
 
@@ -94,6 +96,8 @@ public class GameWorld extends GameScreen {
 		else if(StdDraw.isKeyPressed(KeyEvent.VK_ESCAPE)) {
 
 		}
+		else if(key == 'i')
+			dispInfos = ! dispInfos;
 		else
 			System.out.println("Touche non prise en charge.");
 
@@ -109,7 +113,7 @@ public class GameWorld extends GameScreen {
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en (" + x + ";" + y + ")");
 		// Gestion Boutons Informations
-		if(StdDraw.isKeyPressed(KeyEvent.VK_I)) {
+		if(dispInfos) {
 			if(x <= 0.84 && x >= 0.559 && y >= 0.565 && y <= 0.685)
 				Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()));
 			else if(x <= 0.85 && x >= 0.55 && y >= 0.42 && y <= 0.48)
@@ -267,18 +271,10 @@ public class GameWorld extends GameScreen {
 			StdDraw.square(0.7, 0.1, 0.05);
 			StdDraw.text(0.7, 0.17, Dynamite.getPrice() + "");
 
+
 			// Cadriage
 			if(selectedPlant != null) {
-				for (double i = 0.70; i >= 0.10; i -= 0.2) {
-					for (double j = 0.1; j <= 0.9; j += 0.2) {
-						StdDraw.picture(j, i, SPRITES.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
-					}
-				}
-				for (double i = 0.60; i >= 0.20; i -= 0.2) {
-					for (double j = 0.2; j <= 0.8; j += 0.2) {
-						StdDraw.picture(j, i, SPRITES.getAbsolutePath() + "/bg/Fondu.png", 0.1, 0.1);
-					}
-				}
+				StdDraw.picture(0.50, 0.50, SPRITES.getAbsolutePath() + "/bg/Quadrillage.png",0.9,0.5);
 			}
 
 			// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
@@ -294,13 +290,12 @@ public class GameWorld extends GameScreen {
 				Sun.dessine();
 
 			//Affiche les Infos si demandé
-			dispInfos();
+			if(dispInfos)
+				dispInfos();
 	}
 
 	private void dispInfos() {
-		if(StdDraw.isKeyPressed(KeyEvent.VK_I)) {
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.picture(0.5, 0.5, SPRITES.getAbsolutePath() + "/bg/Fondu.png",1,1);
 			StdDraw.text(0.3, 0.8, "Infos:");
 			StdDraw.text(0.3, 0.7, "Sherif : Touche " + Sunflower.getKey());
 			StdDraw.text(0.3, 0.6, "CowBoy : Touche " + PeasShooter.getKey());
@@ -321,8 +316,6 @@ public class GameWorld extends GameScreen {
 			StdDraw.text(0.7, 0.45, "Retour au Menu");
 
 			StdDraw.setPenColor(StdDraw.BLACK);
-		}
-
 	}
 
 	/**
