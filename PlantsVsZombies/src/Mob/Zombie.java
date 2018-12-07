@@ -81,7 +81,19 @@ public abstract class Zombie extends Mob {
 	}
 
 	protected String Animate(){
-		if(this.Attack != null) {
+		if(this.Attack == null || this.Attack.hasFinished()) {
+			if(this.actualAnim >= 20)
+				this.actualAnim = 0;
+			else
+				this.actualAnim++;
+			if(this.actualAnim >= 15 && this.actualAnim <= 20)
+				return "walk_1";
+			else if(this.actualAnim >= 10 && this.actualAnim <= 15)
+				return "walk_2";
+			else if(this.actualAnim >= 5 && this.actualAnim <= 10)
+				return "walk_3";
+		}
+		else if(this.Attack != null) {
 			if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 350 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 100)
 				return "attack_0";
 			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 400 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 350)
@@ -94,21 +106,8 @@ public abstract class Zombie extends Mob {
 				return "attack_4";
 			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 950 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 750)
 				return "attack_5";
-			else return "walk_0";
 		}
-		else {
-			if(this.actualAnim == 20)
-				this.actualAnim = 0;
-			else
-				this.actualAnim++;
-			if(this.actualAnim >= 15 && this.actualAnim <= 20)
-				return "walk_1";
-			else if(this.actualAnim >= 10 && this.actualAnim <= 15)
-				return "walk_2";
-			else if(this.actualAnim >= 5 && this.actualAnim <= 10)
-				return "walk_3";
-			else return "walk_0";
-		}
+		return "walk_0";
 	}
 	//------------------------------------------------------------------------------
 	/*
