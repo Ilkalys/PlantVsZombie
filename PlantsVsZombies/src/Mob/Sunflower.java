@@ -17,7 +17,7 @@ public class Sunflower extends Plant {
 	//------------------------------------------------------------------------------
 
 	// Touche pour selectionner un tournesol
-	private static final char KEY = 't';
+	private static char key = 't';
 	// Icone du tournesol
 	private static final File ICONE = new File("sprites/mob/sunflower/sunflower_0.png");
 	// Point de vie de depart d'un tournesol
@@ -127,7 +127,7 @@ public class Sunflower extends Plant {
 	 * @return KEY
 	 */
 	public static char getKey() {
-		return KEY;
+		return key;
 	}
 	
 	/**
@@ -209,6 +209,16 @@ public class Sunflower extends Plant {
 		Cooldown = timer;
 	}
 	
+	/**
+	 * Modifie la touche de selection du tournesol
+	 * 
+	 * @param key la touche voulu
+	 */
+	public static void setKey(char key) {
+		Sunflower.key = key;
+	}
+
+
 	/**
 	 * Modifie le timer pour l'apparition des soleils gerer par la plante
 	 * 
