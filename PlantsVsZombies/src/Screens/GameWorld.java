@@ -258,16 +258,16 @@ public class GameWorld extends GameScreen {
 
 
 			// Affichage des prix
-			StdDraw.setPenColor((wallet >= Sunflower.getPrice())? StdDraw.BLACK : StdDraw.RED);
+			StdDraw.setPenColor((wallet >= Sunflower.getPrice() && Sunflower.getCooldown().hasFinished())? StdDraw.BLACK : StdDraw.RED);
 			StdDraw.square(0.1, 0.1, 0.05);	
 			StdDraw.text(0.1, 0.17, Sunflower.getPrice() + "");
-			StdDraw.setPenColor((wallet >= PeasShooter.getPrice())? StdDraw.BLACK : StdDraw.RED);
+			StdDraw.setPenColor((wallet >= PeasShooter.getPrice() && PeasShooter.getCooldown().hasFinished())? StdDraw.BLACK : StdDraw.RED);
 			StdDraw.square(0.3, 0.1, 0.05);
 			StdDraw.text(0.3, 0.17, PeasShooter.getPrice() + "");
-			StdDraw.setPenColor((wallet >= Nuts.getPrice())? StdDraw.BLACK : StdDraw.RED);
+			StdDraw.setPenColor((wallet >= Nuts.getPrice() && Nuts.getCooldown().hasFinished())? StdDraw.BLACK : StdDraw.RED);
 			StdDraw.square(0.5, 0.1, 0.05);
 			StdDraw.text(0.5, 0.17, Nuts.getPrice() + "");
-			StdDraw.setPenColor((wallet >= Dynamite.getPrice())? StdDraw.BLACK : StdDraw.RED);
+			StdDraw.setPenColor((wallet >= Dynamite.getPrice() && Dynamite.getCooldown().hasFinished())? StdDraw.BLACK : StdDraw.RED);
 			StdDraw.square(0.7, 0.1, 0.05);
 			StdDraw.text(0.7, 0.17, Dynamite.getPrice() + "");
 
