@@ -25,6 +25,7 @@ public class MenuLevelComplete extends GameScreen {
 	public MenuLevelComplete() {
 		launchSong = new Timer((int)(2_000));
 		SpriteFilepath = new File("sprites");
+		SoundPlayer.StopBGM();
 	}
 
 	@Override
