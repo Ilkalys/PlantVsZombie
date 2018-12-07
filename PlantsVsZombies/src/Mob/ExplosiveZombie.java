@@ -1,9 +1,11 @@
 package Mob;
 
 import java.io.File;
+import java.util.List;
 
+import Resources.Entite;
+import Resources.SoundPlayer;
 import Resources.StdDraw;
-import Resources.Timer;
 import Screens.GameWorld;
 
 /**
@@ -17,18 +19,16 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers le sprites d'un zombie basique
-	private static final File SPRITE_PATH = new File("sprites/mob/basicZombie/basicZombie_");
-	// Point de vie de depart d'un zombie basique
-	private static final int HPMAX = 200;
-	// Nombre de degat qu'inflige un zombie basique
-	private static final int DAMAGE = 30;
+	// Chemin vers le sprites d'un zombie explosif
+	private static final File SPRITE_PATH = new File("sprites/mob/explosiveZombie/explosiveZombie_");
+	// Point de vie de depart d'un zombie explosif
+	private static final int HPMAX = 80;
+	// Nombre de degat qu'inflige un zombie explosif
+	private static final int DAMAGE = 500;
 	// Vitesse d'un zombie basique
-	private static final double SPEED = 0.25;
-	// Temps avant la prochaine attaque, doit être supérieur à 1_000.
-	private static final int ATTACK_TIME = 1_000;
-	// Timer pour l'attaque d'un zombie basique
-	private Timer Attack;
+	private static final double SPEED = 0.5;
+	// Est a l'arret ou non
+	private boolean stop;
 	
 
 	//------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	public ExplosiveZombie(double x, double y) {
 		super(x, y, SPRITE_PATH.getAbsolutePath() + "walk_0.png", HPMAX);
-		this.Attack = null;
+		this.stop = false;
 	}
 		
 	
@@ -62,10 +62,8 @@ public class ExplosiveZombie extends Zombie {
 		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 300), this.getY());
 		if(obstacle == null)
 			this.position.setX(this.position.getX() - (SPEED / 300));
-		else if(this.Attack == null || this.Attack.hasFinished() ) {
-			obstacle.takeDamage(DAMAGE);
-			this.Attack = new Timer(ATTACK_TIME);
-		}
+		else
+			this.stop = true;
 	}
 
 	/**
@@ -75,6 +73,54 @@ public class ExplosiveZombie extends Zombie {
 	public void dessine() {
 		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
 	}
+
+	/**
+	 * Retire des points de vie
+	 * 
+	 * @param damage nombre de points a retirer
+	 */
+	@Override
+	public void takeDamage(int damage) {
+		this.setLife(this.getLife() - damage);
+		if(this.getLife() <= 0)
+			explose();
+	}
+
+	/**
+	 * Afflige des dégats à toutes les plantes autour du zombie puis la détruit
+	 */
+	public void explose() {
+		GameWorld.addExplosion(this.getX(), this.getY());
+		List<Entite> entites = GameWorld.getEntites();
+		for (int i = 0; i < entites.size(); i++) {
+			if(entites.get(i) instanceof Plant) {
+				if(this.PlantHere(((Plant)entites.get(i)), this.getX() - 0.1, this.getY())
+				|| this.PlantHere(((Plant)entites.get(i)), this.getX() + 0.1, this.getY())
+				|| this.PlantHere(((Plant)entites.get(i)), this.getX(), this.getY() - 0.1)
+				|| this.PlantHere(((Plant)entites.get(i)), this.getX(), this.getY() + 0.1)) {
+					((Plant)entites.get(i)).takeDamage(DAMAGE);
+				}
+			}
+		}
+		SoundPlayer.PlaySE("explosion.wav");
+		GameWorld.removeEntiteFrom(GameWorld.getEntites(), this);
+	}
+	
+	/**
+	 * Verifie si un zombie est particulier est un une case precise
+	 * 
+	 * @param Plant Plante a regarder
+	 * @param x coordonne X du milieu de la case ou regarder
+	 * @param y coordonne Y du milieu de la case ou regarder
+	 * @return true si la plante est a cette emplacement
+	 */
+	private boolean PlantHere(Plant Plant, double x, double y) {
+		if(Plant.getX() <= x + 0.09 && Plant.getX() >= x - 0.09 && Plant.getY() <= y + 0.09 && Plant.getY() >= y - 0.09) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	/**
 	 * Determine quel sprite afficher pour l'animation
@@ -82,7 +128,7 @@ public class ExplosiveZombie extends Zombie {
 	 * @return String
 	 */
 	private String Animate() {
-		if(this.Attack == null || this.Attack.hasFinished()) {
+		if(!this.stop) {
 			if(this.getActualAnim() >= 20)
 				this.setActualAnim(0);
 			else
@@ -94,20 +140,6 @@ public class ExplosiveZombie extends Zombie {
 			else if(this.getActualAnim() >= 5 && this.getActualAnim() <= 10)
 				return "walk_3";
 		}
-		else if(this.Attack != null) {
-			if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 350 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 100)
-				return "attack_0";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 400 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 350)
-				return "attack_1";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME -450 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 400)
-				return "attack_2";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 500 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 450)
-				return "attack_3";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 750 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 500 )
-				return "attack_4";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 950 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 750)
-				return "attack_5";
-		}
 		return "walk_0";
 	}
 	
@@ -118,7 +150,7 @@ public class ExplosiveZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le sprite d'un zombie basique
+	 * Retourne le sprite d'un zombie explosif
 	 * 
 	 * @return SPRITE
 	 */
@@ -127,7 +159,7 @@ public class ExplosiveZombie extends Zombie {
 	}
 	
 	/**
-	 * Retourne le nombre de point de vie de depart d'un zombie basique
+	 * Retourne le nombre de point de vie de depart d'un zombie explosif
 	 * 
 	 * @return HPMAX
 	 */
@@ -153,38 +185,11 @@ public class ExplosiveZombie extends Zombie {
 		return SPEED;
 	}
 
-	/**
-	 * Retourne le temps d'attaque d'un zombie
-	 * 
-	 * @return ATTACK_TIME
-	 */
-	public static double getAttackTime() {
-		return ATTACK_TIME;
-	}
-
-	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
-	 * 
-	 * @return Attack
-	 */
-	public Timer getAttack() {
-		return this.Attack;
-	}
-
-
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
 
-	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour attaquer
-	 * 
-	 * @param Attack nouveau timer
-	 */
-	public void setAttack(Timer timer) {
-		this.Attack = timer;
-	}
-	
 }
