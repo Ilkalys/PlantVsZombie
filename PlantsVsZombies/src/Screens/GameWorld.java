@@ -91,9 +91,9 @@ public class GameWorld extends GameScreen {
 			selectNuts();
 		else if(key == Dynamite.getKey())
 			selectDynamite();
+		// Touche echap appuyée
 		else if(StdDraw.isKeyPressed(27)) {
-			Game.setPause(true);
-			Timer.setPause(true);
+
 		}
 		else
 			System.out.println("Touche non prise en charge.");

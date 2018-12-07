@@ -21,7 +21,6 @@ public class Game {
 	// Determine si la souris est enfoncee ou non
 	private static boolean mousePressed = false;
 
-	private static boolean pause = false;
 	//------------------------------------------------------------------------------
 	/*
 	 **      METHODES
@@ -110,9 +109,6 @@ public class Game {
 		return mousePressed;
 	}
 
-	public static boolean isPause() {
-		return pause;
-	}
 
 
 	//------------------------------------------------------------------------------
@@ -148,8 +144,5 @@ public class Game {
 		Game.mousePressed = mousePressed;
 	}
 
-	public static void setPause(boolean pause) {
-		Game.pause = pause;
-	}
 
 }
