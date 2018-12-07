@@ -21,9 +21,11 @@ public class Explosion extends Entite {
 	// Sprite de l'explosion
 	private static final File SPRITE = new File("sprites/mob/dynamite/explosion.png");
 	// Temps de vie de l'explosion
-	private static final int LIFE_TIME = 1_000;
+	private static final int LIFE_TIME = 100;
 	// Timer du temps de vie
 	private Timer Life;
+	// Taille du sprite
+	private double spriteSize;
 
 	
 	//------------------------------------------------------------------------------
@@ -35,6 +37,7 @@ public class Explosion extends Entite {
 	public Explosion(double x, double y) {
 		super(x, y);
 		this.Life = new Timer(LIFE_TIME);
+		this.spriteSize = 0;
 	}
 
 	
@@ -56,8 +59,10 @@ public class Explosion extends Entite {
 	/**
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
-	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SPRITE.getAbsolutePath(), 0.3, 0.3);
+	public void dessine() {
+		if(this.spriteSize < 0.3)
+			this.spriteSize += 0.1;
+		StdDraw.picture(this.getX(), this.getY(), SPRITE.getAbsolutePath(), spriteSize, spriteSize);
 	}
 
 	
@@ -93,6 +98,15 @@ public class Explosion extends Entite {
 		return this.Life;
 	}
 	
+	/**
+	 * Retourne la taille du sprite
+	 * 
+	 * @return spriteSize
+	 */
+	public double getSpirteSize() {
+		return this.spriteSize;
+	}
+	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -107,6 +121,15 @@ public class Explosion extends Entite {
 	 */
 	public void setLife(Timer timer) {
 		this.Life = timer;
+	}
+	
+	/**
+	 * Modifie la taille du sprite
+	 * 
+	 * @param spriteSize
+	 */
+	public void setSpirteSize(double spriteSize) {
+		this.spriteSize = spriteSize;
 	}
 	
 }
