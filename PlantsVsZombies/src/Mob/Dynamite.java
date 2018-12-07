@@ -20,13 +20,13 @@ public class Dynamite extends Plant {
 	// Touche pour selectionner une dynamite
 	private static final char KEY = 'd';
 	// Icone de la dynamite
-	private static final File ICONE = new File("sprites/mob/dynamite.png");
+	private static final File ICONE = new File("sprites/mob/dynamite/dynamite.png");
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Prix de la dynamite
-	private static final int PRICE = 250;
+	private static final int PRICE = 2;
 	// Temps (en ms) avant de pouvoir replanter une dynamite
-	private static final int COOLDOWN_TIME = 30_000;
+	private static final int COOLDOWN_TIME = 3_000;
 	// Timer du replantage d'une dynamite
 	private static Timer Cooldown;
 	
@@ -75,10 +75,10 @@ public class Dynamite extends Plant {
 	public static Dynamite somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
 			if(entites.get(i) instanceof Dynamite
-			&& entites.get(i).getX() <= x+0.09
-			&& entites.get(i).getX() >= x-0.09
-			&& entites.get(i).getY() <= y+0.09
-			&& entites.get(i).getY() >= y-0.09)
+			&& entites.get(i).getX() <= x+0.05
+			&& entites.get(i).getX() >= x-0.05
+			&& entites.get(i).getY() <= y+0.05
+			&& entites.get(i).getY() >= y-0.05)
 				return (Dynamite)entites.get(i);
 		return null;
 	}
@@ -99,28 +99,37 @@ public class Dynamite extends Plant {
 	 * Afflige des dégats à tous les zombies autour de la dynamite puis la détruit
 	 */
 	public void explose() {
-		Zombie zombieHere;
-		// Zombie en haut
-		zombieHere = Zombie.somethingHere(GameWorld.getEntites(), this.getX(), this.getY() - 0.1);
-		if(zombieHere != null)
-			zombieHere.takeDamage(DAMAGE);
-		// Zombie a gauche
-		zombieHere = Zombie.somethingHere(GameWorld.getEntites(), this.getX() - 0.1, this.getY());
-		if(zombieHere != null)
-			zombieHere.takeDamage(DAMAGE);
-		// Zombie a droite
-		zombieHere = Zombie.somethingHere(GameWorld.getEntites(), this.getX() + 0.1, this.getY());
-		if(zombieHere != null)
-			zombieHere.takeDamage(DAMAGE);
-		// Zombie en bas
-		zombieHere = Zombie.somethingHere(GameWorld.getEntites(), this.getX(), this.getY() + 0.1);
-		if(zombieHere != null)
-			zombieHere.takeDamage(DAMAGE);
-
+		GameWorld.addExplosion(this.getX(), this.getY());
+		List<Entite> entites = GameWorld.getEntites();
+		for (int i = 0; i < entites.size(); i++) {
+			if(entites.get(i) instanceof Zombie) {
+				if(this.ZombieHere(((Zombie)entites.get(i)), this.getX() - 0.1, this.getY())
+				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX() + 0.1, this.getY())
+				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX(), this.getY() - 0.1)
+				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX(), this.getY() + 0.1)) {
+					((Zombie)entites.get(i)).takeDamage(DAMAGE);
+				}
+			}
+		}
 		SoundPlayer.PlaySE("explosion.wav");
 		GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
 	}
 	
+	/**
+	 * Verifie si un zombie est particulier est un une case precise
+	 * 
+	 * @param Zombie Zombie a regarder
+	 * @param x coordonne X du milieu de la case ou regarder
+	 * @param y coordonne Y du milieu de la case ou regarder
+	 * @return true si le zombie est a cet emplacement
+	 */
+	private boolean ZombieHere(Zombie Zombie, double x, double y) {
+		if(Zombie.getX() <= x + 0.09 && Zombie.getX() >= x - 0.09 && Zombie.getY() <= y + 0.09 && Zombie.getY() >= y - 0.09) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	//------------------------------------------------------------------------------
 	/*

@@ -354,6 +354,15 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
+	 * Fait apparaitre une explosion
+	 * @param x la position x de l'explosion
+	 * @param y la position y de l'explosion
+	 */
+	public static void addExplosion(double x, double y) {
+		entites.add(new Explosion(x,y));
+	}
+
+	/**
 	 * retire une entitée d'une des listes d'entitées
 	 * @param entitesList la liste d'entitées selectionnée
 	 * @param entite l'entitée que l'on veut supprimer

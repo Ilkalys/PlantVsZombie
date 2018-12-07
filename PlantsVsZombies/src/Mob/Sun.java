@@ -120,7 +120,7 @@ public class Sun extends Entite {
 	 * 
 	 * @return Life
 	 */
-	public Timer getSunrise() {
+	public Timer getLife() {
 		return this.Life;
 	}
 	
