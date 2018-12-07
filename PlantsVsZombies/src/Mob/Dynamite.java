@@ -18,15 +18,15 @@ public class Dynamite extends Plant {
 	//------------------------------------------------------------------------------
 
 	// Touche pour selectionner une dynamite
-	private static final char KEY = 'd';
+	private static char KEY = 'd';
 	// Icone de la dynamite
 	private static final File ICONE = new File("sprites/mob/dynamite/dynamite.png");
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Prix de la dynamite
-	private static final int PRICE = 2;
+	private static final int PRICE = 250;
 	// Temps (en ms) avant de pouvoir replanter une dynamite
-	private static final int COOLDOWN_TIME = 3_000;
+	private static final int COOLDOWN_TIME = 30_000;
 	// Timer du replantage d'une dynamite
 	private static Timer Cooldown;
 	
@@ -206,6 +206,15 @@ public class Dynamite extends Plant {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Modifie la touche pour selectionner une dynamite
+	 * 
+	 * @return KEY
+	 */
+	public static void setKey(char key) {
+		KEY = key;
+	}
 	
 	/**
 	 * Modifie le timer chargé de calculer le temps de rechargement pour planter une dynamite
