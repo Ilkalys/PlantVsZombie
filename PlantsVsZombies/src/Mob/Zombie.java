@@ -3,23 +3,19 @@ package Mob;
 import java.util.List;
 
 import Resources.Entite;
-import Resources.Timer;
-import Screens.GameWorld;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public abstract class Zombie extends Mob {
 
-	// Nombre de degat qu'inflige un zombie
-	private static final int DAMAGE = 30;
-	// Vitesse d'un zombie
-	private static final double SPEED = 0.25;
-	// Temps avant la prochaine attaque, doit être supérieur à 1_000.
-	private static final int ATTACK_TIME = 1_000;
-	// Timer pour l'attaque d'un zombie
-	private Timer Attack;
-	// Status de l'animation de marche
+	//------------------------------------------------------------------------------
+	/*
+	 **      ATTRIBUTS
+	 */
+	//------------------------------------------------------------------------------
+
+	// Status de l'animation
 	private int actualAnim;
 
 
@@ -32,12 +28,11 @@ public abstract class Zombie extends Mob {
 	/**
 	 * Constructeur
 	 * 
-	 * @param x coordonne X de la plante
-	 * @param y coordonne Y de la plante
+	 * @param x coordonne X du zombie
+	 * @param y coordonne Y du zombie
 	 */
 	public Zombie(double x, double y, String SpriteFilepath, int life) {
 		super(x, y, SpriteFilepath, life);
-		this.Attack = null;
 		this.actualAnim = 0;
 	}
 
@@ -47,19 +42,6 @@ public abstract class Zombie extends Mob {
 	 **      METHODES
 	 */
 	//------------------------------------------------------------------------------
-
-	/**
-	 * Met a jour l'entite : deplacement, effectuer une action
-	 */
-	public void step() {
-		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 300), this.getY());
-		if(obstacle == null)
-			this.position.setX(this.position.getX() - (SPEED/300));
-		else if(this.Attack == null || this.Attack.hasFinished() ) {
-			obstacle.takeDamage(DAMAGE);
-			this.Attack = new Timer(ATTACK_TIME);
-		}
-	}
 
 	/**
 	 * Verifie si un zombie se trouve a un endroit precis parmi une liste d'entites donnee
@@ -80,35 +62,7 @@ public abstract class Zombie extends Mob {
 		return null;
 	}
 
-	protected String Animate(){
-		if(this.Attack == null || this.Attack.hasFinished()) {
-			if(this.actualAnim >= 20)
-				this.actualAnim = 0;
-			else
-				this.actualAnim++;
-			if(this.actualAnim >= 15 && this.actualAnim <= 20)
-				return "walk_1";
-			else if(this.actualAnim >= 10 && this.actualAnim <= 15)
-				return "walk_2";
-			else if(this.actualAnim >= 5 && this.actualAnim <= 10)
-				return "walk_3";
-		}
-		else if(this.Attack != null) {
-			if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 350 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 100)
-				return "attack_0";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 400 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 350)
-				return "attack_1";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME -450 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 400)
-				return "attack_2";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 500 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 450)
-				return "attack_3";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 750 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 500 )
-				return "attack_4";
-			else if(this.Attack.getActualTime()*1000 >= ATTACK_TIME - 950 && this.Attack.getActualTime()*1000 <= ATTACK_TIME - 750)
-				return "attack_5";
-		}
-		return "walk_0";
-	}
+	
 	//------------------------------------------------------------------------------
 	/*
 	 **      GETTERS
@@ -116,42 +70,15 @@ public abstract class Zombie extends Mob {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le nombre de damage du zombie
+	 * Retourne le status de l'animation
 	 * 
-	 * @return DAMAGE
+	 * @return actualAnim
 	 */
-	public static int getDamage() {
-		return DAMAGE;
+	public int getActualAnim() {
+		return this.actualAnim;
 	}
-
-	/**
-	 * Retourne la vitesse du zombie
-	 * 
-	 * @return SPEED
-	 */
-	public static double getSpeed() {
-		return SPEED;
-	}
-
-	/**
-	 * Retourne le temps d'attaque d'un zombie
-	 * 
-	 * @return ATTACK_TIME
-	 */
-	public static double getAttackTime() {
-		return ATTACK_TIME;
-	}
-
-	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
-	 * 
-	 * @return Attack
-	 */
-	public Timer getAttack() {
-		return this.Attack;
-	}
-
-
+	
+	
 	//------------------------------------------------------------------------------
 	/*
 	 **      SETTERS
@@ -159,12 +86,12 @@ public abstract class Zombie extends Mob {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour attaquer
+	 * Modifie le status de l'animation
 	 * 
-	 * @param Attack nouveau timer
+	 * @param actualAnim nouveau status
 	 */
-	public void setAttack(Timer timer) {
-		this.Attack = timer;
+	public void setActualAnim(int actualAnim) {
+		this.actualAnim = actualAnim;
 	}
 
 }
