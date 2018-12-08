@@ -25,7 +25,7 @@ public class Dynamite extends Plant {
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Prix de la dynamite
-	private static final int PRICE = 15;
+	private static final int PRICE = 150;
 	// Temps (en ms) avant de pouvoir replanter une dynamite
 	private static final int COOLDOWN_TIME = 20_000;
 	// Timer du replantage d'une dynamite
