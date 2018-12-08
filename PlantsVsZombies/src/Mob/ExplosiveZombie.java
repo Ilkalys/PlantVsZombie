@@ -1,6 +1,7 @@
 package Mob;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import Resources.Entite;
@@ -92,15 +93,19 @@ public class ExplosiveZombie extends Zombie {
 	public void explose() {
 		GameWorld.addExplosion(this.getX(), this.getY());
 		List<Entite> entites = GameWorld.getEntites();
+		List<Entite> targets = new LinkedList<Entite>();
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) instanceof Plant) {
 				if(this.PlantHere(((Plant)entites.get(i)), this.getX() - 0.1, this.getY())
 				|| this.PlantHere(((Plant)entites.get(i)), this.getX() + 0.1, this.getY())
 				|| this.PlantHere(((Plant)entites.get(i)), this.getX(), this.getY() - 0.1)
 				|| this.PlantHere(((Plant)entites.get(i)), this.getX(), this.getY() + 0.1)) {
-					((Plant)entites.get(i)).takeDamage(DAMAGE);
+					targets.add(entites.get(i));
 				}
 			}
+		}
+		for (int i = 0; i < targets.size(); i++) {
+			((Plant)targets.get(i)).takeDamage(DAMAGE);
 		}
 		SoundPlayer.PlaySE("explosion.wav");
 		GameWorld.removeEntiteFrom(GameWorld.getEntites(), this);

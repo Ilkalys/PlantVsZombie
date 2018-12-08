@@ -1,6 +1,7 @@
 package Mob;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import Resources.*;
@@ -24,7 +25,7 @@ public class Dynamite extends Plant {
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Prix de la dynamite
-	private static final int PRICE = 150;
+	private static final int PRICE = 15;
 	// Temps (en ms) avant de pouvoir replanter une dynamite
 	private static final int COOLDOWN_TIME = 20_000;
 	// Timer du replantage d'une dynamite
@@ -101,15 +102,19 @@ public class Dynamite extends Plant {
 	public void explose() {
 		GameWorld.addExplosion(this.getX(), this.getY());
 		List<Entite> entites = GameWorld.getEntites();
+		List<Entite> targets = new LinkedList<Entite>();
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) instanceof Zombie) {
 				if(this.ZombieHere(((Zombie)entites.get(i)), this.getX() - 0.1, this.getY())
 				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX() + 0.1, this.getY())
 				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX(), this.getY() - 0.1)
 				|| this.ZombieHere(((Zombie)entites.get(i)), this.getX(), this.getY() + 0.1)) {
-					((Zombie)entites.get(i)).takeDamage(DAMAGE);
+					targets.add(entites.get(i));
 				}
 			}
+		}
+		for (int i = 0; i < targets.size(); i++) {
+			((Zombie)targets.get(i)).takeDamage(DAMAGE);
 		}
 		SoundPlayer.PlaySE("explosion.wav");
 		GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
