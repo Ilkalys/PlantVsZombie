@@ -72,7 +72,7 @@ public class MenuLevelComplete extends GameScreen {
 	public void dessine() {
 		//fond
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.filledSquare(0.5, 0.5, 0.5);
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/MenuLevelComplete.png", 1, 1);
 
 		//affichage texte
 		StdDraw.setPenColor(StdDraw.WHITE);
@@ -93,12 +93,15 @@ public class MenuLevelComplete extends GameScreen {
 		if( SoundPlayer.getBGMClip() != null) {
 			animation();
 		}
-		
 		else if(launchSong.getActualTime() <= 0.5 ) {
 			StdDraw.picture(0.5, 0.2, SpriteFilepath.getAbsolutePath() + "/bg/dancefloor.png", 0.5, 0.5);
 			StdDraw.picture(0.4, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
 			StdDraw.picture(0.6, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_2.png", 0.2, 0.2);
-
+		}
+		else {
+			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",1,1);
+			StdDraw.picture(0.4, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_shadow.png", 0.2, 0.2);
+			StdDraw.picture(0.6, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_shadow.png", 0.2, 0.2);
 		}
 	}
 
