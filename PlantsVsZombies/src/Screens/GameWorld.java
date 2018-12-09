@@ -333,15 +333,23 @@ public class GameWorld extends GameScreen {
 	 * @param y la position y du zombie
 	 * @param shielded le zombie est blinde ou non
 	 */
-	public static void addZombie(double x, double y, boolean shielded) {
-		if(zombieQuantity !=0) {
-			if(shielded)
-				entites.add(new ShieldedZombie(x,y));
-			else
-				entites.add(new BasicZombie(x,y));
+	public static void addZombie(double x, double y, int type) {
+		if(zombieQuantity != 0) {
+			switch (type) {
+			case 0:
+				entites.add(new BasicZombie(x, y));
+				break;
+			case 1:
+				entites.add(new ShieldedZombie(x, y));
+				break;
+			case 2:
+				entites.add(new ExplosiveZombie(x, y));
+				break;
+			default:
+				break;
+			}
 			zombieQuantity--;
 		}
-
 	}
 
 	/**

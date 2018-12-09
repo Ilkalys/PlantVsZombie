@@ -9,17 +9,18 @@ import Screens.GameWorld;
 public class ZombieSpawner {
 	private class ZombieInfos{
 		private Integer timerValue;
-		private Boolean isShielded;
+		// 0 = basique ; 1 = blinde ; 2 = explosif
+		private int type;
 
-		public ZombieInfos(Integer timer, boolean isSh){
+		public ZombieInfos(Integer timer, int type) {
 			this.timerValue = timer;
-			this.isShielded = isSh;
+			this.type = type;
 		}
 		public Integer getTimerValue() {
 			return this.timerValue;
 		}
-		public Boolean getIsShielded() {
-			return this.isShielded;
+		public int getType() {
+			return this.type;
 		}
 	}
 
@@ -30,28 +31,41 @@ public class ZombieSpawner {
 
 	public ZombieSpawner(int difficulty){
 		this.currentDifficulty = difficulty;
-		this.timer = new Timer(20000);
-		
-		if(difficulty ==1) {
-			level = level1();
-		}
-		else if(difficulty ==2) {
-			level = level2();
-		}
-		else if(difficulty ==3) {
-			level = level3();
-		}
-		else if(difficulty ==4) {
-			level = level4();
-		}
-		else if(difficulty ==5) {
-			level = level5();
-		}
-		else if(difficulty ==6) {
-			level = level6();
-		}
-		else if(difficulty ==7) {
-			level = level7();
+		this.timer = new Timer(20_000);
+		switch (difficulty) {
+		case 1:
+			this.level = level1();
+			break;
+		case 2:
+			this.level = level2();
+			break;
+		case 3:
+			this.level = level3();
+			break;
+		case 4:
+			this.level = level4();
+			break;
+		case 5:
+			this.level = level5();
+			break;
+		case 6:
+			this.level = level6();
+			break;
+		case 7:
+			this.level = level7();
+			break;
+		case 8:
+			this.level = level8();
+			break;
+		case 9:
+			this.level = level9();
+			break;
+		case 10:
+			this.level = level10();
+			break;
+		default:
+			this.level = level1();
+			break;
 		}
 	}
 
@@ -60,99 +74,126 @@ public class ZombieSpawner {
 	public void step() {
 		if(timer.hasFinished() && !level.isEmpty()) {
 			ZombieInfos tmp = level.poll();
-			GameWorld.addZombie(1.05, (double)rand.nextInt(5)/10 +0.3, tmp.getIsShielded());
+			GameWorld.addZombie(1.05, (double)rand.nextInt(5)/10 +0.3, tmp.getType());
 			timer = new Timer(tmp.getTimerValue());
 		}
 	}
 
-	private ConcurrentLinkedQueue<ZombieInfos> level1(){
+	private ConcurrentLinkedQueue<ZombieInfos> level1() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
 		return level;
 	}
 	
-	private ConcurrentLinkedQueue<ZombieInfos> level2(){
+	private ConcurrentLinkedQueue<ZombieInfos> level2() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(30000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(0, 0));
 		return level;
 	}
 
-	private ConcurrentLinkedQueue<ZombieInfos> level3(){
+	private ConcurrentLinkedQueue<ZombieInfos> level3() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(35000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(30_000, 0));
+		level.add(new ZombieInfos(30_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(0, 0));
 		return level;
 	}
 	
-	private ConcurrentLinkedQueue<ZombieInfos> level4(){
+	private ConcurrentLinkedQueue<ZombieInfos> level4() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(15000,false));
-		level.add(new ZombieInfos(25000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(35000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,true));
-		level.add(new ZombieInfos(0,false));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(15_000, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(35_000, 0));
+		level.add(new ZombieInfos(0, 1));
+		level.add(new ZombieInfos(0, 1));
 		return level;
 	}
 
-	private ConcurrentLinkedQueue<ZombieInfos> level5(){
+	private ConcurrentLinkedQueue<ZombieInfos> level5() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(23000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(23000,false));
-		level.add(new ZombieInfos(23000,false));
-		level.add(new ZombieInfos(0,false));
-		level.add(new ZombieInfos(35000,false));
-		level.add(new ZombieInfos(0,true));
-		level.add(new ZombieInfos(0,true));
-		level.add(new ZombieInfos(0,true));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(0, 0));
+		level.add(new ZombieInfos(35_000, 0));
+		level.add(new ZombieInfos(0, 1));
+		level.add(new ZombieInfos(0, 1));
 		return level;
 	}
 	
-	private ConcurrentLinkedQueue<ZombieInfos> level6(){
+	private ConcurrentLinkedQueue<ZombieInfos> level6() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(50000,false));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(5000,true));
-		level.add(new ZombieInfos(0,true));
+		level.add(new ZombieInfos(50_000, 0));
+		level.add(new ZombieInfos(5_000, 1));
+		level.add(new ZombieInfos(5_000, 1));
+		level.add(new ZombieInfos(5_000, 1));
+		level.add(new ZombieInfos(0, 1));
 		return level;
 	}
 	
-	private ConcurrentLinkedQueue<ZombieInfos> level7(){
+	private ConcurrentLinkedQueue<ZombieInfos> level7() {
 		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
-		level.add(new ZombieInfos(10000,false));
-		level.add(new ZombieInfos(10000,true));
-		level.add(new ZombieInfos(10000,false));
-		level.add(new ZombieInfos(10000,true));
-		level.add(new ZombieInfos(10000,false));
-		level.add(new ZombieInfos(10000,true));
-		level.add(new ZombieInfos(0,true));
-		level.add(new ZombieInfos(0,true));
+		level.add(new ZombieInfos(10_000, 2));
+		level.add(new ZombieInfos(25_000, 0));
+		level.add(new ZombieInfos(15_000, 1));
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(0, 2));
+		level.add(new ZombieInfos(0, 1));
 		return level;
 	}
 	
+	private ConcurrentLinkedQueue<ZombieInfos> level8() {
+		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(10_000, 1));
+		level.add(new ZombieInfos(30_000, 2));
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(0, 1));
+		level.add(new ZombieInfos(0, 1));
+		return level;
+	}
+	
+	private ConcurrentLinkedQueue<ZombieInfos> level9() {
+		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
+		level.add(new ZombieInfos(10_000, 2));
+		level.add(new ZombieInfos(10_000, 2));
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(30_000, 0));
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(10_000, 2));
+		level.add(new ZombieInfos(0, 1));
+		return level;
+	}
+
+	private ConcurrentLinkedQueue<ZombieInfos> level10() {
+		ConcurrentLinkedQueue<ZombieInfos> level = new ConcurrentLinkedQueue<ZombieInfos>();
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(10_000, 1));
+		level.add(new ZombieInfos(10_000, 0));
+		level.add(new ZombieInfos(10_000, 1));
+		level.add(new ZombieInfos(10_000, 2));
+		level.add(new ZombieInfos(0, 2));
+		level.add(new ZombieInfos(0, 1));
+		return level;
+	}
 	
 	public ConcurrentLinkedQueue<ZombieInfos> getLevel() {
-		return level;
+		return this.level;
 	}
 
 	public static int getCurrentDifficulty() {
