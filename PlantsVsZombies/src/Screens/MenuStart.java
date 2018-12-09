@@ -145,7 +145,7 @@ public class MenuStart extends GameScreen {
 
 		StdDraw.picture(0.1, 0.05,SpriteFilepath.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
 		StdDraw.picture(0.1, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
-		StdDraw.picture(0.9, 0.05,SpriteFilepath.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
+		StdDraw.picture(0.9, 0.05,SpriteFilepath.getAbsolutePath() + "/button/Interrogation.png",0.03,0.03);
 		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
 
 		if(menuSetButton)
