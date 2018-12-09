@@ -30,9 +30,10 @@ public class MenuStart extends GameScreen {
 
 
 	public MenuStart() {
+		if(SoundPlayer.getBGMPlayed() != "Blues.wav")
+			SoundPlayer.PlayBGM("Blues.wav");
 		this.ecart = 0;
 		SpriteFilepath = new File("sprites");
-		SoundPlayer.PlayBGM("Blues.wav");
 		changeButton = ' ';
 	}
 

@@ -18,6 +18,8 @@ public class SoundPlayer {
 	
 	// Clip pour la musique de fond
 	private static Clip BGMClip;
+	// Musique joue
+	private static String BGMPlayed;
 	
 	
 	//------------------------------------------------------------------------------
@@ -31,6 +33,7 @@ public class SoundPlayer {
 	 */
 	public SoundPlayer() {
 		BGMClip = null;
+		BGMPlayed = null;
 	}
 	
 	
@@ -47,7 +50,8 @@ public class SoundPlayer {
 	 */
 	public static void PlayBGM(String file) {
 		try {
-			File BGMFilepath = new File("sounds/bgm/" + file);
+			BGMPlayed = file;
+			File BGMFilepath = new File("sounds/bgm/" + BGMPlayed);
 			AudioInputStream BGMStream = AudioSystem.getAudioInputStream(BGMFilepath);
 			if(BGMClip != null) BGMClip.stop();
 			BGMClip = AudioSystem.getClip();
@@ -83,6 +87,7 @@ public class SoundPlayer {
 		if(BGMClip != null) {
 			BGMClip.stop();
 			BGMClip = null;
+			BGMPlayed = null;
 		}
 	}
 	
@@ -91,7 +96,7 @@ public class SoundPlayer {
 	 **      GETTERS
 	 */
 	//------------------------------------------------------------------------------
-	
+
 	/**
 	 * Retourne le Clip de musique de fond
 	 * 
@@ -101,19 +106,37 @@ public class SoundPlayer {
 		return BGMClip;
 	}
 	
+	/**
+	 * Retourne la musique de fond joue
+	 * 
+	 * @return BGMPlayed
+	 */
+	public static String getBGMPlayed() {
+		return BGMPlayed;
+	}
+	
 	//------------------------------------------------------------------------------
 	/*
 	 **      SETTERS
 	 */
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Modifie le clip de musique de fond
+	 * 
+	 * @param BGMClip clip de musique de fond
+	 */
+	public static void setBGMClip(Clip BGMClip) {
+		SoundPlayer.BGMClip = BGMClip;
+	}
 	
 	/**
-	 * Retourne le Clip de musique de fond
+	 * Modifie la musique de fond joue
 	 * 
-	 * @param bGMClip clip de musique de fond
+	 * @param BGMPlayed musique de fond
 	 */
-	public static void setBGMClip(Clip bGMClip) {
-		BGMClip = bGMClip;
+	public static void setBGMPlayed(String BGMPlayed) {
+		SoundPlayer.BGMPlayed = BGMPlayed;
 	}
 	
 }
