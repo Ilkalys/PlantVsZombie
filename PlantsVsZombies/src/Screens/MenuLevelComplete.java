@@ -21,6 +21,7 @@ public class MenuLevelComplete extends GameScreen {
 	private double durationSong = 22.857;
 	private Timer launchSong;
 	private double actualTime;
+	private double crossYPosition = 1.35;
 	// L'effet sonore a-t'il ete joue ou non
 	private boolean sePlayded;
 
@@ -37,11 +38,11 @@ public class MenuLevelComplete extends GameScreen {
 
 	@Override
 	public void processMouseClick(double x, double y) {
-		if(x <= 0.68 && x >= 0.52 && y >= 0.57 && y <= 0.63) {
+		if(x <= 0.85 && x >= 0.56 && y >= crossYPosition - 0.4 && y <= crossYPosition - 0.28) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()+1));
 		}
-		else if(x <= 0.48 && x >= 0.32 && y >= 0.57 && y <= 0.63) {
+		else if(x <= 0.44 && x >= 0.15 && y >= crossYPosition - 0.4 && y <= crossYPosition - 0.28) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new MenuStart());
 		}
@@ -73,22 +74,20 @@ public class MenuLevelComplete extends GameScreen {
 		//fond
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/MenuLevelComplete.png", 1, 1);
-
 		//affichage texte
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.setFont(new Font("sans serif",10,50));
-		StdDraw.text(0.5, 0.93, "Congratulation!");
+		StdDraw.text(0.5, 0.93, "Félicitations!");
 		StdDraw.setFont(new Font("sans serif",10,40));
-		StdDraw.text(0.5, 0.88, "Niveau reussi !");
-
-		//affichage boutons
-		StdDraw.picture(0.6, 0.6,(StdDraw.mouseX() <= 0.68 && StdDraw.mouseX() >= 0.52 && StdDraw.mouseY() >= 0.57 && StdDraw.mouseY() <= 0.63)?SpriteFilepath.getAbsolutePath() + "/button/start!_p.png" : SpriteFilepath.getAbsolutePath() + "/button/start!.png", 0.16, 0.06);	
-		StdDraw.picture(0.4, 0.6,(StdDraw.mouseX() <= 0.48 && StdDraw.mouseX() >= 0.32 && StdDraw.mouseY() >= 0.57 && StdDraw.mouseY() <= 0.63)?SpriteFilepath.getAbsolutePath() + "/button/quitter_p.png" : SpriteFilepath.getAbsolutePath() + "/button/quitter.png", 0.16, 0.06);
+		StdDraw.text(0.5, 0.88, "Niveau réussi !");
 
 		if(SoundPlayer.getBGMClip() != null)
 			StdDraw.picture(0.5, 0.2, SpriteFilepath.getAbsolutePath() + "/bg/dancefloor.png", 0.5, 0.5);
 
 
+		StdDraw.picture(0.3, crossYPosition, SpriteFilepath.getAbsolutePath() + "/set/CrossL.png",0.4,0.8);
+		StdDraw.picture(0.7, crossYPosition, SpriteFilepath.getAbsolutePath() + "/set/CrossR.png",0.4,0.8);
+		
 		//affichage Danse
 		if( SoundPlayer.getBGMClip() != null) {
 			animation();
@@ -102,7 +101,9 @@ public class MenuLevelComplete extends GameScreen {
 			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",1,1);
 			StdDraw.picture(0.4, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_shadow.png", 0.2, 0.2);
 			StdDraw.picture(0.6, 0.38, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_shadow.png", 0.2, 0.2);
+			crossYPosition -= 0.02;
 		}
+		
 	}
 
 	public void animation() {
