@@ -33,8 +33,8 @@ public class PeasShooter extends Plant {
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
 
-	// Temps (en ms) pour recharger, doit être superieur à 1_000
-	private static final int RELOAD_TIME = 1_500;
+	// Temps (en s) pour recharger, doit être superieur à 1_000
+	private static final double RELOAD_TIME = 1.500;
 	// Timer du rechargement pour tirer
 	private Timer Reload;
 
@@ -54,7 +54,7 @@ public class PeasShooter extends Plant {
 	public PeasShooter(double x, double y) {
 		super(x, y, ICONE.getAbsolutePath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
-		this.Reload = new Timer(RELOAD_TIME);
+		this.Reload = new Timer((int)(RELOAD_TIME * 1_000));
 	}
 
 
@@ -84,17 +84,18 @@ public class PeasShooter extends Plant {
 	 */
 
 	private String Animate(){
-		if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 1_000 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 900)
+		double tmp = RELOAD_TIME - this.Reload.getActualTime();
+		if( tmp <=  1 && tmp >=  0.9)
 			return "3";
-		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 900 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 800)
+		else if(tmp <= 0.9 && tmp >= 0.8)
 			return "4";
-		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 800 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 700)
+		else if(tmp <= 0.8 && tmp >= 0.7)
 			return "3";
-		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 700 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 200)
+		else if(tmp <= 0.7 && tmp >= 0.2)
 			return "0";
-		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 200 && this.Reload.getActualTime()*1000 <= RELOAD_TIME - 100)
+		else if(tmp <= 0.2 && tmp >= 0.1)
 			return "1";
-		else if(this.Reload.getActualTime()*1000 >= RELOAD_TIME - 100 && this.Reload.getActualTime()*1000 <= RELOAD_TIME)
+		else if(tmp <= 0.1 && tmp >= 0)
 			return "2";
 
 		else return "0";
@@ -105,7 +106,7 @@ public class PeasShooter extends Plant {
 	private void Tirer() {
 		if(this.Reload.hasFinished()) {
 			GameWorld.addPeas(this.getX(), this.getY());
-			this.Reload = new Timer(RELOAD_TIME);
+			this.Reload = new Timer((int)(RELOAD_TIME * 1_000));
 		}
 	}
 
@@ -184,7 +185,7 @@ public class PeasShooter extends Plant {
 	 * 
 	 * @return RELOAD_TIME
 	 */
-	public static int getReloadTime() {
+	public static double getReloadTime() {
 		return RELOAD_TIME;
 	}
 

@@ -32,7 +32,7 @@ public class Sunflower extends Plant {
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/sunflower/sunflower_");
 		
-	// Temps (en ms) pour l'apparition des soleils, doit être supérieur à 2_000
+	// Temps (en ms) pour l'apparition des soleils, doit être supérieur à 2_000, influe également sur l'animation
 	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
 	private Timer Sunrise;
@@ -91,25 +91,25 @@ public class Sunflower extends Plant {
 	 */
 
 	private String Animate(){
-		if(this.Sunrise.getActualTime()*1000 >= 1_750 && this.Sunrise.getActualTime()*1000 <= 2_000)
+		double tmp = this.Sunrise.getActualTime();
+		if(tmp >= 1.750 && tmp <= 2.000)
 			return "2";
-		else if(this.Sunrise.getActualTime()*1000 >= 1_500 && this.Sunrise.getActualTime()*1000 <= 1_750)
+		else if(tmp >= 1.5 && tmp <= 1.750)
 			return "1";
-		else if(this.Sunrise.getActualTime()*1000 >= 1_250 && this.Sunrise.getActualTime()*1000 <= 1_500)
+		else if(tmp >= 1.250 && tmp <= 1.5)
 			return "2";
-		else if(this.Sunrise.getActualTime()*1000 >= 1_000 && this.Sunrise.getActualTime()*1000 <= 1_250)
+		else if(tmp >= 1 && tmp <= 1.25)
 			return "1";
-		else if(this.Sunrise.getActualTime()*1000 >= 800 && this.Sunrise.getActualTime()*1000 <= 1_000 )
+		else if(tmp >= 0.8 && tmp <= 1 )
 			return "0";
-		else if(this.Sunrise.getActualTime()*1000 >= 600 && this.Sunrise.getActualTime()*1000 <= 800)
+		else if(tmp >= 0.6 && tmp <= 0.8)
 			return "3";
-		else if(this.Sunrise.getActualTime()*1000 >= 400 && this.Sunrise.getActualTime()*1000 <= 600)
+		else if(tmp >= 0.4 && tmp <= 0.6)
 			return "4";
-		else if(this.Sunrise.getActualTime()*1000 >= 200 && this.Sunrise.getActualTime()*1000 <= 400)
+		else if(tmp >= 0.2 && tmp <= 0.4)
 			return "3";
-		else if(this.Sunrise.getActualTime()*1000 >= 0 && this.Sunrise.getActualTime()*1000 <= 200)
+		else if(tmp >= 0 && tmp <= 0.2)
 			return "4";
-
 		else return "0";
 	}
 	
