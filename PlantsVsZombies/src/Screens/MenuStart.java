@@ -25,6 +25,7 @@ public class MenuStart extends GameScreen {
 	private Timer fondu;
 	private File SpriteFilepath;
 	private boolean menuSetButton = false;
+	private boolean menuInfos = false;
 	private char changeButton;
 
 
@@ -79,6 +80,12 @@ public class MenuStart extends GameScreen {
 				changeButton = Dynamite.getKey();
 			}
 		}
+		else if(menuInfos) {
+			if(x <= 0.6  && x >= 0.3 && y >= 0.13 && y <= 0.18) {
+				SoundPlayer.PlaySE("fire.wav");
+				menuInfos = false;
+			}
+		}
 		else {
 			if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
 				SoundPlayer.PlaySE("fire.wav");
@@ -95,6 +102,10 @@ public class MenuStart extends GameScreen {
 			else if(x <= 0.16 && x >= 0.04 && y >= 0.015 && y <= 0.065) {
 				SoundPlayer.PlaySE("fire.wav");
 				menuSetButton = true;
+			}
+			else if(x <= 0.96 && x >= 0.84 && y >= 0.015 && y <= 0.065) {
+				SoundPlayer.PlaySE("fire.wav");
+				menuInfos = true;
 			}
 		}
 
@@ -133,10 +144,14 @@ public class MenuStart extends GameScreen {
 
 		StdDraw.picture(0.1, 0.05,SpriteFilepath.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
 		StdDraw.picture(0.1, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
+		StdDraw.picture(0.9, 0.05,SpriteFilepath.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
+		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
+
 		if(menuSetButton)
 			menuSetButton();
-
-		if(start)
+		else if(menuInfos)
+			menuInfos();
+		else if(start)
 			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",5,5);
 
 
@@ -171,4 +186,14 @@ public class MenuStart extends GameScreen {
 		StdDraw.setPenColor(StdDraw.BLACK);
 	}
 
+	private void menuInfos() {
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.setFont(new Font("sans serif",15,40));
+
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.text(0.5, 0.85,"Informations");
+		StdDraw.text(0.5, 0.15,"Retour");
+	}
 }
