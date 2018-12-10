@@ -3,11 +3,9 @@ package Screens;
 import java.awt.Font;
 import java.io.File;
 
-import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.Timer;
-import Resources.ZombieSpawner;
 
 public class MenuVictory extends GameScreen {
 
@@ -240,7 +238,6 @@ public class MenuVictory extends GameScreen {
 			}
 		}
 	}
-	
 
 	private void animationPiano() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
