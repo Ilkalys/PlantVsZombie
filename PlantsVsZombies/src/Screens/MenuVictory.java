@@ -104,6 +104,7 @@ public class MenuVictory extends GameScreen {
 
 			StdDraw.picture(0.8, persoYPosition  -0.3, SpriteFilepath.getAbsolutePath() + "/mob/musical/drum_shadow.png", 0.2, 0.2);
 		}
+		
 		//affichage Danse
 		if( SoundPlayer.getBGMClip() != null) {
 			animationDanse();
@@ -239,6 +240,7 @@ public class MenuVictory extends GameScreen {
 			}
 		}
 	}
+	
 
 	private void animationPiano() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
