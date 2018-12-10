@@ -44,7 +44,7 @@ public class MenuVictory extends GameScreen {
 	public void step() {	
 		if(SoundPlayer.getBGMClip() == null) {
 			if(launchSong.hasFinished()) {
-				SoundPlayer.PlayBGM("Ragtime.wav");
+				SoundPlayer.PlayBGM("Win.wav");
 				launchSong = new Timer((int)(durationSong * 1_000));
 			}
 		}
