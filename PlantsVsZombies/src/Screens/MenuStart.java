@@ -62,6 +62,7 @@ public class MenuStart extends GameScreen {
 		if(menuSetButton) {
 			if(x <= 0.6  && x >= 0.3 && y >= 0.13 && y <= 0.18) {
 				SoundPlayer.PlaySE("fire.wav");
+				changeButton = ' ';
 				menuSetButton = false;
 			}
 			else if(x <= 0.6  && x >= 0.4 && y >= 0.58 && y <= 0.62) {
