@@ -83,7 +83,7 @@ public class MenuStart extends GameScreen {
 			}
 		}
 		else if(menuInfos) {
-			if(x <= 0.6  && x >= 0.3 && y >= 0.13 && y <= 0.18) {
+			if(x <= 0.6  && x >= 0.3 && y >= 0.10 && y <= 0.15) {
 				SoundPlayer.PlaySE("fire.wav");
 				menuInfos = false;
 			}
@@ -197,6 +197,25 @@ public class MenuStart extends GameScreen {
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.text(0.5, 0.85,"Informations");
-		StdDraw.text(0.5, 0.15,"Retour");
+		StdDraw.setFont(new Font("sans serif",15,20));
+		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, apparaît aléatoirement");
+		StdDraw.text(0.5, 0.7,"Sherif : fournit des étoiles toutes les 24s");
+		StdDraw.text(0.5, 0.65,"CowBoy : Inflige des dégats en tirant en ligne droite");
+		StdDraw.text(0.5, 0.6,"Tonneau : Ne fait rien mais possède une grande quantité de vie");
+		StdDraw.text(0.5, 0.55,"Dynamite : posée la et cliquez dessus pour faire une explosion en croix");
+		StdDraw.text(0.5, 0.48,"Cactus, ennemi de base");
+		StdDraw.text(0.5, 0.43,"Cactus blindé, ennemi avec plus de vie");
+		StdDraw.text(0.5, 0.38,"Cactus explosif, ennemi plus rapide, qui n'attaque pas mais explose en croix à la mort");
+		StdDraw.text(0.5, 0.33, "Si un cactus atteint la gauche de l'écran, vous avez perdu.");
+		StdDraw.text(0.5, 0.28, "Survivez à la vague de cactus pour reussir le niveau.");
+		StdDraw.text(0.5, 0.22, "Réalisé par.");
+		StdDraw.text(0.5, 0.19, "Matthieu Gauget-Berlioz et Julien Cochet");
+		StdDraw.picture(0.3, 0.19, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.19, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_2.png",0.1,0.1);
+
+
+		StdDraw.setFont(new Font("sans serif",15,30));
+
+		StdDraw.text(0.5, 0.12,"Retour");
 	}
 }
