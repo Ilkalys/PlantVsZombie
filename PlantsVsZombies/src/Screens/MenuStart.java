@@ -196,22 +196,24 @@ public class MenuStart extends GameScreen {
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+
 		StdDraw.text(0.5, 0.85,"Informations");
 		StdDraw.setFont(new Font("sans serif",15,20));
 		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, apparaît aléatoirement");
-		StdDraw.text(0.5, 0.7,"Sherif : fournit des étoiles toutes les 24s");
-		StdDraw.text(0.5, 0.65,"CowBoy : Inflige des dégats en tirant en ligne droite");
-		StdDraw.text(0.5, 0.6,"Tonneau : Ne fait rien mais possède une grande quantité de vie");
-		StdDraw.text(0.5, 0.55,"Dynamite : posée la et cliquez dessus pour faire une explosion en croix");
-		StdDraw.text(0.5, 0.48,"Cactus, ennemi de base");
-		StdDraw.text(0.5, 0.43,"Cactus blindé, ennemi avec plus de vie");
-		StdDraw.text(0.5, 0.38,"Cactus explosif, ennemi plus rapide, qui n'attaque pas mais explose en croix à la mort");
-		StdDraw.text(0.5, 0.33, "Si un cactus atteint la gauche de l'écran, vous avez perdu.");
-		StdDraw.text(0.5, 0.28, "Survivez à la vague de cactus pour reussir le niveau.");
-		StdDraw.text(0.5, 0.22, "Réalisé par.");
-		StdDraw.text(0.5, 0.19, "Matthieu Gauget-Berlioz et Julien Cochet");
-		StdDraw.picture(0.3, 0.19, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
-		StdDraw.picture(0.7, 0.19, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_2.png",0.1,0.1);
+		StdDraw.text(0.5, 0.7,"Sherif : Fournit des étoiles");
+		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des dégats en tirant en ligne droite");
+		StdDraw.text(0.5, 0.63,"Tonneau : Possède une grande quantité de vie pour bloquer les ennemis");
+		StdDraw.text(0.5, 0.595,"Dynamite : Posez la et cliquez dessus pour faire une explosion en croix");
+		StdDraw.text(0.5, 0.5,"Cactus : Ennemi de base");
+		StdDraw.text(0.5, 0.465,"Cactus blindé : Ennemi avec plus de vie");
+		StdDraw.text(0.5, 0.43,"Cactus explosif : Ennemi plus rapide, qui n'attaque pas mais explose en croix à la mort");
+		StdDraw.text(0.5, 0.35, "Si un cactus atteint la gauche de l'écran, vous avez perdu.");
+		StdDraw.text(0.5, 0.32, "Survivez à la vague de cactus pour reussir le niveau.");
+		StdDraw.text(0.5, 0.25, "Réalisé par.");
+		StdDraw.text(0.5, 0.22, "Matthieu Gauget-Berlioz et Julien Cochet");
+		StdDraw.picture(0.3, 0.22, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.22, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_2.png",0.1,0.1);
 
 
 		StdDraw.setFont(new Font("sans serif",15,30));
