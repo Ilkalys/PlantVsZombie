@@ -3,6 +3,7 @@ package Screens;
 import java.awt.Font;
 import java.io.File;
 
+import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.Timer;
@@ -39,6 +40,10 @@ public class MenuVictory extends GameScreen {
 
 	@Override
 	public void processMouseClick(double x, double y) {
+		if(alreadyPlay ) {
+			SoundPlayer.PlaySE("fire.wav");
+			Game.setWorld(new MenuStart());
+		}
 	}
 
 	@Override
@@ -85,6 +90,8 @@ public class MenuVictory extends GameScreen {
 			animationDoubleBass();
 			animationViolin();
 			animationJewsharp();
+			StdDraw.setFont(new Font("sans serif",15,30));
+			StdDraw.text(0.5, 0.05,"Cliquez pour Quitter");
 		}
 		else {
 			if(actualTime >= 1.142*4)
