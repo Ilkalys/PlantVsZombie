@@ -91,6 +91,7 @@ public abstract class Mob extends Entite {
 			GameWorld.addDeadMob(this.getX(), this.getY(), this.getClass().getName());
 		}
 	}
+	
 
 	//------------------------------------------------------------------------------
 	/*
@@ -101,7 +102,7 @@ public abstract class Mob extends Entite {
 	/**
 	 * Retourne le sprite actuel
 	 * 
-	 * @return Sprite
+	 * @return Sprite sprite actuel
 	 */
 	public File getSprite() {
 		return this.Sprite;
@@ -110,7 +111,7 @@ public abstract class Mob extends Entite {
 	/**
 	 * Retourne le nombre de points de vie actuel
 	 * 
-	 * @return life
+	 * @return life nombre de points de vie actuel
 	 */
 	public int getLife() {
 		return this.life;

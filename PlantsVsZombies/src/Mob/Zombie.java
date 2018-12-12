@@ -30,6 +30,8 @@ public abstract class Zombie extends Mob {
 	 * 
 	 * @param x coordonne X du zombie
 	 * @param y coordonne Y du zombie
+	 * @param SpriteFilepath chemin vers le sprite du zombie
+	 * @param life nombre de point de vie du zombie
 	 */
 	public Zombie(double x, double y, String SpriteFilepath, int life) {
 		super(x, y, SpriteFilepath, life);

@@ -91,7 +91,7 @@ public class Sun extends Entite {
 	/**
 	 * Retourne l'icone du soleil
 	 * 
-	 * @return ICONE
+	 * @return ICONE icone du soleil
 	 */
 	public static File getIcone() {
 		return ICONE;
@@ -100,7 +100,7 @@ public class Sun extends Entite {
 	/**
 	 * Retourne la valeur du soleil
 	 * 
-	 * @return VALUE
+	 * @return VALUE valeur du soleil
 	 */
 	public static int getValue() {
 		return VALUE;
@@ -109,7 +109,7 @@ public class Sun extends Entite {
 	/**
 	 * Retourne le temps de vie du soleil
 	 * 
-	 * @return LIFE_TIME
+	 * @return LIFE_TIME temps de vie du soleil
 	 */
 	public static int getLifeTime() {
 		return LIFE_TIME;
@@ -118,7 +118,7 @@ public class Sun extends Entite {
 	/**
 	 * Retourne le timer pour le temps de vie d'un soleil
 	 * 
-	 * @return Life
+	 * @return Life timer pour le temps de vie d'un soleil
 	 */
 	public Timer getLife() {
 		return this.Life;

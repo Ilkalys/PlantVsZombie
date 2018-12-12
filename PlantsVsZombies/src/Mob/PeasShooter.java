@@ -29,7 +29,6 @@ public class PeasShooter extends Plant {
 	private static final int COOLDOWN_TIME = 5_000;
 	// Timer du replantage d'un tire-pois
 	private static Timer Cooldown;
-	
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
 
@@ -82,8 +81,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Calcul la prochaine image de l'animation
 	 */
-
-	private String Animate(){
+	private String Animate() {
 		double tmp = RELOAD_TIME - this.Reload.getActualTime();
 		if( tmp <=  1 && tmp >=  0.9)
 			return "3";
@@ -100,6 +98,7 @@ public class PeasShooter extends Plant {
 
 		else return "0";
 	}
+	
 	/**
 	 * Fait apparaitre un pois devant le tire-pois
 	 */
@@ -120,7 +119,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne la touche pour selectionner un tire-pois
 	 * 
-	 * @return KEY
+	 * @return KEY touche pour selectionner un tire-pois
 	 */
 	public static char getKey() {
 		return key;
@@ -129,7 +128,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne l'icone du tire-pois
 	 * 
-	 * @return ICONE
+	 * @return ICONE icone du tire-pois
 	 */
 	public static File getIcone() {
 		return ICONE;
@@ -138,7 +137,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le nombre de point de vie de depart d'un tire-pois
 	 * 
-	 * @return HPMAX
+	 * @return HPMAX nombre de point de vie de depart d'un tire-pois
 	 */
 	public static int getHPMax() {
 		return HPMAX;
@@ -147,7 +146,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le prix du tire-pois
 	 * 
-	 * @return PRICE
+	 * @return PRICE prix du tire-pois
 	 */
 	public static int getPrice() {
 		return PRICE;
@@ -156,7 +155,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le temps (en ms) avant de pouvoir replanter un tire-pois
 	 * 
-	 * @return COOLDOWN_TIME
+	 * @return COOLDOWN_TIME temps (en ms) avant de pouvoir replanter un tire-pois
 	 */
 	public static int getCooldownTime() {
 		return COOLDOWN_TIME;
@@ -165,7 +164,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour planter un tire-pois
 	 * 
-	 * @return Cooldown
+	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter un tire-pois
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
@@ -174,7 +173,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le chemin vers les sprites d'animation
 	 * 
-	 * @return SpriteAnim
+	 * @return SpriteAnim chemin vers les sprites d'animation
 	 */
 	public static File getSpriteAnim() {
 		return SpriteAnim;
@@ -183,7 +182,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le temps (en ms) pour recharger
 	 * 
-	 * @return RELOAD_TIME
+	 * @return RELOAD_TIME temps (en ms) pour recharger
 	 */
 	public static double getReloadTime() {
 		return RELOAD_TIME;
@@ -192,7 +191,7 @@ public class PeasShooter extends Plant {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour tirer
 	 * 
-	 * @return Reload
+	 * @return Reload timer chargé de calculer le temps de rechargement pour tirer
 	 */
 	public Timer getReload() {
 		return this.Reload;

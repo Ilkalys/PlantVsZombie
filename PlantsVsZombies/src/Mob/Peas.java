@@ -2,7 +2,8 @@ package Mob;
 
 import java.io.File;
 
-import Resources.*;
+import Resources.Entite;
+import Resources.StdDraw;
 import Screens.GameWorld;
 
 /**

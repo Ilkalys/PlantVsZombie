@@ -120,7 +120,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne le sprite d'un zombie basique
 	 * 
-	 * @return SPRITE
+	 * @return SPRITE sprite d'un zombie basique
 	 */
 	public static File getSpritePath() {
 		return SPRITE_PATH;
@@ -129,7 +129,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne le nombre de point de vie de depart d'un zombie basique
 	 * 
-	 * @return HPMAX
+	 * @return HPMAX nombre de point de vie de depart d'un zombie basique
 	 */
 	public static int getHPMax() {
 		return HPMAX;
@@ -138,7 +138,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne le nombre de damage du zombie
 	 * 
-	 * @return DAMAGE
+	 * @return DAMAGE nombre de damage du zombie
 	 */
 	public static int getDamage() {
 		return DAMAGE;
@@ -147,7 +147,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne la vitesse du zombie
 	 * 
-	 * @return SPEED
+	 * @return SPEED vitesse du zombie
 	 */
 	public static double getSpeed() {
 		return SPEED;
@@ -156,7 +156,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne le temps d'attaque d'un zombie
 	 * 
-	 * @return ATTACK_TIME
+	 * @return ATTACK_TIME temps d'attaque d'un zombie
 	 */
 	public static double getAttackTime() {
 		return ATTACK_TIME;
@@ -165,7 +165,7 @@ public class BasicZombie extends Zombie {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
 	 * 
-	 * @return Attack
+	 * @return Attack timer chargé de calculer le temps de rechargement pour attaquer
 	 */
 	public Timer getAttack() {
 		return this.Attack;

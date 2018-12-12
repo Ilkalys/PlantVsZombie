@@ -2,7 +2,8 @@ package Mob;
 
 import java.io.File;
 
-import Resources.*;
+import Resources.StdDraw;
+import Resources.Timer;
 import Screens.GameWorld;
 
 /**
@@ -28,7 +29,6 @@ public class Sunflower extends Plant {
 	private static final int COOLDOWN_TIME = 5_000;
 	// Timer du replantage d'un tournesol
 	private static Timer Cooldown;
-
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/sunflower/sunflower_");
 		
@@ -36,6 +36,7 @@ public class Sunflower extends Plant {
 	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
 	private Timer Sunrise;
+	
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -70,14 +71,6 @@ public class Sunflower extends Plant {
 		this.AddSun();
 	}
 	
-	private void AddSun() {
-		if(this.Sunrise.hasFinished() && Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) == null) {
-			GameWorld.addSun( this.getX(),this.getY());
-			this.setSunrise(new Timer(SUNRISE_TIME));
-		}
-	}
-
-
 	/**
 	 * Dessine le mob, aux bonnes coordonnees
 	 */
@@ -89,8 +82,7 @@ public class Sunflower extends Plant {
 	/**
 	 * Calcul la prochaine image de l'animation
 	 */
-
-	private String Animate(){
+	private String Animate() {
 		double tmp = this.Sunrise.getActualTime();
 		if(tmp >= 1.750 && tmp <= 2.000)
 			return "2";
@@ -111,6 +103,16 @@ public class Sunflower extends Plant {
 		else if(tmp >= 0 && tmp <= 0.2)
 			return "4";
 		else return "0";
+	}
+	
+	/**
+	 * Ajoute un soleil
+	 */
+	private void AddSun() {
+		if(this.Sunrise.hasFinished() && Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) == null) {
+			GameWorld.addSun( this.getX(),this.getY());
+			this.setSunrise(new Timer(SUNRISE_TIME));
+		}
 	}
 	
 	//------------------------------------------------------------------------------
@@ -197,6 +199,15 @@ public class Sunflower extends Plant {
 	**      SETTERS
 	*/
 	//------------------------------------------------------------------------------
+
+	/**
+	 * Modifie la touche de selection du tournesol
+	 * 
+	 * @param key la touche voulu
+	 */
+	public static void setKey(char key) {
+		Sunflower.key = key;
+	}
 	
 	/**
 	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tournesol
@@ -206,16 +217,6 @@ public class Sunflower extends Plant {
 	public static void setCooldown(Timer timer) {
 		Cooldown = timer;
 	}
-	
-	/**
-	 * Modifie la touche de selection du tournesol
-	 * 
-	 * @param key la touche voulu
-	 */
-	public static void setKey(char key) {
-		Sunflower.key = key;
-	}
-
 
 	/**
 	 * Modifie le timer pour l'apparition des soleils gerer par la plante

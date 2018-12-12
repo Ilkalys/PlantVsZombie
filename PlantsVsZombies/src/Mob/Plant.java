@@ -2,7 +2,7 @@ package Mob;
 
 import java.util.List;
 
-import Resources.*;
+import Resources.Entite;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -15,6 +15,8 @@ public abstract class Plant extends Mob {
 	 */
 	//------------------------------------------------------------------------------
 
+	
+	
 	//------------------------------------------------------------------------------
 	/*
 	**      CONSTRUCTEUR
@@ -26,6 +28,8 @@ public abstract class Plant extends Mob {
 	 * 
 	 * @param x coordonne X de la plante
 	 * @param y coordonne Y de la plante
+	 * @param SpriteFilepath chemin vers le sprite de la plante
+	 * @param life point devie de la plante
 	 */
 	public Plant(double x, double y, String SpriteFilepath, int life) {
 		super(x,y, SpriteFilepath, life);

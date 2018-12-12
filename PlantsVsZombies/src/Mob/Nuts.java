@@ -28,7 +28,6 @@ public class Nuts extends Plant {
 	private static final int COOLDOWN_TIME = 20_000;
 	// Timer du replantage d'une noix
 	private static Timer Cooldown;
-	
 	// Chemin vers les sprites d'animation
 	private static final File SpriteAnim = new File("sprites/mob/nuts/nuts_");
 	// Status de l'animation
@@ -46,7 +45,7 @@ public class Nuts extends Plant {
 	 * @param x coordonne X de la plante
 	 * @param y coordonne Y de la plante
 	 */
-	public Nuts(double x, double y){
+	public Nuts(double x, double y) {
 		super(x, y, ICONE.getAbsolutePath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 		
@@ -119,7 +118,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne la touche pour selectionner une noix
 	 * 
-	 * @return KEY
+	 * @return KEY touche pour selectionner une noix
 	 */
 	public static char getKey() {
 		return key;
@@ -128,7 +127,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne l'icone de la noix
 	 * 
-	 * @return ICONE
+	 * @return ICONE icone de la noix
 	 */
 	public static File getIcone() {
 		return ICONE;
@@ -137,7 +136,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le nombre de point de vie de depart d'une noix
 	 * 
-	 * @return HPMAX
+	 * @return HPMAX nombre de point de vie de depart d'une noix
 	 */
 	public static int getHPMax() {
 		return HPMAX;
@@ -146,7 +145,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le prix de la noix
 	 * 
-	 * @return PRICE
+	 * @return PRICE prix de la noix
 	 */
 	public static int getPrice() {
 		return PRICE;
@@ -155,7 +154,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le temps (en ms) avant de pouvoir replanter une noix
 	 * 
-	 * @return COOLDOWN_TIME
+	 * @return COOLDOWN_TIME temps (en ms) avant de pouvoir replanter une noix
 	 */
 	public static int getCooldownTime() {
 		return COOLDOWN_TIME;
@@ -164,7 +163,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une noix
 	 * 
-	 * @return Cooldown
+	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter une noix
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
@@ -173,7 +172,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le chemin vers les sprites d'animation
 	 * 
-	 * @return SpriteAnim
+	 * @return SpriteAnim chemin vers les sprites d'animation
 	 */
 	public static File getSpriteAnim() {
 		return SpriteAnim;
@@ -182,7 +181,7 @@ public class Nuts extends Plant {
 	/**
 	 * Retourne le status de l'animation
 	 * 
-	 * @return actualAnim
+	 * @return actualAnim status de l'animation
 	 */
 	public int getActualAnim() {
 		return this.actualAnim;

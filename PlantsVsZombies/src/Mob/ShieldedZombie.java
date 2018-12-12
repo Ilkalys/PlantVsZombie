@@ -25,10 +25,12 @@ public class ShieldedZombie extends Zombie {
 	private static final int DAMAGE = 30;
 	// Vitesse d'un zombie blinde
 	private static final double SPEED = 0.25;
+	
 	// Temps avant la prochaine attaque, doit être supérieur à 1_000.
 	private static final int ATTACK_TIME = 1_000;
 	// Timer pour l'attaque d'un zombie blinde
 	private Timer Attack;
+	
 
 	//------------------------------------------------------------------------------
 	/*
@@ -117,9 +119,9 @@ public class ShieldedZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le sprite d'un zombie blindes
+	 * Retourne le sprite d'un zombie blinde
 	 * 
-	 * @return SPRITE
+	 * @return SPRITE sprite d'un zombie blinde
 	 */
 	public static File getSpritePath() {
 		return SPRITE_PATH;
@@ -128,7 +130,7 @@ public class ShieldedZombie extends Zombie {
 	/**
 	 * Retourne le nombre de point de vie de depart d'un zombie blinde
 	 * 
-	 * @return HPMAX
+	 * @return HPMAX nombre de point de vie de depart d'un zombie blinde
 	 */
 	public static int getHPMax() {
 		return HPMAX;
@@ -137,7 +139,7 @@ public class ShieldedZombie extends Zombie {
 	/**
 	 * Retourne le nombre de damage du zombie
 	 * 
-	 * @return DAMAGE
+	 * @return DAMAGE nombre de damage du zombie
 	 */
 	public static int getDamage() {
 		return DAMAGE;
@@ -146,7 +148,7 @@ public class ShieldedZombie extends Zombie {
 	/**
 	 * Retourne la vitesse du zombie
 	 * 
-	 * @return SPEED
+	 * @return SPEED vitesse du zombie
 	 */
 	public static double getSpeed() {
 		return SPEED;
@@ -155,7 +157,7 @@ public class ShieldedZombie extends Zombie {
 	/**
 	 * Retourne le temps d'attaque d'un zombie
 	 * 
-	 * @return ATTACK_TIME
+	 * @return ATTACK_TIME temps d'attaque d'un zombie
 	 */
 	public static double getAttackTime() {
 		return ATTACK_TIME;
@@ -164,7 +166,7 @@ public class ShieldedZombie extends Zombie {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
 	 * 
-	 * @return Attack
+	 * @return Attack timer chargé de calculer le temps de rechargement pour attaquer
 	 */
 	public Timer getAttack() {
 		return this.Attack;

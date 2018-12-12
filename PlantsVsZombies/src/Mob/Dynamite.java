@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import Resources.*;
+import Resources.Entite;
+import Resources.SoundPlayer;
+import Resources.Timer;
 import Screens.GameWorld;
 
 /**
@@ -24,15 +26,14 @@ public class Dynamite extends Plant {
 	private static final File ICONE = new File("sprites/mob/dynamite/dynamite.png");
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
+	// Nombre de degat qu'inflige une dynamite
+	private static final int DAMAGE = 500;
 	// Prix de la dynamite
 	private static final int PRICE = 150;
 	// Temps (en ms) avant de pouvoir replanter une dynamite
 	private static final int COOLDOWN_TIME = 20_000;
 	// Timer du replantage d'une dynamite
 	private static Timer Cooldown;
-	
-	// Nombre de degat qu'inflige une dynamite
-	private static final int DAMAGE = 500;
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -145,7 +146,7 @@ public class Dynamite extends Plant {
 	/**
 	 * Retourne la touche pour selectionner une dynamite
 	 * 
-	 * @return KEY
+	 * @return KEY touche pour selectionner une dynamite
 	 */
 	public static char getKey() {
 		return KEY;
@@ -154,7 +155,7 @@ public class Dynamite extends Plant {
 	/**
 	 * Retourne l'icone de la dynamite
 	 * 
-	 * @return ICONE
+	 * @return ICONE icone de la dynamite
 	 */
 	public static File getIcone() {
 		return ICONE;
@@ -163,16 +164,25 @@ public class Dynamite extends Plant {
 	/**
 	 * Retourne le nombre de point de vie de depart d'une dynamite
 	 * 
-	 * @return HPMAX
+	 * @return HPMAX nombre de point de vie de depart d'une dynamite
 	 */
 	public static int getHPMax() {
 		return HPMAX;
 	}
 	
 	/**
+	 * Retourne le nombre de degat qu'inflige une dynamite
+	 *  
+	 * @return DAMAGE nombre de degat qu'inflige une dynamite
+	 */
+	public static int getDamage() {
+		return DAMAGE;
+	}
+	
+	/**
 	 * Retourne le prix de la dynamite
 	 * 
-	 * @return PRICE
+	 * @return PRICE prix de la dynamite
 	 */
 	public static int getPrice() {
 		return PRICE;
@@ -181,7 +191,7 @@ public class Dynamite extends Plant {
 	/**
 	 * Retourne le temps (en ms) avant de pouvoir replanter une dynamite
 	 * 
-	 * @return COOLDOWN_TIME
+	 * @return COOLDOWN_TIME temps (en ms) avant de pouvoir replanter une dynamite
 	 */
 	public static int getCooldownTime() {
 		return COOLDOWN_TIME;
@@ -190,19 +200,10 @@ public class Dynamite extends Plant {
 	/**
 	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une dynamite
 	 * 
-	 * @return Cooldown
+	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter une dynamite
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
-	}
-	
-	/**
-	 * Retourne le nombre de degat qu'inflige une dynamite
-	 * 
-	 * @return DAMAGE
-	 */
-	public static int getDamage() {
-		return DAMAGE;
 	}
 	
 	
@@ -215,7 +216,7 @@ public class Dynamite extends Plant {
 	/**
 	 * Modifie la touche pour selectionner une dynamite
 	 * 
-	 * @return KEY
+	 * @return KEY touche pour selectionner une dynamite
 	 */
 	public static void setKey(char key) {
 		KEY = key;
