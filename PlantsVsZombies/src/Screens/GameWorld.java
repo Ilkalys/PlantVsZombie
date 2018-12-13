@@ -4,9 +4,27 @@ import java.awt.Font;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import java.awt.event.KeyEvent;
-import Mob.*;
-import Resources.*;
+
+import Mob.BasicZombie;
+import Mob.DeadMob;
+import Mob.Dynamite;
+import Mob.Explosion;
+import Mob.ExplosiveZombie;
+import Mob.Mob;
+import Mob.Nuts;
+import Mob.Peas;
+import Mob.PeasShooter;
+import Mob.ShieldedZombie;
+import Mob.Sun;
+import Mob.Sunflower;
+import Mob.Zombie;
+import Resources.Entite;
+import Resources.Game;
+import Resources.SoundPlayer;
+import Resources.StdDraw;
+import Resources.SunSpawner;
+import Resources.Timer;
+import Resources.ZombieSpawner;
 
 /**
  * @author TERMIER Alexandre, GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -99,8 +117,6 @@ public class GameWorld extends GameScreen {
 		//Affiche ou désaffiche les Informations si la touche correspondante est appuyée
 		else if(key == 'i')
 			dispInfos = ! dispInfos;
-		else
-			System.out.println("Touche non prise en charge.");
 	}
 
 
@@ -111,7 +127,6 @@ public class GameWorld extends GameScreen {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		System.out.println("La souris a ete clique en (" + x + ";" + y + ")");
 		// Gère les Interactions Souris si le Menu Information est présent
 		if(dispInfos) {
 			//Redémarre le niveau
@@ -177,11 +192,7 @@ public class GameWorld extends GameScreen {
 								entites.add(new Dynamite(rx, ry));
 								selectedPlant = null;
 							}
-							if(selectedPlant == null) {
-								System.out.println("Pas de plante selectionne.");
-							}
 						}
-						else System.out.println("Il y a deja quelque chose ici.");
 					}
 				}
 			}
@@ -223,8 +234,8 @@ public class GameWorld extends GameScreen {
 
 		// Affichage du nombre de zombies
 		StdDraw.picture(0.9, 0.95, SPRITES.getAbsolutePath() + "/bg/PanneauScore.png", 0.2, 0.2);
-		StdDraw.text(0.9, 0.932, "Level : " + ZombieSpawn.getCurrentDifficulty());
-		StdDraw.text(0.9, 0.908, "Remaining : " + zombieQuantity);
+		StdDraw.text(0.9, 0.932, "Niveau : " + ZombieSpawn.getCurrentDifficulty());
+		StdDraw.text(0.9, 0.908, "Restants : " + zombieQuantity);
 
 		// Affichage touche Infos
 		StdDraw.text(0.1,0.015, "Infos = i");
@@ -454,21 +465,12 @@ public class GameWorld extends GameScreen {
 	 */
 	private void selectSunflower() {
 		if(selectedPlant != Sunflower.class.getName()) {
-			System.out.println("Le joueur souhaite selectionner un tounesol...");
 			if(Sunflower.getCooldown() == null || Sunflower.getCooldown().hasFinished())
-				if(wallet >= Sunflower.getPrice()) {
-					System.out.println("Tournesol selectionne !");
+				if(wallet >= Sunflower.getPrice())
 					selectedPlant = Sunflower.class.getName();
-				}
-				else
-					System.out.println("Mais il ne possede pas assez de soleil.");
-			else
-				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 		}
-		else {
-			System.out.println("Pas de plante selectionne.");
+		else
 			selectedPlant = null;
-		}
 	}
 
 	/**
@@ -476,21 +478,12 @@ public class GameWorld extends GameScreen {
 	 */
 	private void selectPeasShooter() {
 		if(selectedPlant != PeasShooter.class.getName()) {
-			System.out.println("Le joueur souhaite selectionner un tire-pois...");
 			if(PeasShooter.getCooldown() == null || PeasShooter.getCooldown().hasFinished())
-				if(wallet >= PeasShooter.getPrice()) {
-					System.out.println("Tire-pois selectionne !");
+				if(wallet >= PeasShooter.getPrice())
 					selectedPlant = PeasShooter.class.getName();
-				}
-				else
-					System.out.println("Mais il ne possede pas assez de soleil.");
-			else
-				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 		}
-		else {
-			System.out.println("Pas de plante selectionne.");
+		else
 			selectedPlant = null;
-		}
 	}
 
 	/**
@@ -498,21 +491,12 @@ public class GameWorld extends GameScreen {
 	 */
 	private void selectNuts() {
 		if(selectedPlant != Nuts.class.getName()) {
-			System.out.println("Le joueur souhaite selectionner une noix...");
 			if(Nuts.getCooldown() == null || Nuts.getCooldown().hasFinished())
-				if(wallet >= Nuts.getPrice()) {
-					System.out.println("Noix selectionnee !");
+				if(wallet >= Nuts.getPrice())
 					selectedPlant = Nuts.class.getName();
-				}
-				else
-					System.out.println("Mais il ne possede pas assez de soleil.");
-			else
-				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 		}
-		else {
-			System.out.println("Pas de plante selectionne.");
+		else
 			selectedPlant = null;
-		}
 	}
 
 	/**
@@ -520,21 +504,12 @@ public class GameWorld extends GameScreen {
 	 */
 	private void selectDynamite() {
 		if(selectedPlant != Dynamite.class.getName()) {
-			System.out.println("Le joueur souhaite selectionner une dynamite...");
 			if(Dynamite.getCooldown() == null || Dynamite.getCooldown().hasFinished())
-				if(wallet >= Dynamite.getPrice()) {
-					System.out.println("Dynamite selectionnee !");
+				if(wallet >= Dynamite.getPrice())
 					selectedPlant = Dynamite.class.getName();
-				}
-				else
-					System.out.println("Mais il ne possede pas assez de soleil.");
-			else
-				System.out.println("Mais le temps de recharge ne c'est pas effectue.");
 		}
-		else {
-			System.out.println("Pas de plante selectionne.");
+		else
 			selectedPlant = null;
-		}
 	}
 
 

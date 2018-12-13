@@ -194,7 +194,7 @@ public class MenuStart extends GameScreen {
 		//Affichage du Texte
 		StdDraw.setFont(new Font("sans serif",10,20));
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
-		StdDraw.text(0.509, 0.57,"Choix Level");
+		StdDraw.text(0.509, 0.57,"Choix Niveau");
 		StdDraw.text(0.509, 0.05,"Quitter le Jeu");
 		
 		//Affichage des Boutons du Menu de Configuration de Touches et du Menu d'Informations
@@ -235,16 +235,16 @@ public class MenuStart extends GameScreen {
 		StdDraw.text(0.5, 0.85,"Changement de touches :");
 
 		StdDraw.setPenColor((changeButton == Sunflower.getKey())?StdDraw.RED : StdDraw.WHITE);
-		StdDraw.text(0.5, 0.6,"Spawn Sherif : " + Sunflower.getKey());
+		StdDraw.text(0.5, 0.6,"Sherif : " + Sunflower.getKey());
 
 		StdDraw.setPenColor((changeButton == PeasShooter.getKey())?StdDraw.RED : StdDraw.WHITE);
-		StdDraw.text(0.5, 0.5,"Spawn CowBoy :" + PeasShooter.getKey());
+		StdDraw.text(0.5, 0.5,"Cowboy : " + PeasShooter.getKey());
 
 		StdDraw.setPenColor((changeButton == Nuts.getKey())?StdDraw.RED : StdDraw.WHITE);
-		StdDraw.text(0.5, 0.4,"Spawn Tonneau :" + Nuts.getKey());
+		StdDraw.text(0.5, 0.4,"Tonneau : " + Nuts.getKey());
 
 		StdDraw.setPenColor((changeButton == Dynamite.getKey())?StdDraw.RED : StdDraw.WHITE);
-		StdDraw.text(0.5, 0.3,"Spawn Dynamite :" + Dynamite.getKey());
+		StdDraw.text(0.5, 0.3,"Dynamite : " + Dynamite.getKey());
 
 		// Affichage du Bouton de Retour
 		StdDraw.setPenColor(StdDraw.WHITE);
