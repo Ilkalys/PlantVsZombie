@@ -9,6 +9,9 @@ import Resources.StdDraw;
 import Resources.Timer;
 import Resources.ZombieSpawner;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class MenuLevelComplete extends GameScreen {
 
 	//------------------------------------------------------------------------------

@@ -5,6 +5,9 @@ import java.util.Random;
 import Mob.Sun;
 import Screens.GameWorld;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class SunSpawner {
 	
 	//------------------------------------------------------------------------------
@@ -14,14 +17,36 @@ public class SunSpawner {
 	//------------------------------------------------------------------------------
 	
 	// Temps (en ms) avant qu'un soleil apparaisse
-	private static final int SPAWNTIME = 6500;
-	private Random rand = new Random();
+	private static final int SPAWNTIME = 6_500;
+	// Timer charge de l'apparition des soleils
 	private Timer timer;
+	// Random
+	private Random rand = new Random();
 
-	public SunSpawner(){
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      CONSTRUCTEUR
+	*/
+	//------------------------------------------------------------------------------
+		
+	/**
+	 * Constructeur
+	 */
+	public SunSpawner() {
 		this.timer = new Timer(SPAWNTIME);
 	}
 
+	
+	//------------------------------------------------------------------------------
+	/*
+	**      METHODES
+	*/
+	//------------------------------------------------------------------------------
+	
+	/**
+	 * Met a jour l'entite : deplacement, effectuer une action
+	 */
 	public void step() {
 		double x = (double)rand.nextInt(9)/10 +0.1;
 		double y = (double)rand.nextInt(5)/10 +0.3;
@@ -29,6 +54,6 @@ public class SunSpawner {
 				GameWorld.addSun(x, y);
 				timer = new Timer(SPAWNTIME);
 		}
-
 	}
+	
 }

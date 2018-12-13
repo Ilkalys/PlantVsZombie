@@ -8,6 +8,9 @@ import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.Timer;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class MenuVictory extends GameScreen {
 
 	//------------------------------------------------------------------------------

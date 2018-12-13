@@ -6,6 +6,9 @@ import Screens.MenuGameOver;
 import Screens.MenuLevelComplete;
 import Screens.MenuStart;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class Game {
 
 	//------------------------------------------------------------------------------

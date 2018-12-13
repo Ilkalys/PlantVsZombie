@@ -7,6 +7,9 @@ import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.StdDraw;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class MenuSelectionLevel extends GameScreen {
 
 	//------------------------------------------------------------------------------

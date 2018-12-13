@@ -8,6 +8,9 @@ import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Resources.ZombieSpawner;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class MenuGameOver  extends GameScreen {
 
 	//------------------------------------------------------------------------------

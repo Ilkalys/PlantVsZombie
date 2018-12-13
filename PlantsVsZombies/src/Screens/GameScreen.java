@@ -1,5 +1,8 @@
 package Screens;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public abstract class GameScreen {
 
 	//------------------------------------------------------------------------------

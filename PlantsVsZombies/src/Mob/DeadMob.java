@@ -7,6 +7,9 @@ import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
 
+/**
+ * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
+ */
 public class DeadMob extends Entite {
 
 	//------------------------------------------------------------------------------
