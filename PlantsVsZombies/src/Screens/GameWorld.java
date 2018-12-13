@@ -21,20 +21,25 @@ public class GameWorld extends GameScreen {
 
 	// Chemin vers les sprites
 	private static final File SPRITES = new File("sprites");
+	
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
 	// L'ensemble des soleils qui apparaitront
 	private static List<Entite> suns;
+	
 	// Gestionnaire des apparitions de zombies
 	private static ZombieSpawner ZombieSpawn;
-	// Gestionnaire des apparitions de soleil
-	private static SunSpawner SunSpawn;
-	// Plante selectionne
-	private static String selectedPlant;
-	// Porte-feuille du joueur
-	private static int wallet;
 	// Quantité de zombies restant a apparaitre
 	private static int zombieQuantity;
+	
+	// Gestionnaire des apparitions de soleil
+	private static SunSpawner SunSpawn;
+	// Porte-feuille du joueur
+	private static int wallet;
+	// Plante selectionne
+	private static String selectedPlant;
+
+	// Affichage ou non des Informations
 	private static boolean dispInfos;
 
 	//------------------------------------------------------------------------------
