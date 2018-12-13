@@ -142,6 +142,4 @@ public class MenuSelectionLevel extends GameScreen {
 		StdDraw.text(0.5, 0.05, "Retour au Menu");
 
 	}
-
-
 }

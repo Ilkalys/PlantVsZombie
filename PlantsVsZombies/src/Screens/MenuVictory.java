@@ -76,7 +76,6 @@ public class MenuVictory extends GameScreen {
 	 * @param x position en x de la souris au moment du clic
 	 * @param y position en y de la souris au moment du clic
 	 */
-	@Override
 	public void processMouseClick(double x, double y) {
 		// si la musique a été joué une fois, le joueur peut retourner au menu principal en cliquant n'importe où.
 		if(alreadyPlay ) {
@@ -88,7 +87,6 @@ public class MenuVictory extends GameScreen {
 	/**
 	 * Fait bouger/agir toutes les entites
 	 */
-	@Override
 	public void step() {	
 		// initialise la position des personnages sur la scène
 		persoYPosition = bgYPosition + 0.13;
@@ -109,7 +107,7 @@ public class MenuVictory extends GameScreen {
 			}
 		}
 		// Active le bruitage du spot lumineux si celui-ci n'a pas déja été fait lorsqu'il reste 0.5s au Timer
-		if(launchSong.getActualTime() <= 0.5 && !this.sePlayded) {
+		if(!this.sePlayded && launchSong.getActualTime() <= 0.5) {
 			SoundPlayer.PlaySE("spot.wav");
 			this.sePlayded = true;
 		}
@@ -118,7 +116,6 @@ public class MenuVictory extends GameScreen {
 	/**
 	 * Dessine les entites du jeu
 	 */
-	@Override
 	public void dessine() {
 		//Affichage du BackGround, en fonction de bgYPosition
 		StdDraw.picture(0.5, bgYPosition, SpriteFilepath.getAbsolutePath() + "/bg/MenuVictory.png", 1, 1.5);
@@ -188,7 +185,6 @@ public class MenuVictory extends GameScreen {
 		}
 	}
 
-	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
 	/* 
 	 **      GESTIONS DES ANIMATIONS (METHODES PRIVEES)
