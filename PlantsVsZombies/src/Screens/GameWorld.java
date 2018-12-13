@@ -21,17 +21,17 @@ public class GameWorld extends GameScreen {
 
 	// Chemin vers les sprites
 	private static final File SPRITES = new File("sprites");
-	
+
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
 	// L'ensemble des soleils qui apparaitront
 	private static List<Entite> suns;
-	
+
 	// Gestionnaire des apparitions de zombies
 	private static ZombieSpawner ZombieSpawn;
 	// Quantité de zombies restant a apparaitre
 	private static int zombieQuantity;
-	
+
 	// Gestionnaire des apparitions de soleil
 	private static SunSpawner SunSpawn;
 	// Porte-feuille du joueur
@@ -75,13 +75,11 @@ public class GameWorld extends GameScreen {
 		dispInfos = false;
 	}
 
-
 	//------------------------------------------------------------------------------
 	/*
-	 **      METHODES
+	 **      METHODES PUBLIQUES
 	 */
 	//------------------------------------------------------------------------------
-
 
 	/**  
 	 * Gestion des interactions clavier avec l'utilisateur
@@ -89,6 +87,7 @@ public class GameWorld extends GameScreen {
 	 * @param key Touche pressee par l'utilisateur
 	 */
 	public void processUserInput(char key) {
+		//Verifie si la touche correspond à une plante et si c'est le cas appelle la fonction correspondante
 		if(key == Sunflower.getKey())
 			selectSunflower();
 		else if(key == PeasShooter.getKey())
@@ -96,16 +95,12 @@ public class GameWorld extends GameScreen {
 		else if(key == Nuts.getKey())
 			selectNuts();
 		else if(key == Dynamite.getKey())
-			selectDynamite();			
-		// Touche echap appuyée
-		else if(StdDraw.isKeyPressed(KeyEvent.VK_ESCAPE)) {
-
-		}
+			selectDynamite();
+		//Affiche ou désaffiche les Informations si la touche correspondante est appuyée
 		else if(key == 'i')
 			dispInfos = ! dispInfos;
 		else
 			System.out.println("Touche non prise en charge.");
-
 	}
 
 
@@ -117,13 +112,16 @@ public class GameWorld extends GameScreen {
 	 */
 	public void processMouseClick(double x, double y) {
 		System.out.println("La souris a ete clique en (" + x + ";" + y + ")");
-		// Gestion Boutons Informations
+		// Gère les Interactions Souris si le Menu Information est présent
 		if(dispInfos) {
+			//Redémarre le niveau
 			if(x <= 0.84 && x >= 0.559 && y >= 0.565 && y <= 0.685)
 				Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()));
+			//Retour au Menu Principal
 			else if(x <= 0.85 && x >= 0.55 && y >= 0.42 && y <= 0.48)
 				Game.setWorld(new MenuStart());
 		}
+		// Gère les Interactions Souris dans les autres cas
 		else {
 			// Recuperation d'un soleil
 			Sun sunHere = Sun.somethingHere(suns, x, y);
@@ -194,16 +192,19 @@ public class GameWorld extends GameScreen {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {
+		//Appelle le Step de toutes les entités de entites
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) != null) {
 				entites.get(i).step();
 			}
 		}
+		//Appelle le Step de toutes les entités de suns
 		for (int i = 0; i < suns.size(); i++) {
 			if(suns.get(i) != null) {
 				suns.get(i).step();
 			}
 		}
+		//Appelle les steps de ZombieSpawn et SunSpawn
 		ZombieSpawn.step();
 		SunSpawn.step();
 	}
@@ -299,30 +300,6 @@ public class GameWorld extends GameScreen {
 				dispInfos();
 	}
 
-	private void dispInfos() {
-			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.text(0.3, 0.8, "Infos:");
-			StdDraw.text(0.3, 0.7, "Sherif : Touche " + Sunflower.getKey());
-			StdDraw.text(0.3, 0.6, "CowBoy : Touche " + PeasShooter.getKey());
-			StdDraw.text(0.3, 0.5, "Tonneau : Touche " + Nuts.getKey());
-			StdDraw.text(0.3, 0.4, "Dynamite : Touche " + Dynamite.getKey());
-
-			// Affichage du bouton "Recommence le niveau"
-			StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
-			if(StdDraw.mouseX() <= 0.84 && StdDraw.mouseX() >= 0.559 && StdDraw.mouseY() >= 0.565 && StdDraw.mouseY() <= 0.685)
-				StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
-			StdDraw.text(0.7, 0.65, "Recommencer");
-			StdDraw.text(0.7, 0.60, "le Niveau");
-
-			// Affichage du bouton "Retour au Menu"
-			StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
-			if(StdDraw.mouseX() <= 0.85 && StdDraw.mouseX() >= 0.55 && StdDraw.mouseY() >= 0.42 && StdDraw.mouseY() <= 0.48)
-				StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
-			StdDraw.text(0.7, 0.45, "Retour au Menu");
-
-			StdDraw.setPenColor(StdDraw.BLACK);
-	}
-
 	/**
 	 * Fait apparaitre un nouveau soleil
 	 * @param x la position x du soleil
@@ -375,7 +352,7 @@ public class GameWorld extends GameScreen {
 	public static void addDeadMob(double x, double y, String classe) {
 		entites.add(new DeadMob(x,y,classe));
 	}
-	
+
 	/**
 	 * Fait apparaitre une explosion
 	 * @param x la position x de l'explosion
@@ -435,6 +412,41 @@ public class GameWorld extends GameScreen {
 				if(entite.getX() < 0) 
 					return true;
 		return false;
+	}
+
+	//------------------------------------------------------------------------------
+	/*
+	 **      METHODES PRIVEES
+	 */
+	//------------------------------------------------------------------------------
+
+	/**
+	 * Gere L'affichage du Menu d'Informations
+	 */
+	private void dispInfos() {
+		StdDraw.setPenColor(StdDraw.WHITE);
+
+		//Affichage du Texte
+		StdDraw.text(0.3, 0.8, "Infos:");
+		StdDraw.text(0.3, 0.7, "Sherif : Touche " + Sunflower.getKey());
+		StdDraw.text(0.3, 0.6, "CowBoy : Touche " + PeasShooter.getKey());
+		StdDraw.text(0.3, 0.5, "Tonneau : Touche " + Nuts.getKey());
+		StdDraw.text(0.3, 0.4, "Dynamite : Touche " + Dynamite.getKey());
+
+		// Affichage du bouton "Recommence le niveau"
+		StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
+		if(StdDraw.mouseX() <= 0.84 && StdDraw.mouseX() >= 0.559 && StdDraw.mouseY() >= 0.565 && StdDraw.mouseY() <= 0.685)
+			StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
+		StdDraw.text(0.7, 0.65, "Recommencer");
+		StdDraw.text(0.7, 0.60, "le Niveau");
+
+		// Affichage du bouton "Retour au Menu"
+		StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
+		if(StdDraw.mouseX() <= 0.85 && StdDraw.mouseX() >= 0.55 && StdDraw.mouseY() >= 0.42 && StdDraw.mouseY() <= 0.48)
+			StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
+		StdDraw.text(0.7, 0.45, "Retour au Menu");
+
+		StdDraw.setPenColor(StdDraw.BLACK);
 	}
 
 	/**
