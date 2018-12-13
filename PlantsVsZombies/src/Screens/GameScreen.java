@@ -1,7 +1,5 @@
 package Screens;
 
-import Resources.SoundPlayer;
-
 public abstract class GameScreen {
 
 	//------------------------------------------------------------------------------
@@ -10,9 +8,14 @@ public abstract class GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 	public GameScreen() {
-		
+
 	}
-	
+
+	//------------------------------------------------------------------------------
+	/*
+	 **      METHODES PUBLIQUES
+	 */
+	//------------------------------------------------------------------------------
 	public abstract void processUserInput(char key);
 	public abstract void processMouseClick(double x, double y);
 	public abstract void step();

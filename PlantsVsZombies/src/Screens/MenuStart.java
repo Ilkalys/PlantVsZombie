@@ -44,6 +44,9 @@ public class MenuStart extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
+	/**
+	 * Construit la scène du Menu Principal
+	 */
 	public MenuStart() {
 		//Démarrage de la musique si celle-ci n'a pas déjà demarrée Via une autre scène
 		if(SoundPlayer.getBGMPlayed() != "Blues.wav")
@@ -173,7 +176,6 @@ public class MenuStart extends GameScreen {
 	/**
 	 * Dessine les entites du jeu
 	 */
-	@Override
 	public void dessine() {
 
 		StdDraw.setFont();

@@ -30,7 +30,7 @@ public class ZombieSpawner {
 	private static int currentDifficulty =0;
 
 	public ZombieSpawner(int difficulty){
-		this.currentDifficulty = difficulty;
+		currentDifficulty = difficulty;
 		this.timer = new Timer(20_000);
 		switch (difficulty) {
 		case 1:

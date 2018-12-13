@@ -6,7 +6,6 @@ import java.io.File;
 import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.StdDraw;
-import Resources.ZombieSpawner;
 
 public class MenuSelectionLevel extends GameScreen {
 
@@ -16,19 +15,44 @@ public class MenuSelectionLevel extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	private File SpriteFilepath;
+	// Chemin vers le dossier de sprite de BackGround
+	private File SpriteFilepath = new File("sprites/bg");
 
+	//------------------------------------------------------------------------------
+	/*
+	 **      CONSTRUCTEUR
+	 */
+	//------------------------------------------------------------------------------
+
+	/**
+	 * Construit la scène du Menu de Selections de Niveaux
+	 */
 	public MenuSelectionLevel() {
-		SpriteFilepath = new File("sprites/bg");
 	}
 
-	@Override
+	//------------------------------------------------------------------------------
+	/*
+	 **      METHODES PUBLIQUES
+	 */
+	//------------------------------------------------------------------------------
+
+	/**  
+	 * Gestion des interactions clavier avec l'utilisateur, ici inutile
+	 *	
+	 * @param key Touche pressee par l'utilisateur
+	 */
 	public void processUserInput(char key) {
+		// Rien à faire via les touches
 	}
 
-	@Override
+	/**
+	 * Gestion des interactions souris avec l'utilisateur (la souris a ete clique)
+	 * 
+	 * @param x position en x de la souris au moment du clic
+	 * @param y position en y de la souris au moment du clic
+	 */
 	public void processMouseClick(double x, double y) {
-
+		//Démarre le Niveau souhaité
 		if(x >= 0.075 && x <=  0.225 && y >= 0.515 && y <= 0.685) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(1));
@@ -69,53 +93,52 @@ public class MenuSelectionLevel extends GameScreen {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(10));
 		}
+		// Retour au Menu Principal
 		else if(x >= 0.35 && x <= 0.65 && y >= 0.03 && y <=0.07) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new MenuStart());
 		}
-
 	}
 
-	@Override
-	public void step() {		
+	/**
+	 * Fait bouger/agir toutes les entites, ici inutile
+	 */
+	public void step() {	
+		//Rien de bouge sur cette scène
 	}
 
-	@Override
+	/**
+	 * Dessine les entites du jeu
+	 */
 	public void dessine() {
 
-		StdDraw.setFont();
 		StdDraw.setFont(new Font("sans serif",10,40));
+		//Affichage du Fond
 		StdDraw.picture(0.5, 0.5,SpriteFilepath.getAbsolutePath() + "/MenuLevel.png", 1, 1);
+		
+		//Affichage des différentes Fiches amenant aux Niveaux
 		StdDraw.picture(0.15, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.15, 0.6, "1");
-
 		StdDraw.picture(0.325, 0.575,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.325, 0.575, "2");
-
 		StdDraw.picture(0.5, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.5, 0.6, "3");
-
 		StdDraw.picture(0.675, 0.575,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.675, 0.575, "4");
-
 		StdDraw.picture(0.85, 0.6,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.85, 0.6, "5");
-
 		StdDraw.picture(0.15, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.15, 0.35, "6");
-
 		StdDraw.picture(0.325, 0.325,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.325, 0.325, "7");
-
 		StdDraw.picture(0.5, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.5, 0.35, "8");
-
 		StdDraw.picture(0.675, 0.325,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.675, 0.325, "9");
-
 		StdDraw.picture(0.85, 0.35,SpriteFilepath.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.85, 0.35, "10");
 		
+		//Affichage du Texte pour retourner au Menu
 		StdDraw.text(0.5, 0.05, "Retour au Menu");
 
 	}

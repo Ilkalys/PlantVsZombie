@@ -17,7 +17,7 @@ public class MenuLevelComplete extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	private File SpriteFilepath;
+	private File SpriteFilepath = new File("sprites");
 	private double durationSong = 22.857;
 	private Timer launchSong;
 	private double actualTime;
@@ -27,7 +27,6 @@ public class MenuLevelComplete extends GameScreen {
 
 	public MenuLevelComplete() {
 		launchSong = new Timer((int)(2_000));
-		SpriteFilepath = new File("sprites");
 		this.sePlayded = false;
 		SoundPlayer.StopBGM();
 	}

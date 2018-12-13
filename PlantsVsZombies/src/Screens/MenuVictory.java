@@ -191,8 +191,8 @@ public class MenuVictory extends GameScreen {
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
 	/* 
-	**      GESTIONS DES ANIMATIONS (METHODES PRIVEES)
-	**      Toutes les Animations dépandent de actualTime.
+	 **      GESTIONS DES ANIMATIONS (METHODES PRIVEES)
+	 **      Toutes les Animations dépandent de actualTime.
 	 */
 	//------------------------------------------------------------------------------
 
@@ -217,7 +217,6 @@ public class MenuVictory extends GameScreen {
 				StdDraw.picture(0.4, persoYPosition, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_8.png", 0.2, 0.2);
 				StdDraw.picture(0.6, persoYPosition, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_7.png", 0.2, 0.2);
 			}
-
 		}
 		else if(actualTime >= 1.142*16 && actualTime <= 1.142*19){
 			if(actualTime % 1.142 >= 0.8565) {
@@ -328,7 +327,6 @@ public class MenuVictory extends GameScreen {
 			else if(actualTime % 1.142 <= 0.2855) {
 				StdDraw.picture(0.5, persoYPosition  -0.2, SpriteFilepath.getAbsolutePath() + "/mob/musical/Piano_2.png", 0.2, 0.2);
 			}
-
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
@@ -363,7 +361,6 @@ public class MenuVictory extends GameScreen {
 			else if(actualTime % 1.142 <= 0.2855) {
 				StdDraw.picture(0.3, persoYPosition  -0.25, SpriteFilepath.getAbsolutePath() + "/mob/musical/doublebass_2.png", 0.2, 0.2);
 			}
-
 		}
 		else {
 			if(actualTime % 1.142 >= 0.571) {
@@ -410,7 +407,6 @@ public class MenuVictory extends GameScreen {
 			else if(actualTime % 1.142 <= 0.2855) {
 				StdDraw.picture(0.2, persoYPosition  -0.3, SpriteFilepath.getAbsolutePath() + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
 			}
-
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
@@ -445,7 +441,6 @@ public class MenuVictory extends GameScreen {
 			else if(actualTime % 1.142 <= 0.2855) {
 				StdDraw.picture(0.8, persoYPosition  -0.3, SpriteFilepath.getAbsolutePath() + "/mob/musical/drum_4.png", 0.2, 0.2);
 			}
-
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
