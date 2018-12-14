@@ -24,7 +24,7 @@ public class MenuStart extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers les dossiers de sprites
-	private File SpriteFilepath  = new File("sprites");
+	private static final File SPRITEFILEPATH  = new File("sprites");
 
 	// Verifie si le bouton pour commencer à été pressé
 	private boolean launchGame;
@@ -185,11 +185,11 @@ public class MenuStart extends GameScreen {
 		StdDraw.setPenColor(StdDraw.BLACK);
 		
 		//Gère le Fond, le Titre et les Nuages
-		StdDraw.picture(0.5, 0.5,(launchGame)?SpriteFilepath.getAbsolutePath() + "/bg/Accueil2.png":SpriteFilepath.getAbsolutePath() + "/bg/Accueil1.png", 1, 1);
-		StdDraw.picture(0+posXCloud, 0.8,SpriteFilepath.getAbsolutePath() + "/set/CloudDown.png", 0.51, 0.51);
-		StdDraw.picture(1-posXCloud, 0.97,SpriteFilepath.getAbsolutePath() + "/set/CouldUp.png", 0.51, 0.51);
-		StdDraw.picture(0.509, 0.57,SpriteFilepath.getAbsolutePath() + "/set/Affichage.png", 0.51, 0.51);
-		StdDraw.picture(0.5, 0.9, SpriteFilepath.getAbsolutePath() + "/set/title.png");
+		StdDraw.picture(0.5, 0.5,(launchGame)?SPRITEFILEPATH.getAbsolutePath() + "/bg/Accueil2.png":SPRITEFILEPATH.getAbsolutePath() + "/bg/Accueil1.png", 1, 1);
+		StdDraw.picture(0+posXCloud, 0.8,SPRITEFILEPATH.getAbsolutePath() + "/set/CloudDown.png", 0.51, 0.51);
+		StdDraw.picture(1-posXCloud, 0.97,SPRITEFILEPATH.getAbsolutePath() + "/set/CouldUp.png", 0.51, 0.51);
+		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH.getAbsolutePath() + "/set/Affichage.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.9, SPRITEFILEPATH.getAbsolutePath() + "/set/title.png");
 		
 		//Affichage du Texte
 		StdDraw.setFont(new Font("sans serif",10,20));
@@ -198,10 +198,10 @@ public class MenuStart extends GameScreen {
 		StdDraw.text(0.509, 0.05,"Quitter le Jeu");
 		
 		//Affichage des Boutons du Menu de Configuration de Touches et du Menu d'Informations
-		StdDraw.picture(0.1, 0.05,SpriteFilepath.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
-		StdDraw.picture(0.1, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
-		StdDraw.picture(0.9, 0.05,SpriteFilepath.getAbsolutePath() + "/button/Interrogation.png",0.03,0.03);
-		StdDraw.picture(0.9, 0.05, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
+		StdDraw.picture(0.1, 0.05,SPRITEFILEPATH.getAbsolutePath() + "/button/keyboard.png",0.06,0.06);
+		StdDraw.picture(0.1, 0.05, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
+		StdDraw.picture(0.9, 0.05,SPRITEFILEPATH.getAbsolutePath() + "/button/Interrogation.png",0.03,0.03);
+		StdDraw.picture(0.9, 0.05, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.06,0.04);
 
 		//Affichage du Menu de Configuration de Touches si demandé
 		if(menuSetButton)
@@ -211,7 +211,7 @@ public class MenuStart extends GameScreen {
 			menuInfos();
 		//Effet Assombrissant lors du démarrage du jeu
 		else if(launchGame)
-			StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",5,5);
+			StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",5,5);
 	}
 
 	//------------------------------------------------------------------------------
@@ -227,9 +227,9 @@ public class MenuStart extends GameScreen {
 		StdDraw.setFont(new Font("sans serif",15,40));
 
 		// Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 
 		//Affichage du Texte, les couleurs variants en fonction de quel bouton va être changé
 		StdDraw.text(0.5, 0.85,"Changement de touches :");
@@ -263,10 +263,10 @@ public class MenuStart extends GameScreen {
 		StdDraw.setFont(new Font("sans serif",15,40));
 
 		// Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SpriteFilepath.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/Fondu.png",0.8,0.8);
 
 		// Affichage du Texte
 		StdDraw.text(0.5, 0.85,"Informations");
@@ -283,8 +283,8 @@ public class MenuStart extends GameScreen {
 		StdDraw.text(0.5, 0.32, "Survivez à la vague de cactus pour reussir le niveau.");
 		StdDraw.text(0.5, 0.25, "Réalisé par.");
 		StdDraw.text(0.5, 0.22, "Matthieu Gauget-Berlioz et Julien Cochet");
-		StdDraw.picture(0.3, 0.22, SpriteFilepath.getAbsolutePath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
-		StdDraw.picture(0.7, 0.22, SpriteFilepath.getAbsolutePath() + "/mob/julien/julien_2.png",0.1,0.1);
+		StdDraw.picture(0.3, 0.22, SPRITEFILEPATH.getAbsolutePath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.22, SPRITEFILEPATH.getAbsolutePath() + "/mob/julien/julien_2.png",0.1,0.1);
 
 
 		StdDraw.setFont(new Font("sans serif",15,30));
