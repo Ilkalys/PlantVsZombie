@@ -17,7 +17,7 @@ public class ShieldedZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers le dossier de sprite de BackGround
-	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mobs/shieldedZombie";
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/shieldedZombie";
 	// Point de vie de depart d'un zombie blinde
 	private static final int HPMAX = 560;
 	// Nombre de degat qu'inflige un zombie blinde
