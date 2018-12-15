@@ -28,6 +28,10 @@ public class Game {
 	private static boolean stopGame = false;
 	// Determine si la souris est enfoncee ou non
 	private static boolean mousePressed = false;
+	// Largeur de la fenetre
+	private static int canvasXY = 1000;
+
+
 
 	//------------------------------------------------------------------------------
 	/*
@@ -41,7 +45,7 @@ public class Game {
 	 */
 	public static void launch() {
 		// Reglage de la taille de la fenetre de jeu, en pixels
-		StdDraw.setCanvasSize(1000, 1000);
+		StdDraw.setCanvasSize(canvasXY , canvasXY);
 
 		// Permet le double buffering, pour permettre l'animation
 		StdDraw.enableDoubleBuffering();
@@ -91,6 +95,16 @@ public class Game {
 	//------------------------------------------------------------------------------
 
 	/**
+	 * Renvoi canvasXY, les dimensions de la fenetre
+	 * 
+	 * @return canvasXY
+	 */
+	public static int getCanvasXY() {
+		return canvasXY;
+	}
+
+
+	/**
 	 * Retourne la scene actuelle
 	 * 
 	 * @return World
@@ -128,7 +142,14 @@ public class Game {
 	 */
 	//------------------------------------------------------------------------------
 
-
+	/**
+	 * Change la valeur de canvasXY
+	 * 
+	 * @param canvasXY la nouvelle valeur de canvasXY
+	 */
+	public static void setCanvasXY(int canvasXY) {
+		Game.canvasXY = canvasXY;
+	}
 
 	/**
 	 * Modifie la scene actuelle

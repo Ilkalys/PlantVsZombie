@@ -87,9 +87,9 @@ public class MenuGameOver  extends GameScreen {
 		
 		//Affichage du Texte des Boutons
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.setFont(new Font("sans serif",10,40));
+		StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.5, 0.9, "GAME OVER");
-		StdDraw.setFont(new Font("sans serif",10,20));
+		StdDraw.setFont(new Font("sans serif",10,20 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.509, 0.65,"Reessayer");
 		StdDraw.text(0.509, 0.57,"Menu Principal");
 	}

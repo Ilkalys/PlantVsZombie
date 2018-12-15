@@ -225,11 +225,10 @@ public class GameWorld extends GameScreen {
 	@SuppressWarnings("static-access")
 	public void dessine() {
 		// Affichage fond
-		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH +"/bg/FondLevel.png", 1, 1);
 
-		StdDraw.setFont(new Font("sans serif",10,20));
+		StdDraw.setFont(new Font("sans serif",10,20 * Game.getCanvasXY() /1000));
 
 		// Affichage du nombre de zombies
 		StdDraw.picture(0.9, 0.95, SPRITEFILEPATH + "/bg/PanneauScore.png", 0.2, 0.2);
@@ -239,7 +238,7 @@ public class GameWorld extends GameScreen {
 		// Affichage touche Infos
 		StdDraw.text(0.1,0.015, "Infos = i");
 
-		StdDraw.setFont(new Font("sans serif",10,40));
+		StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
 
 		// Affichage du porte-monnaie
 		StdDraw.picture(0.9, 0.05, SPRITEFILEPATH + "/bg/PanneauMonnaie.png", 0.15, 0.15);

@@ -150,6 +150,11 @@ public class MenuStart extends GameScreen {
 				SoundPlayer.PlaySE("fire.wav");
 				menuInfos = true;
 			}
+			//Modifie la taille de la Fenetre de Jeu
+			else if(x >= 0 && x <=0.06 && y <=1 && y >= 0.98) {
+				Game.setCanvasXY((Game.getCanvasXY() == 500)?1000:500);
+				Game.launch();
+			}
 		}
 
 	}
@@ -180,7 +185,6 @@ public class MenuStart extends GameScreen {
 	 */
 	public void dessine() {
 
-		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
 
 		//G�re le Fond, le Titre et les Nuages
@@ -188,10 +192,12 @@ public class MenuStart extends GameScreen {
 		StdDraw.picture(0+posXCloud, 0.8,SPRITEFILEPATH + "/set/CloudDown.png", 0.51, 0.51);
 		StdDraw.picture(1-posXCloud, 0.97,SPRITEFILEPATH + "/set/CouldUp.png", 0.51, 0.51);
 		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH + "/set/Affichage.png", 0.51, 0.51);
-		StdDraw.picture(0.5, 0.9, SPRITEFILEPATH + "/set/title.png");
+		StdDraw.picture(0.5, 0.9, SPRITEFILEPATH + "/set/title.png",0.5,0.2);
 
 		//Affichage du Texte
-		StdDraw.setFont(new Font("sans serif",10,20));
+		StdDraw.setFont(new Font("sans serif",10,14 * Game.getCanvasXY() /1000));
+		StdDraw.text(0.035, 0.99, Game.getCanvasXY() + "x" + Game.getCanvasXY());
+		StdDraw.setFont(new Font("sans serif",10,20 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 		StdDraw.text(0.509, 0.57,"Choix Niveau");
 		StdDraw.text(0.509, 0.05,"Quitter le Jeu");
@@ -223,7 +229,7 @@ public class MenuStart extends GameScreen {
 	 */
 	private void menuSetButton() {
 		StdDraw.setPenColor(StdDraw.WHITE);
-		StdDraw.setFont(new Font("sans serif",15,40));
+		StdDraw.setFont(new Font("sans serif",15,40 * Game.getCanvasXY() /1000));
 
 		// Affichage du Fond
 		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
@@ -250,7 +256,7 @@ public class MenuStart extends GameScreen {
 		StdDraw.text(0.5, 0.15,"Retour");
 
 		//Affichage d'un Texte dans une autre police
-		StdDraw.setFont(new Font("sans serif",15,20));
+		StdDraw.setFont(new Font("sans serif",15,20 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.5, 0.7,"Touche i = Infos");
 	}
 
@@ -259,7 +265,7 @@ public class MenuStart extends GameScreen {
 	 */
 	private void menuInfos() {
 		StdDraw.setPenColor(StdDraw.WHITE);
-		StdDraw.setFont(new Font("sans serif",15,40));
+		StdDraw.setFont(new Font("sans serif",15,40 * Game.getCanvasXY() /1000));
 
 		// Affichage du Fond
 		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
@@ -269,7 +275,7 @@ public class MenuStart extends GameScreen {
 
 		// Affichage du Texte
 		StdDraw.text(0.5, 0.85,"Informations");
-		StdDraw.setFont(new Font("sans serif",15,20));
+		StdDraw.setFont(new Font("sans serif",15,20 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, appara�t al�atoirement");
 		StdDraw.text(0.5, 0.7,"Sherif : Fournit des �toiles");
 		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des d�gats en tirant en ligne droite");
@@ -286,7 +292,7 @@ public class MenuStart extends GameScreen {
 		StdDraw.picture(0.7, 0.22, SPRITEFILEPATH + "/mob/julien/julien_2.png",0.1,0.1);
 
 
-		StdDraw.setFont(new Font("sans serif",15,30));
+		StdDraw.setFont(new Font("sans serif",15,30 * Game.getCanvasXY() /1000));
 		//Affichage du Bouton Retour
 		StdDraw.text(0.5, 0.12,"Retour");
 	}

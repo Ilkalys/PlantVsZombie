@@ -126,9 +126,9 @@ public class MenuVictory extends GameScreen {
 		//affichage du texte et le cercle o� sont les danseurs lorsque la musique d�marre 
 		StdDraw.setPenColor(StdDraw.WHITE);
 		if(SoundPlayer.getBGMClip() != null){
-			StdDraw.setFont(new Font("sans serif",10,50));
+			StdDraw.setFont(new Font("sans serif",10,50 * Game.getCanvasXY() /1000));
 			StdDraw.text(0.5, 0.97, "F�licitations!");
-			StdDraw.setFont(new Font("sans serif",10,40));
+			StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
 			StdDraw.text(0.5, 0.9, "Vous avez termin� le Jeu !");
 			StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH + "/bg/dancefloor.png", 0.5, 0.5);
 		}
@@ -140,7 +140,7 @@ public class MenuVictory extends GameScreen {
 			animationDoubleBass();
 			animationViolin();
 			animationJewsharp();
-			StdDraw.setFont(new Font("sans serif",15,30));
+			StdDraw.setFont(new Font("sans serif",15,30 * Game.getCanvasXY() /1000));
 			StdDraw.text(0.5, 0.05,"Cliquez pour Quitter");
 		}
 		// Gestion du lancement des Animations de tous les Instruments sauf le Piano en fonction d'o� en est la musique

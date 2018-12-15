@@ -114,7 +114,7 @@ public class MenuSelectionLevel extends GameScreen {
 	 */
 	public void dessine() {
 
-		StdDraw.setFont(new Font("sans serif",10,40));
+		StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
 		//Affichage du Fond
 		StdDraw.picture(0.5, 0.5,SPRITEFILEPATH + "/MenuLevel.png", 1, 1);
 		
