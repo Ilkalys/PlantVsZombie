@@ -127,9 +127,9 @@ public class MenuVictory extends GameScreen {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		if(SoundPlayer.getBGMClip() != null){
 			StdDraw.setFont(new Font("sans serif",10,50 * Game.getCanvasXY() /1000));
-			StdDraw.text(0.5, 0.97, "F�licitations!");
+			StdDraw.text(0.5, 0.97, "Felicitations!");
 			StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
-			StdDraw.text(0.5, 0.9, "Vous avez termin� le Jeu !");
+			StdDraw.text(0.5, 0.9, "Vous avez termine le Jeu !");
 			StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH + "/bg/dancefloor.png", 0.5, 0.5);
 		}
 

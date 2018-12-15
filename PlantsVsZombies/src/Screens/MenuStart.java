@@ -286,17 +286,17 @@ public class MenuStart extends GameScreen {
 		// Affichage du Texte
 		StdDraw.text(0.5, 0.85,"Informations");
 		StdDraw.setFont(new Font("sans serif",15,20 * Game.getCanvasXY() /1000));
-		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, appara�t al�atoirement");
-		StdDraw.text(0.5, 0.7,"Sherif : Fournit des �toiles");
-		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des d�gats en tirant en ligne droite");
-		StdDraw.text(0.5, 0.63,"Tonneau : Poss�de une grande quantit� de vie pour bloquer les ennemis");
+		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, apparait aleatoirement");
+		StdDraw.text(0.5, 0.7,"Sherif : Fournit des etoiles");
+		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des degats en tirant en ligne droite");
+		StdDraw.text(0.5, 0.63,"Tonneau : Possede une grande quantite de vie pour bloquer les ennemis");
 		StdDraw.text(0.5, 0.595,"Dynamite : Posez la et cliquez dessus pour faire une explosion en croix");
 		StdDraw.text(0.5, 0.5,"Cactus : Ennemi de base");
-		StdDraw.text(0.5, 0.465,"Cactus blind� : Ennemi avec plus de vie");
-		StdDraw.text(0.5, 0.43,"Cactus explosif : Ennemi plus rapide, qui n'attaque pas mais explose en croix � la mort");
-		StdDraw.text(0.5, 0.35, "Si un cactus atteint la gauche de l'�cran, vous avez perdu.");
-		StdDraw.text(0.5, 0.32, "Survivez � la vague de cactus pour reussir le niveau.");
-		StdDraw.text(0.5, 0.25, "R�alis� par.");
+		StdDraw.text(0.5, 0.465,"Cactus blinde : Ennemi avec plus de vie");
+		StdDraw.text(0.5, 0.43,"Cactus explosif : Ennemi plus rapide, qui n'attaque pas mais explose en croix a la mort");
+		StdDraw.text(0.5, 0.35, "Si un cactus atteint la gauche de l'ecran, vous avez perdu.");
+		StdDraw.text(0.5, 0.32, "Survivez a la vague de cactus pour reussir le niveau.");
+		StdDraw.text(0.5, 0.25, "Realise par.");
 		StdDraw.text(0.5, 0.22, "Matthieu Gauget-Berlioz et Julien Cochet");
 		StdDraw.picture(0.3, 0.22, SPRITEFILEPATH + "/mob/matthieu/matthieu_2.png",0.1,0.1);
 		StdDraw.picture(0.7, 0.22, SPRITEFILEPATH + "/mob/julien/julien_2.png",0.1,0.1);

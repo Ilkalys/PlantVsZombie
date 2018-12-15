@@ -122,9 +122,9 @@ public class MenuLevelComplete extends GameScreen {
 		//Affichage du Texte
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.setFont(new Font("sans serif",10,50 * Game.getCanvasXY() /1000));
-		StdDraw.text(0.5, 0.93, "F�licitations!");
+		StdDraw.text(0.5, 0.93, "Felicitations!");
 		StdDraw.setFont(new Font("sans serif",10,40 * Game.getCanvasXY() /1000));
-		StdDraw.text(0.5, 0.88, "Niveau r�ussi !");
+		StdDraw.text(0.5, 0.88, "Niveau reussi !");
 
 		if(SoundPlayer.getBGMClip() != null)
 			StdDraw.picture(0.5, 0.2, SPRITEFILEPATH + "/bg/dancefloor.png", 0.5, 0.5);
