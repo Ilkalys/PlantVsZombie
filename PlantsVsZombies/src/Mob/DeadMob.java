@@ -42,7 +42,7 @@ public class DeadMob extends Entite {
 	public DeadMob(double x, double y, String classe) {
 		super(x, y);
 		despawnTimer = new Timer(DESPAWN_TIME);
-		SpriteAnim = new File("sprites/mob/deadMob/" + classe.substring(4) + "_death_");
+		SpriteAnim = new File(DeadMob.class.getResource("/sprites/mob/deadMob/").toString() + classe.substring(4) + "_death_");
 	}
 
 	
@@ -66,7 +66,7 @@ public class DeadMob extends Entite {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteAnim.getAbsolutePath() + Animate() +".png", 0.15, 0.15);;
+		StdDraw.picture(this.getX(), this.getY(), SpriteAnim.getPath() + Animate() +".png", 0.15, 0.15);;
 
 	}
 

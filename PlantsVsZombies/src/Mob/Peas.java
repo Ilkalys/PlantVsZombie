@@ -16,7 +16,7 @@ public class Peas extends Entite {
 	// Vitesse d'un pois
 	private static final double SPEED = 1.5;
 	// Sprite d'un zombie basique
-	private static final File SPRITE_DEFAULT = new File("sprites/mob/peas.png");
+	private static final File SPRITE_DEFAULT = new File(Nuts.class.getResource("/sprites/mob/peas.png").toString());
 
 	
 	//------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ public class Peas extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003, SPRITE_DEFAULT.getAbsolutePath(), 0.02);
+		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003, SPRITE_DEFAULT.getPath(), 0.02);
 	}
 	
 

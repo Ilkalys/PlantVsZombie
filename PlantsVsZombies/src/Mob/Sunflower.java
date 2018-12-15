@@ -20,7 +20,7 @@ public class Sunflower extends Plant {
 	// Touche pour selectionner un tournesol
 	private static char key = 't';
 	// Icone du tournesol
-	private static final File ICONE = new File("sprites/mob/sunflower/sunflower_0.png");
+	private static final File ICONE = new File(Sunflower.class.getResource("/sprites/mob/sunflower/sunflower_0.png").toString());
 	// Point de vie de depart d'un tournesol
 	private static final int HPMAX = 300;
 	// Prix du tournesol
@@ -30,7 +30,7 @@ public class Sunflower extends Plant {
 	// Timer du replantage d'un tournesol
 	private static Timer Cooldown;
 	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File("sprites/mob/sunflower/sunflower_");
+	private static final File SpriteAnim = new File(Sunflower.class.getResource("/sprites/mob/sunflower").toString());
 		
 	// Temps (en ms) pour l'apparition des soleils, doit être supérieur à 2_000, influe également sur l'animation
 	private static final int SUNRISE_TIME = 24_000;
@@ -51,7 +51,7 @@ public class Sunflower extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Sunflower(double x, double y) {
-		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		super(x, y, ICONE.getPath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 
 		this.Sunrise = new Timer(SUNRISE_TIME);
@@ -76,7 +76,7 @@ public class Sunflower extends Plant {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath() + "/sunflower_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 
 	/**

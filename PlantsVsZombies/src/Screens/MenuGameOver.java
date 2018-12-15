@@ -20,7 +20,7 @@ public class MenuGameOver  extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers les dossiers de sprites
-	private static final File SPRITEFILEPATH = new File("sprites");
+	private static final File SPRITEFILEPATH = new File(MenuGameOver.class.getResource("/sprites").toString());
 
 	//------------------------------------------------------------------------------
 	/*
@@ -83,8 +83,8 @@ public class MenuGameOver  extends GameScreen {
 	 */
 	public void dessine() {
 		//Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getAbsolutePath() + "/bg/night.png", 1, 1);
-		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH.getAbsolutePath() + "/set/nightSign.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/night.png", 1, 1);
+		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH.getPath() + "/set/nightSign.png", 0.51, 0.51);
 		
 		//Affichage du Texte des Boutons
 		StdDraw.setPenColor(StdDraw.BLACK);

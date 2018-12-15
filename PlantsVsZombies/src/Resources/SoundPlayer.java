@@ -5,6 +5,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
@@ -51,7 +52,7 @@ public class SoundPlayer {
 	public static void PlayBGM(String file) {
 		try {
 			BGMPlayed = file;
-			File BGMFilepath = new File("sounds/bgm/" + BGMPlayed);
+			File BGMFilepath = new File(SoundPlayer.class.getResource("/sounds/bgm").toString().replaceAll("file:","")+ "/" + BGMPlayed);
 			AudioInputStream BGMStream = AudioSystem.getAudioInputStream(BGMFilepath);
 			if(BGMClip != null) BGMClip.stop();
 			BGMClip = AudioSystem.getClip();
@@ -70,7 +71,7 @@ public class SoundPlayer {
 	 */
 	public static void PlaySE(String file) {
 		try {
-			File SEFilepath = new File("sounds/se/" + file);
+			File SEFilepath = new File(SoundPlayer.class.getResource("/sounds/se/").toString().replaceAll("file:","") + file);
 			AudioInputStream SEStream = AudioSystem.getAudioInputStream(SEFilepath);
 			Clip SEClip = AudioSystem.getClip();
 			SEClip.open(SEStream);

@@ -38,7 +38,7 @@ public class GameWorld extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers les sprites
-	private static final File SPRITES = new File("sprites");
+	private static final File SPRITES = new File(GameWorld.class.getResource("/sprites").toString());
 
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
@@ -228,12 +228,12 @@ public class GameWorld extends GameScreen {
 		// Affichage fond
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.picture(0.5, 0.5, SPRITES.getAbsolutePath() +"/bg/FondLevel.png", 1, 1);
+		StdDraw.picture(0.5, 0.5, SPRITES.getPath() +"/bg/FondLevel.png", 1, 1);
 
 		StdDraw.setFont(new Font("sans serif",10,20));
 
 		// Affichage du nombre de zombies
-		StdDraw.picture(0.9, 0.95, SPRITES.getAbsolutePath() + "/bg/PanneauScore.png", 0.2, 0.2);
+		StdDraw.picture(0.9, 0.95, SPRITES.getPath() + "/bg/PanneauScore.png", 0.2, 0.2);
 		StdDraw.text(0.9, 0.932, "Niveau : " + ZombieSpawn.getCurrentDifficulty());
 		StdDraw.text(0.9, 0.908, "Restants : " + zombieQuantity);
 
@@ -243,35 +243,35 @@ public class GameWorld extends GameScreen {
 		StdDraw.setFont(new Font("sans serif",10,40));
 
 		// Affichage du porte-monnaie
-		StdDraw.picture(0.9, 0.05, SPRITES.getAbsolutePath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.picture(0.9, 0.05, SPRITES.getPath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.text(0.93, 0.094, "" + wallet);
-		StdDraw.picture(0.84, 0.1, Sun.getIcone().getAbsolutePath(), 0.04, 0.04);
+		StdDraw.picture(0.84, 0.1, Sun.getIcone().getPath(), 0.04, 0.04);
 
 
 		// Affichage des icones
 		if(selectedPlant == Sunflower.class.getName())
-			StdDraw.picture(0.1, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png", 0.1, 0.1);;
-			StdDraw.picture(0.1, 0.1, Sunflower.getIcone().getAbsolutePath(), 0.12, 0.12);
+			StdDraw.picture(0.1, 0.1, SPRITES.getPath() + "/bg/Selection.png", 0.1, 0.1);;
+			StdDraw.picture(0.1, 0.1, Sunflower.getIcone().getPath(), 0.12, 0.12);
 			double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime() / (Sunflower.getCooldownTime() / 100));
-			StdDraw.picture(0.1, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadSunFlo, heightLoadSunFlo);
+			StdDraw.picture(0.1, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadSunFlo, heightLoadSunFlo);
 
 			if(selectedPlant == PeasShooter.class.getName())
-				StdDraw.picture(0.3, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png", 0.1, 0.1);
-			StdDraw.picture(0.3, 0.1, PeasShooter.getIcone().getAbsolutePath(), 0.12, 0.12);
+				StdDraw.picture(0.3, 0.1, SPRITES.getPath() + "/bg/Selection.png", 0.1, 0.1);
+			StdDraw.picture(0.3, 0.1, PeasShooter.getIcone().getPath(), 0.12, 0.12);
 			double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime() / (PeasShooter.getCooldownTime() / 100));
-			StdDraw.picture(0.3, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadPeasSh, heightLoadPeasSh);
+			StdDraw.picture(0.3, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadPeasSh, heightLoadPeasSh);
 
 			if(selectedPlant == Nuts.class.getName())
-				StdDraw.picture(0.5, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.5, 0.1, Nuts.getIcone().getAbsolutePath(), 0.12, 0.12);
+				StdDraw.picture(0.5, 0.1, SPRITES.getPath() + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.5, 0.1, Nuts.getIcone().getPath(), 0.12, 0.12);
 			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime() / (Nuts.getCooldownTime() / 100));
-			StdDraw.picture(0.5, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadNuts, heightLoadNuts);
+			StdDraw.picture(0.5, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadNuts, heightLoadNuts);
 
 			if(selectedPlant == Dynamite.class.getName())
-				StdDraw.picture(0.7, 0.1, SPRITES.getAbsolutePath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.7, 0.1, Dynamite.getIcone().getAbsolutePath(), 0.12, 0.12);
+				StdDraw.picture(0.7, 0.1, SPRITES.getPath() + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.7, 0.1, Dynamite.getIcone().getPath(), 0.12, 0.12);
 			double heightLoadDynamite = ((Dynamite.getCooldown() == null)? 0 : Dynamite.getCooldown().getActualTime() / (Dynamite.getCooldownTime() / 100));
-			StdDraw.picture(0.7, 0.1, SPRITES.getAbsolutePath() + "/bg/Fondu.png", heightLoadDynamite, heightLoadDynamite);
+			StdDraw.picture(0.7, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadDynamite, heightLoadDynamite);
 
 
 			// Affichage des prix
@@ -291,7 +291,7 @@ public class GameWorld extends GameScreen {
 
 			// Cadriage
 			if(selectedPlant != null) {
-				StdDraw.picture(0.50, 0.50, SPRITES.getAbsolutePath() + "/bg/Quadrillage.png",0.9,0.5);
+				StdDraw.picture(0.50, 0.50, SPRITES.getPath() + "/bg/Quadrillage.png",0.9,0.5);
 			}
 
 			// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
@@ -445,16 +445,16 @@ public class GameWorld extends GameScreen {
 		StdDraw.text(0.3, 0.4, "Dynamite : Touche " + Dynamite.getKey());
 
 		// Affichage du bouton "Recommence le niveau"
-		StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
+		StdDraw.picture(0.7, 0.625, SPRITES.getPath() + "/bg/Fondu.png",0.28,0.12);
 		if(StdDraw.mouseX() <= 0.84 && StdDraw.mouseX() >= 0.559 && StdDraw.mouseY() >= 0.565 && StdDraw.mouseY() <= 0.685)
-			StdDraw.picture(0.7, 0.625, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.28,0.12);
+			StdDraw.picture(0.7, 0.625, SPRITES.getPath() + "/bg/Fondu.png",0.28,0.12);
 		StdDraw.text(0.7, 0.65, "Recommencer");
 		StdDraw.text(0.7, 0.60, "le Niveau");
 
 		// Affichage du bouton "Retour au Menu"
-		StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
+		StdDraw.picture(0.7, 0.45, SPRITES.getPath() + "/bg/Fondu.png",0.3,0.06);
 		if(StdDraw.mouseX() <= 0.85 && StdDraw.mouseX() >= 0.55 && StdDraw.mouseY() >= 0.42 && StdDraw.mouseY() <= 0.48)
-			StdDraw.picture(0.7, 0.45, SPRITES.getAbsolutePath() + "/bg/Fondu.png",0.3,0.06);
+			StdDraw.picture(0.7, 0.45, SPRITES.getPath() + "/bg/Fondu.png",0.3,0.06);
 		StdDraw.text(0.7, 0.45, "Retour au Menu");
 
 		StdDraw.setPenColor(StdDraw.BLACK);

@@ -21,7 +21,7 @@ public class ExplosiveZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers le sprites d'un zombie explosif
-	private static final File SPRITE_PATH = new File("sprites/mob/explosiveZombie/explosiveZombie_");
+	private static final File SPRITE_PATH = new File(ExplosiveZombie.class.getResource("/sprites/mob/explosiveZombie").toString());
 	// Point de vie de depart d'un zombie explosif
 	private static final int HPMAX = 80;
 	// Nombre de degat qu'inflige un zombie explosif
@@ -46,7 +46,7 @@ public class ExplosiveZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public ExplosiveZombie(double x, double y) {
-		super(x, y, SPRITE_PATH.getAbsolutePath() + "walk_0.png", HPMAX);
+		super(x, y, SPRITE_PATH.getPath() + "/explosiveZombie_walk_0.png", HPMAX);
 		this.stop = false;
 	}
 		
@@ -73,7 +73,7 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getPath()+ "/explosiveZombie_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
 	/**

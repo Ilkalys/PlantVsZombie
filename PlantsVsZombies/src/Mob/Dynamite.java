@@ -23,7 +23,7 @@ public class Dynamite extends Plant {
 	// Touche pour selectionner une dynamite
 	private static char KEY = 'd';
 	// Icone de la dynamite
-	private static final File ICONE = new File("sprites/mob/dynamite/dynamite.png");
+	private static final File ICONE = new File(Dynamite.class.getResource("/sprites/mob/dynamite/dynamite.png").toString());
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Nombre de degat qu'inflige une dynamite
@@ -48,7 +48,7 @@ public class Dynamite extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Dynamite(double x, double y) {
-		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		super(x, y, ICONE.getPath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 	}
 

@@ -19,7 +19,7 @@ public class Explosion extends Entite {
 	//------------------------------------------------------------------------------
 
 	// Sprite de l'explosion
-	private static final File SPRITE = new File("sprites/mob/dynamite/explosion.png");
+	private static final File SPRITE = new File(Dynamite.class.getResource("/sprites/mob/dynamite/explosion.png").toString());
 	// Temps de vie de l'explosion
 	private static final int LIFE_TIME = 100;
 	// Timer du temps de vie
@@ -62,7 +62,7 @@ public class Explosion extends Entite {
 	public void dessine() {
 		if(this.spriteSize < 0.3)
 			this.spriteSize += 0.1;
-		StdDraw.picture(this.getX(), this.getY(), SPRITE.getAbsolutePath(), spriteSize, spriteSize);
+		StdDraw.picture(this.getX(), this.getY(), SPRITE.getPath(), spriteSize, spriteSize);
 	}
 
 	

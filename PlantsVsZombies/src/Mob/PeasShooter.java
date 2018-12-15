@@ -20,7 +20,7 @@ public class PeasShooter extends Plant {
 	// Touche pour selectionner un tire-pois
 	private static char key = 'p';
 	// Icone du tire-pois
-	private static final File ICONE = new File("sprites/mob/peasShooter/peasShooter_0.png");
+	private static final File ICONE = new File(PeasShooter.class.getResource("/sprites/mob/peasShooter/peasShooter_0.png").toString());
 	// Point de vie de depart d'un tire-pois
 	private static final int HPMAX = 300;
 	// Prix du tire-pois
@@ -30,7 +30,7 @@ public class PeasShooter extends Plant {
 	// Timer du replantage d'un tire-pois
 	private static Timer Cooldown;
 	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File("sprites/mob/peasShooter/peasShooter_");
+	private static final File SpriteAnim = new File(PeasShooter.class.getResource("/sprites/mob/peasShooter").toString());
 
 	// Temps (en s) pour recharger, doit être superieur à 1_000
 	private static final double RELOAD_TIME = 1.500;
@@ -51,7 +51,7 @@ public class PeasShooter extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public PeasShooter(double x, double y) {
-		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		super(x, y, ICONE.getPath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 		this.Reload = new Timer((int)(RELOAD_TIME * 1_000));
 	}
@@ -75,7 +75,7 @@ public class PeasShooter extends Plant {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath()+ "/peasShooter_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 
 	/**

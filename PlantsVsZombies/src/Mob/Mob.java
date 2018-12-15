@@ -56,7 +56,7 @@ public abstract class Mob extends Entite {
 	 * Dessine le mob, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite.getAbsolutePath(), 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite.getPath(), 0.15, 0.15);
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class Nuts extends Plant {
 	// Touche pour selectionner une noix
 	private static char key = 'n';
 	// Icone de la noix
-	private static final File ICONE = new File("sprites/mob/nuts/nuts_0.png");
+	private static final File ICONE = new File(Nuts.class.getResource("/sprites/mob/nuts/nuts_0.png").toString());
 	// Point de vie de depart d'une noix
 	private static final int HPMAX = 1_500;
 	// Prix de la noix
@@ -29,7 +29,7 @@ public class Nuts extends Plant {
 	// Timer du replantage d'une noix
 	private static Timer Cooldown;
 	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File("sprites/mob/nuts/nuts_");
+	private static final File SpriteAnim = new File("/sprites/mob/nuts");
 	// Status de l'animation
 	private int actualAnim;
 	
@@ -46,7 +46,7 @@ public class Nuts extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Nuts(double x, double y) {
-		super(x, y, ICONE.getAbsolutePath(), HPMAX);
+		super(x, y, ICONE.getPath(), HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 		
 		this.actualAnim = 0;
@@ -71,7 +71,7 @@ public class Nuts extends Plant {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath() + "/nuts_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
 	/**

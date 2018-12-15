@@ -19,7 +19,7 @@ public class MenuSelectionLevel extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers le dossier de sprite de BackGround
-	private static final File SPRITEFILEPATH = new File("sprites/bg");
+	private static final File SPRITEFILEPATH = new File(MenuSelectionLevel.class.getResource("/sprites/bg").toString());
 
 	//------------------------------------------------------------------------------
 	/*
@@ -117,28 +117,28 @@ public class MenuSelectionLevel extends GameScreen {
 
 		StdDraw.setFont(new Font("sans serif",10,40));
 		//Affichage du Fond
-		StdDraw.picture(0.5, 0.5,SPRITEFILEPATH.getAbsolutePath() + "/MenuLevel.png", 1, 1);
+		StdDraw.picture(0.5, 0.5,SPRITEFILEPATH.getPath() + "/MenuLevel.png", 1, 1);
 		
 		//Affichage des différentes Fiches amenant aux Niveaux
-		StdDraw.picture(0.15, 0.6,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.15, 0.6,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.15, 0.6, "1");
-		StdDraw.picture(0.325, 0.575,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.325, 0.575,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.325, 0.575, "2");
-		StdDraw.picture(0.5, 0.6,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.5, 0.6,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.5, 0.6, "3");
-		StdDraw.picture(0.675, 0.575,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.675, 0.575,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.675, 0.575, "4");
-		StdDraw.picture(0.85, 0.6,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.85, 0.6,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.85, 0.6, "5");
-		StdDraw.picture(0.15, 0.35,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.15, 0.35,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.15, 0.35, "6");
-		StdDraw.picture(0.325, 0.325,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.325, 0.325,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.325, 0.325, "7");
-		StdDraw.picture(0.5, 0.35,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.5, 0.35,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.5, 0.35, "8");
-		StdDraw.picture(0.675, 0.325,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.675, 0.325,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.675, 0.325, "9");
-		StdDraw.picture(0.85, 0.35,SPRITEFILEPATH.getAbsolutePath() + "/FicheWanted.png", 0.2, 0.2);
+		StdDraw.picture(0.85, 0.35,SPRITEFILEPATH.getPath() + "/FicheWanted.png", 0.2, 0.2);
 		StdDraw.text(0.85, 0.35, "10");
 		
 		//Affichage du Texte pour retourner au Menu

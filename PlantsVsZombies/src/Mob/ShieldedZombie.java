@@ -18,7 +18,7 @@ public class ShieldedZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	// Chemin vers le sprites d'un zombie blinde
-	private static final File SPRITE_PATH = new File("sprites/mob/shieldedZombie/shieldedZombie_");
+	private static final File SPRITE_PATH = new File(ShieldedZombie.class.getResource("/sprites/mob/shieldedZombie").toString());
 	// Point de vie de depart d'un zombie blinde
 	private static final int HPMAX = 560;
 	// Nombre de degat qu'inflige un zombie blinde
@@ -45,7 +45,7 @@ public class ShieldedZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public ShieldedZombie(double x, double y) {
-		super(x, y, SPRITE_PATH.getAbsolutePath() + "walk_0.png", HPMAX);
+		super(x, y, SPRITE_PATH.getPath() + "/shieldedZombie_walk_0.png", HPMAX);
 	}
 	
 	
@@ -73,7 +73,7 @@ public class ShieldedZombie extends Zombie {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getAbsolutePath() + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getPath() + "/shieldedZombie_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 
 	/**

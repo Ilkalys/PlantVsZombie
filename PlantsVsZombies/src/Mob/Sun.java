@@ -20,7 +20,7 @@ public class Sun extends Entite {
 	//------------------------------------------------------------------------------
 
 	// Icone du soleil
-	private static final File ICONE = new File("sprites/mob/sun.png");
+	private static final File ICONE = new File(Sun.class.getResource("/sprites/mob/sun.png").toString());
 	// Valeur du soleil
 	private static final int VALUE = 25;
 	// Temps de vie du soleil
@@ -60,7 +60,7 @@ public class Sun extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), ICONE.getAbsolutePath(), 0.1, 0.1);
+		StdDraw.picture(this.getX(), this.getY(), ICONE.getPath(), 0.1, 0.1);
 	}
 
 	/**
