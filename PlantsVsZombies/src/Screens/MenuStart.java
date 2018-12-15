@@ -152,7 +152,17 @@ public class MenuStart extends GameScreen {
 			}
 			//Modifie la taille de la Fenetre de Jeu
 			else if(x >= 0 && x <=0.06 && y <=1 && y >= 0.98) {
-				Game.setCanvasXY((Game.getCanvasXY() == 500)?1000:500);
+				if(Game.getCanvasXY() == 1000)
+					Game.setCanvasXY(900);
+				else if(Game.getCanvasXY() == 900)
+					Game.setCanvasXY(800);
+				else if(Game.getCanvasXY() == 800)
+					Game.setCanvasXY(700);
+				else if(Game.getCanvasXY() == 700)
+					Game.setCanvasXY(600);
+				else if(Game.getCanvasXY() == 600)
+					Game.setCanvasXY(500);
+				else Game.setCanvasXY(1000);
 				Game.launch();
 			}
 		}
