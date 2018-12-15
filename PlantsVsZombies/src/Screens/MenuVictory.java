@@ -1,7 +1,6 @@
 package Screens;
 
 import java.awt.Font;
-import java.io.File;
 
 import Resources.Game;
 import Resources.SoundPlayer;
@@ -19,15 +18,16 @@ public class MenuVictory extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers les dossiers de sprites
-	private static final File SPRITEFILEPATH = new File(MenuVictory.class.getResource("/sprites").toString());
 
-	// Durée de la musique de victoire
+	// Chemin vers le dossier de sprite de BackGround
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString();
+
+	// Durï¿½e de la musique de victoire
 	private static double DURATIONSONG = 22.857;
 	// Timer determinant quand la musique se lance, 
-	//puis une fois lancé devient un Timer de la durée de la musique pour gerer les animations
+	//puis une fois lancï¿½ devient un Timer de la durï¿½e de la musique pour gerer les animations
 	private Timer launchSong;
-	// indique où en est la musique
+	// indique oï¿½ en est la musique
 	private double actualTime;
 
 	// Position Y initial du backGround
@@ -35,9 +35,9 @@ public class MenuVictory extends GameScreen {
 	// Position initial des personnages qui dansent
 	private double persoYPosition;
 
-	// L'effet sonore a-t'il été joué ou non
+	// L'effet sonore a-t'il ï¿½tï¿½ jouï¿½ ou non
 	private boolean sePlayded = false;
-	// La musique a-t'elle été joué ou non
+	// La musique a-t'elle ï¿½tï¿½ jouï¿½ ou non
 	private boolean alreadyPlay = false;
 
 	//------------------------------------------------------------------------------
@@ -47,12 +47,12 @@ public class MenuVictory extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Construit la scène de Victoire
+	 * Construit la scï¿½ne de Victoire
 	 */
 	public MenuVictory() {
-		// créer un délai avant le démarrage de la chanson
+		// crï¿½er un dï¿½lai avant le dï¿½marrage de la chanson
 		launchSong = new Timer((int)(4_000));
-		// arrête la chanson qui était joué précédement (s'il y en avait une)
+		// arrï¿½te la chanson qui ï¿½tait jouï¿½ prï¿½cï¿½dement (s'il y en avait une)
 		SoundPlayer.StopBGM();
 	}
 
@@ -70,7 +70,7 @@ public class MenuVictory extends GameScreen {
 	 */
 	@Override
 	public void processUserInput(char key) {
-		// il n'y a rien à faire avec des touches.
+		// il n'y a rien ï¿½ faire avec des touches.
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MenuVictory extends GameScreen {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		// si la musique a été joué une fois, le joueur peut retourner au menu principal en cliquant n'importe où.
+		// si la musique a ï¿½tï¿½ jouï¿½ une fois, le joueur peut retourner au menu principal en cliquant n'importe oï¿½.
 		if(alreadyPlay ) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new MenuStart());
@@ -91,17 +91,17 @@ public class MenuVictory extends GameScreen {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {	
-		// initialise la position des personnages sur la scène
+		// initialise la position des personnages sur la scï¿½ne
 		persoYPosition = bgYPosition + 0.13;
-		// lorsque le Timer est finis alors que la musique est arretée, la musique et le Timer démarrent
-		//Le Timer prend comme durée le temps de la musique
+		// lorsque le Timer est finis alors que la musique est arretï¿½e, la musique et le Timer dï¿½marrent
+		//Le Timer prend comme durï¿½e le temps de la musique
 		if(SoundPlayer.getBGMClip() == null) {
 			if(launchSong.hasFinished()) {
 				SoundPlayer.PlayBGM("Win.wav");
 				launchSong = new Timer((int)(DURATIONSONG * 1_000));
 			}
 		}
-		// Lorsque la musique tourne, calcul de actualTime et lorsque la musique et le Timer se termine on les relance en précisant alreadyPlay
+		// Lorsque la musique tourne, calcul de actualTime et lorsque la musique et le Timer se termine on les relance en prï¿½cisant alreadyPlay
 		else {
 			actualTime = DURATIONSONG - launchSong.getActualTime();
 			if(launchSong.hasFinished()) {
@@ -109,7 +109,7 @@ public class MenuVictory extends GameScreen {
 				launchSong = new Timer((int)(DURATIONSONG * 1_000));
 			}
 		}
-		// Active le bruitage du spot lumineux si celui-ci n'a pas déja été fait lorsqu'il reste 0.5s au Timer
+		// Active le bruitage du spot lumineux si celui-ci n'a pas dï¿½ja ï¿½tï¿½ fait lorsqu'il reste 0.5s au Timer
 		if(!this.sePlayded && launchSong.getActualTime() <= 0.5) {
 			SoundPlayer.PlaySE("spot.wav");
 			this.sePlayded = true;
@@ -121,20 +121,20 @@ public class MenuVictory extends GameScreen {
 	 */
 	public void dessine() {
 		//Affichage du BackGround, en fonction de bgYPosition
-		StdDraw.picture(0.5, bgYPosition, SPRITEFILEPATH.getPath() + "/bg/MenuVictory.png", 1, 1.5);
+		StdDraw.picture(0.5, bgYPosition, SPRITEFILEPATH + "/bg/MenuVictory.png", 1, 1.5);
 
-		//affichage du texte et le cercle où sont les danseurs lorsque la musique démarre 
+		//affichage du texte et le cercle oï¿½ sont les danseurs lorsque la musique dï¿½marre 
 		StdDraw.setPenColor(StdDraw.WHITE);
 		if(SoundPlayer.getBGMClip() != null){
 			StdDraw.setFont(new Font("sans serif",10,50));
-			StdDraw.text(0.5, 0.97, "Félicitations!");
+			StdDraw.text(0.5, 0.97, "Fï¿½licitations!");
 			StdDraw.setFont(new Font("sans serif",10,40));
-			StdDraw.text(0.5, 0.9, "Vous avez terminé le Jeu !");
-			StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH.getPath() + "/bg/dancefloor.png", 0.5, 0.5);
+			StdDraw.text(0.5, 0.9, "Vous avez terminï¿½ le Jeu !");
+			StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH + "/bg/dancefloor.png", 0.5, 0.5);
 		}
 
-		// Animation de tous les Instruments sauf le Piano lorsque la musique à déjà été jouée une fois
-		//Apparation du Texte précisant que l'on peut quitter la scène
+		// Animation de tous les Instruments sauf le Piano lorsque la musique ï¿½ dï¿½jï¿½ ï¿½tï¿½ jouï¿½e une fois
+		//Apparation du Texte prï¿½cisant que l'on peut quitter la scï¿½ne
 		if(alreadyPlay) {
 			animationDrum();
 			animationDoubleBass();
@@ -143,316 +143,316 @@ public class MenuVictory extends GameScreen {
 			StdDraw.setFont(new Font("sans serif",15,30));
 			StdDraw.text(0.5, 0.05,"Cliquez pour Quitter");
 		}
-		// Gestion du lancement des Animations de tous les Instruments sauf le Piano en fonction d'où en est la musique
+		// Gestion du lancement des Animations de tous les Instruments sauf le Piano en fonction d'oï¿½ en est la musique
 		else {
 			if(actualTime >= 1.142*4)
 				animationDoubleBass();
 			else
-				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_shadow.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/doublebass_shadow.png", 0.2, 0.2);
 			if(actualTime >= 1.142*8)
 				animationViolin();
 			else
-				StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/violin_shadow.png", 0.2, 0.2);
+				StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/violin_shadow.png", 0.2, 0.2);
 			if(actualTime >= 1.142*12)
 				animationJewsharp();
 			else
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_shadow.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_shadow.png", 0.2, 0.2);
 
-			StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_shadow.png", 0.2, 0.2);
+			StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_shadow.png", 0.2, 0.2);
 		}
 
-		//Gestion de l'animation des Danseurs et du Piano à partir du moment où il y a de la musique
+		//Gestion de l'animation des Danseurs et du Piano ï¿½ partir du moment oï¿½ il y a de la musique
 		if( SoundPlayer.getBGMClip() != null) {
 			animationDanse();
 			animationPiano();
 		}
 		else {
-			// Affichage du dancefloor et les personnages 0.5s avant le démarrage
+			// Affichage du dancefloor et les personnages 0.5s avant le dï¿½marrage
 			if(launchSong.getActualTime() <= 0.5 ) {
-				StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH.getPath() + "/bg/dancefloor.png", 0.5, 0.5);
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_2.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition - 0.18, SPRITEFILEPATH + "/bg/dancefloor.png", 0.5, 0.5);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_2.png", 0.2, 0.2);
 			}
 			else {
-				// Gestion de l'impression descente de la caméra
+				// Gestion de l'impression descente de la camï¿½ra
 				if(3-launchSong.getActualTime() >= 1) {
 					bgYPosition +=0.0085;
 				}
 				// AFfichage de l'ombre des danseurs et d'un effet assombrissant
-				StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",1,1);
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_shadow.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_shadow.png", 0.2, 0.2);
+				StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",1,1);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_shadow.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_shadow.png", 0.2, 0.2);
 			}
-			// Affichage de l'ombre du Piano tant que la musique n'a pas demarré
-			StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_shadow.png", 0.2, 0.2);
+			// Affichage de l'ombre du Piano tant que la musique n'a pas demarrï¿½
+			StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_shadow.png", 0.2, 0.2);
 		}
 	}
 
 	//------------------------------------------------------------------------------
 	/* 
 	 **      GESTIONS DES ANIMATIONS (METHODES PRIVEES)
-	 **      Toutes les Animations dépandent de actualTime.
+	 **      Toutes les Animations dï¿½pandent de actualTime.
 	 */
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Gère l'animation des 2 Danseuses
+	 * Gï¿½re l'animation des 2 Danseuses
 	 */
 	private void animationDanse() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_10.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_10.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_10.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_10.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_9.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_9.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_9.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_9.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_7.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_8.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_7.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_8.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_8.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_7.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_8.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_7.png", 0.2, 0.2);
 			}
 		}
 		else if(actualTime >= 1.142*16 && actualTime <= 1.142*19){
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_6.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_6.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_5.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_5.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_6.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_6.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_5.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_5.png", 0.2, 0.2);
 			}
 		}
 		else  if(actualTime >= 1.142*12 && actualTime <= 1.142*15) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_6.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_6.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_6.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_5.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_5.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_5.png", 0.2, 0.2);
 			}
 		}
 		else if(actualTime >= 1.142*8 && actualTime <= 1.142*11){
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_4.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_4.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_4.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_4.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_3.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_3.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_3.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_3.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_2.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 		}
 		else  if(actualTime >= 1.142*4 && actualTime <= 1.142*7)  {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_1.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_2.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_2.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_2.png", 0.2, 0.2);
 			}
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571 ) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_1.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_0.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_0.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_0.png", 0.2, 0.2);
 			}
 			else {
-				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
-				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH.getPath() + "/mob/julien/julien_1.png", 0.2, 0.2);
+				StdDraw.picture(0.4, persoYPosition, SPRITEFILEPATH + "/mob/matthieu/matthieu_1.png", 0.2, 0.2);
+				StdDraw.picture(0.6, persoYPosition, SPRITEFILEPATH + "/mob/julien/julien_1.png", 0.2, 0.2);
 			}
 		}
 	}
 
 	/**
-	 * Gère l'animation du Piano
+	 * Gï¿½re l'animation du Piano
 	 */
 	private void animationPiano() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_1.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_2.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_1.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_2.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_2.png", 0.2, 0.2);
 			}
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_0.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH + "/mob/musical/Piano_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_4.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH + "/mob/musical/Piano_4.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_0.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition - 0.2, SPRITEFILEPATH + "/mob/musical/Piano_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH.getPath() + "/mob/musical/Piano_3.png", 0.2, 0.2);
+				StdDraw.picture(0.5, persoYPosition  -0.2, SPRITEFILEPATH + "/mob/musical/Piano_3.png", 0.2, 0.2);
 			}
 		}
 	}
 
 	/**
-	 * Gère l'animation de la contre-basse
+	 * Gï¿½re l'animation de la contre-basse
 	 */
 	private void animationDoubleBass() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_1.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/doublebass_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_2.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/doublebass_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_1.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/doublebass_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_2.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/doublebass_2.png", 0.2, 0.2);
 			}
 		}
 		else {
 			if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.3, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_1.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/doublebass_1.png", 0.2, 0.2);
 			}
 			else {
-				StdDraw.picture(0.3, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/doublebass_2.png", 0.2, 0.2);
+				StdDraw.picture(0.3, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/doublebass_2.png", 0.2, 0.2);
 			}
 		}
 	}
 
 	/**
-	 * Gère l'animation du violon
+	 * Gï¿½re l'animation du violon
 	 */
 	private void animationViolin() {
 		if(actualTime % 1.142 >= 0.8565) {
-			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/violin_2.png", 0.2, 0.2);
+			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/violin_2.png", 0.2, 0.2);
 		}
 		else if(actualTime % 1.142 >= 0.571) {
-			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/violin_1.png", 0.2, 0.2);
+			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/violin_1.png", 0.2, 0.2);
 		}
 		else if(actualTime % 1.142 >= 0.2855) {
-			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH.getPath() + "/mob/musical/violin_2.png", 0.2, 0.2);
+			StdDraw.picture(0.7, persoYPosition - 0.25, SPRITEFILEPATH + "/mob/musical/violin_2.png", 0.2, 0.2);
 		}
 		else if(actualTime % 1.142 <= 0.2855) {
-			StdDraw.picture(0.7, persoYPosition  -0.25, SPRITEFILEPATH.getPath() + "/mob/musical/violin_1.png", 0.2, 0.2);
+			StdDraw.picture(0.7, persoYPosition  -0.25, SPRITEFILEPATH + "/mob/musical/violin_1.png", 0.2, 0.2);
 		}
 	}
 
 	/**
-	 * Gère l'animation de la guimbarde
+	 * Gï¿½re l'animation de la guimbarde
 	 */
 	private void animationJewsharp() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
 			}
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_0.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_2.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_0.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_0.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
+				StdDraw.picture(0.2, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/jewsharp_1.png", 0.2, 0.2);
 			}
 		}
 	}
 
 	/**
-	 * Gère l'animation de la batterie
+	 * Gï¿½re l'animation de la batterie
 	 */
 	private void animationDrum() {
 		if((actualTime >= 1.142*3 && actualTime <= 1.142*4) || (actualTime >= 1.142*7 && actualTime <= 1.142*8) ||(actualTime >= 1.142*11 && actualTime <= 1.142*12) || (actualTime >= 1.142*15 && actualTime <= 1.142*16) ||(actualTime >= 1.142*19 && actualTime <= 1.142*20)) {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_3.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_3.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_4.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_4.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_3.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_3.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_4.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_4.png", 0.2, 0.2);
 			}
 		}
 		else {
 			if(actualTime % 1.142 >= 0.8565) {
-				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_3.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/drum_3.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.571) {
-				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_4.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/drum_4.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 >= 0.2855) {
-				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_3.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition - 0.3, SPRITEFILEPATH + "/mob/musical/drum_3.png", 0.2, 0.2);
 			}
 			else if(actualTime % 1.142 <= 0.2855) {
-				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH.getPath() + "/mob/musical/drum_4.png", 0.2, 0.2);
+				StdDraw.picture(0.8, persoYPosition  -0.3, SPRITEFILEPATH + "/mob/musical/drum_4.png", 0.2, 0.2);
 			}
 		}
 	}

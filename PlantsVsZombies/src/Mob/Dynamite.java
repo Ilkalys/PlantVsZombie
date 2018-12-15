@@ -1,10 +1,10 @@
 package Mob;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -22,8 +22,8 @@ public class Dynamite extends Plant {
 
 	// Touche pour selectionner une dynamite
 	private static char KEY = 'd';
-	// Icone de la dynamite
-	private static final File ICONE = new File(Dynamite.class.getResource("/sprites/mob/dynamite/dynamite.png").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/dynamite/dynamite.png";
 	// Point de vie de depart d'une dynamite
 	private static final int HPMAX = 750;
 	// Nombre de degat qu'inflige une dynamite
@@ -48,7 +48,7 @@ public class Dynamite extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Dynamite(double x, double y) {
-		super(x, y, ICONE.getPath(), HPMAX);
+		super(x, y, SPRITEFILEPATH, HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 	}
 
@@ -98,7 +98,7 @@ public class Dynamite extends Plant {
 	}
 
 	/**
-	 * Afflige des dégats à tous les zombies autour de la dynamite puis la détruit
+	 * Afflige des dï¿½gats ï¿½ tous les zombies autour de la dynamite puis la dï¿½truit
 	 */
 	public void explose() {
 		GameWorld.addExplosion(this.getX(), this.getY());
@@ -157,8 +157,8 @@ public class Dynamite extends Plant {
 	 * 
 	 * @return ICONE icone de la dynamite
 	 */
-	public static File getIcone() {
-		return ICONE;
+	public static String getIcone() {
+		return SPRITEFILEPATH;
 	}
 	
 	/**
@@ -198,9 +198,9 @@ public class Dynamite extends Plant {
 	}
 	
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une dynamite
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour planter une dynamite
 	 * 
-	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter une dynamite
+	 * @return Cooldown timer chargï¿½ de calculer le temps de rechargement pour planter une dynamite
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
@@ -223,7 +223,7 @@ public class Dynamite extends Plant {
 	}
 	
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour planter une dynamite
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour planter une dynamite
 	 * 
 	 * @param timer nouveau timer
 	 */

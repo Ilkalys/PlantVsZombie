@@ -1,10 +1,10 @@
 package Mob;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.Game;
 import Resources.SoundPlayer;
 import Resources.StdDraw;
 import Screens.GameWorld;
@@ -20,8 +20,8 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers le sprites d'un zombie explosif
-	private static final File SPRITE_PATH = new File(ExplosiveZombie.class.getResource("/sprites/mob/explosiveZombie").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/explosiveZombie";
 	// Point de vie de depart d'un zombie explosif
 	private static final int HPMAX = 80;
 	// Nombre de degat qu'inflige un zombie explosif
@@ -46,7 +46,7 @@ public class ExplosiveZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public ExplosiveZombie(double x, double y) {
-		super(x, y, SPRITE_PATH.getPath() + "/explosiveZombie_walk_0.png", HPMAX);
+		super(x, y, SPRITEFILEPATH + "/explosiveZombie_walk_0.png", HPMAX);
 		this.stop = false;
 	}
 		
@@ -73,7 +73,7 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getPath()+ "/explosiveZombie_" + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITEFILEPATH+ "/explosiveZombie_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class ExplosiveZombie extends Zombie {
 	}
 
 	/**
-	 * Afflige des dégats à toutes les plantes autour du zombie puis la détruit
+	 * Afflige des dï¿½gats ï¿½ toutes les plantes autour du zombie puis la dï¿½truit
 	 */
 	public void explose() {
 		GameWorld.addExplosion(this.getX(), this.getY());
@@ -160,8 +160,8 @@ public class ExplosiveZombie extends Zombie {
 	 * 
 	 * @return SPRITE sprite d'un zombie explosif
 	 */
-	public static File getSpritePath() {
-		return SPRITE_PATH;
+	public static String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 	
 	/**

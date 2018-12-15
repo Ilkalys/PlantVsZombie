@@ -1,7 +1,6 @@
 package Mob;
 
-import java.io.File;
-
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -10,17 +9,17 @@ import Screens.GameWorld;
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
  */
 public class Sunflower extends Plant {
-	
-	//------------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------
 	/*
-	 **      ATTRIBUTS
+	 ** ATTRIBUTS
 	 */
-	//------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------
 
 	// Touche pour selectionner un tournesol
 	private static char key = 't';
-	// Icone du tournesol
-	private static final File ICONE = new File(Sunflower.class.getResource("/sprites/mob/sunflower/sunflower_0.png").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/sunflower/sunflower_";
 	// Point de vie de depart d'un tournesol
 	private static final int HPMAX = 300;
 	// Prix du tournesol
@@ -29,21 +28,19 @@ public class Sunflower extends Plant {
 	private static final int COOLDOWN_TIME = 5_000;
 	// Timer du replantage d'un tournesol
 	private static Timer Cooldown;
-	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File(Sunflower.class.getResource("/sprites/mob/sunflower").toString());
-		
-	// Temps (en ms) pour l'apparition des soleils, doit être supérieur à 2_000, influe également sur l'animation
+
+	// Temps (en ms) pour l'apparition des soleils, doit ï¿½tre supï¿½rieur ï¿½ 2_000,
+	// influe ï¿½galement sur l'animation
 	private static final int SUNRISE_TIME = 24_000;
 	// Timer pour l'apparition des soleils gerer par la plante
 	private Timer Sunrise;
-	
-	
-	//------------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------
 	/*
-	**      CONSTRUCTEUR
-	*/
-	//------------------------------------------------------------------------------
-		
+	 ** CONSTRUCTEUR
+	 */
+	// ------------------------------------------------------------------------------
+
 	/**
 	 * Constructeur
 	 * 
@@ -51,32 +48,31 @@ public class Sunflower extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Sunflower(double x, double y) {
-		super(x, y, ICONE.getPath(), HPMAX);
+		super(x, y, SPRITEFILEPATH + "0.png", HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 
 		this.Sunrise = new Timer(SUNRISE_TIME);
 	}
 
-	
-	//------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------
 	/*
-	**      METHODES
-	*/
-	//------------------------------------------------------------------------------
-	
+	 ** METHODES
+	 */
+	// ------------------------------------------------------------------------------
+
 	/**
 	 * Met a jour l'entite : deplacement, effectuer une action
 	 */
 	public void step() {
 		this.AddSun();
 	}
-	
+
 	/**
 	 * Dessine le mob, aux bonnes coordonnees
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath() + "/sunflower_" + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITEFILEPATH + this.Animate() + ".png", 0.15, 0.15);
 	}
 
 	/**
@@ -84,42 +80,43 @@ public class Sunflower extends Plant {
 	 */
 	private String Animate() {
 		double tmp = this.Sunrise.getActualTime();
-		if(tmp >= 1.750 && tmp <= 2.000)
+		if (tmp >= 1.750 && tmp <= 2.000)
 			return "2";
-		else if(tmp >= 1.5 && tmp <= 1.750)
+		else if (tmp >= 1.5 && tmp <= 1.750)
 			return "1";
-		else if(tmp >= 1.250 && tmp <= 1.5)
+		else if (tmp >= 1.250 && tmp <= 1.5)
 			return "2";
-		else if(tmp >= 1 && tmp <= 1.25)
+		else if (tmp >= 1 && tmp <= 1.25)
 			return "1";
-		else if(tmp >= 0.8 && tmp <= 1 )
+		else if (tmp >= 0.8 && tmp <= 1)
 			return "0";
-		else if(tmp >= 0.6 && tmp <= 0.8)
+		else if (tmp >= 0.6 && tmp <= 0.8)
 			return "3";
-		else if(tmp >= 0.4 && tmp <= 0.6)
+		else if (tmp >= 0.4 && tmp <= 0.6)
 			return "4";
-		else if(tmp >= 0.2 && tmp <= 0.4)
+		else if (tmp >= 0.2 && tmp <= 0.4)
 			return "3";
-		else if(tmp >= 0 && tmp <= 0.2)
+		else if (tmp >= 0 && tmp <= 0.2)
 			return "4";
-		else return "0";
+		else
+			return "0";
 	}
-	
+
 	/**
 	 * Ajoute un soleil
 	 */
 	private void AddSun() {
-		if(this.Sunrise.hasFinished() && Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) == null) {
-			GameWorld.addSun( this.getX(),this.getY());
+		if (this.Sunrise.hasFinished() && Sun.somethingHere(GameWorld.getSuns(), this.getX(), this.getY()) == null) {
+			GameWorld.addSun(this.getX(), this.getY());
 			this.setSunrise(new Timer(SUNRISE_TIME));
 		}
 	}
-	
-	//------------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------
 	/*
-	**      GETTERS
-	*/
-	//------------------------------------------------------------------------------
+	 ** GETTERS
+	 */
+	// ------------------------------------------------------------------------------
 
 	/**
 	 * Retourne la touche pour selectionner un tournesol
@@ -129,16 +126,16 @@ public class Sunflower extends Plant {
 	public static char getKey() {
 		return key;
 	}
-	
+
 	/**
 	 * Retourne l'icone du tournesol
 	 * 
 	 * @return ICONE
 	 */
-	public static File getIcone() {
-		return ICONE;
+	public static String getIcone() {
+		return SPRITEFILEPATH + "0.png";
 	}
-	
+
 	/**
 	 * Retourne le nombre de point de vie de depart d'un tournesol
 	 * 
@@ -147,7 +144,7 @@ public class Sunflower extends Plant {
 	public static int getHPMax() {
 		return HPMAX;
 	}
-	
+
 	/**
 	 * Retourne le prix du tournesol
 	 * 
@@ -156,7 +153,7 @@ public class Sunflower extends Plant {
 	public static int getPrice() {
 		return PRICE;
 	}
-	
+
 	/**
 	 * Retourne le temps (en ms) avant de pouvoir replanter un tournesol
 	 * 
@@ -165,16 +162,17 @@ public class Sunflower extends Plant {
 	public static int getCooldownTime() {
 		return COOLDOWN_TIME;
 	}
-	
+
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour planter un tournesol
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour planter un
+	 * tournesol
 	 * 
 	 * @return Cooldown
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
 	}
-	
+
 	/**
 	 * Retourne le temps (en ms) pour l'apparition des soleils
 	 * 
@@ -183,7 +181,7 @@ public class Sunflower extends Plant {
 	public static int getSunriseTime() {
 		return SUNRISE_TIME;
 	}
-	
+
 	/**
 	 * Retourne le timer pour l'apparition des soleils gerer par la plante
 	 * 
@@ -192,13 +190,12 @@ public class Sunflower extends Plant {
 	public Timer getSunrise() {
 		return this.Sunrise;
 	}
-	
-	
-	//------------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------
 	/*
-	**      SETTERS
-	*/
-	//------------------------------------------------------------------------------
+	 ** SETTERS
+	 */
+	// ------------------------------------------------------------------------------
 
 	/**
 	 * Modifie la touche de selection du tournesol
@@ -208,9 +205,10 @@ public class Sunflower extends Plant {
 	public static void setKey(char key) {
 		Sunflower.key = key;
 	}
-	
+
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tournesol
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour planter un
+	 * tournesol
 	 * 
 	 * @param timer nouveau timer
 	 */
@@ -226,5 +224,5 @@ public class Sunflower extends Plant {
 	public void setSunrise(Timer timer) {
 		this.Sunrise = timer;
 	}
-	
+
 }

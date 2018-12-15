@@ -1,5 +1,7 @@
 package Resources;
 
+import java.io.File;
+
 import Screens.GameScreen;
 import Screens.GameWorld;
 import Screens.MenuGameOver;
@@ -17,6 +19,9 @@ public class Game {
 	 */
 	//------------------------------------------------------------------------------
 	
+
+	// Chemin vers les dossiers de sprites
+	private static final File SPRITEFILEPATH  = new File(MenuStart.class.getResource("/sprites").toString());
 	// Scene chargee a l'ecran
 	private static GameScreen World = new MenuStart();
 	// Determine si le jeu est fini ou non
@@ -112,6 +117,9 @@ public class Game {
 		return mousePressed;
 	}
 
+	public static File getSpritefilepath() {
+		return SPRITEFILEPATH;
+	}
 
 
 	//------------------------------------------------------------------------------
@@ -119,6 +127,8 @@ public class Game {
 	 **      SETTERS
 	 */
 	//------------------------------------------------------------------------------
+
+
 
 	/**
 	 * Modifie la scene actuelle

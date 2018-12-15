@@ -1,7 +1,6 @@
 package Screens;
 
 import java.awt.Font;
-import java.io.File;
 
 import Mob.Dynamite;
 import Mob.Nuts;
@@ -23,22 +22,22 @@ public class MenuStart extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers les dossiers de sprites
-	private static final File SPRITEFILEPATH  = new File(MenuStart.class.getResource("/sprites").toString());
+	// Chemin vers le dossier de sprite de BackGround
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString();
 
-	// Verifie si le bouton pour commencer à été pressé
+	// Verifie si le bouton pour commencer ï¿½ ï¿½tï¿½ pressï¿½
 	private boolean launchGame;
-	// Timer Avant le lancement du jeu une fois le bouton pressé
+	// Timer Avant le lancement du jeu une fois le bouton pressï¿½
 	private Timer launchTimer;
 
 	// Veut-on afficher le menu de configuration de touche?
 	private boolean menuSetButton = false;
-	// Récupère la touche que l'on veut changer
+	// Rï¿½cupï¿½re la touche que l'on veut changer
 	private char changeButton = ' ';
 	// Veut-on afficher le menu d'Infos?
 	private boolean menuInfos = false;
 
-	// Gère la position en X des Nuages
+	// Gï¿½re la position en X des Nuages
 	private double posXCloud = 0;
 
 	//------------------------------------------------------------------------------
@@ -48,10 +47,10 @@ public class MenuStart extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Construit la scène du Menu Principal
+	 * Construit la scï¿½ne du Menu Principal
 	 */
 	public MenuStart() {
-		//Démarrage de la musique si celle-ci n'a pas déjà demarrée Via une autre scène
+		//Dï¿½marrage de la musique si celle-ci n'a pas dï¿½jï¿½ demarrï¿½e Via une autre scï¿½ne
 		if(SoundPlayer.getBGMPlayed() != "Blues.wav")
 			SoundPlayer.PlayBGM("Blues.wav");
 	}
@@ -69,9 +68,9 @@ public class MenuStart extends GameScreen {
 	 */
 	@Override
 	public void processUserInput(char key) {	
-		//Verifie si la touche appuyée n'est pas déjà prise.
+		//Verifie si la touche appuyï¿½e n'est pas dï¿½jï¿½ prise.
 		if(key != Sunflower.getKey() && key != PeasShooter.getKey() && key != Nuts.getKey() && key != Dynamite.getKey() && key != 'i') {
-			//Vérifie quelle touche l'utilisateur veut changer
+			//Vï¿½rifie quelle touche l'utilisateur veut changer
 			if(changeButton == Sunflower.getKey()) {
 				Sunflower.setKey(key);
 			} else if(changeButton == PeasShooter.getKey()) {
@@ -82,7 +81,7 @@ public class MenuStart extends GameScreen {
 				Dynamite.setKey(key);
 			}
 		}
-		//Remet changeButton de façon à ne selectionner aucune touche
+		//Remet changeButton de faï¿½on ï¿½ ne selectionner aucune touche
 		changeButton = ' ';
 	}
 
@@ -93,7 +92,7 @@ public class MenuStart extends GameScreen {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		//Gestion des interactions souris lorsqu'on est dans le Menu de Configuration de Touches : Gère le bouton Retour et quel touche veut être changer celon où l'on clique
+		//Gestion des interactions souris lorsqu'on est dans le Menu de Configuration de Touches : Gï¿½re le bouton Retour et quel touche veut ï¿½tre changer celon oï¿½ l'on clique
 		if(menuSetButton) {
 			if(x <= 0.6  && x >= 0.3 && y >= 0.13 && y <= 0.18) {
 				SoundPlayer.PlaySE("fire.wav");
@@ -117,16 +116,16 @@ public class MenuStart extends GameScreen {
 				changeButton = Dynamite.getKey();
 			}
 		}
-		//Gestion des interactions souris lorsqu'on est dans le Menu d'Informations : gère uniquement le bouton retour
+		//Gestion des interactions souris lorsqu'on est dans le Menu d'Informations : gï¿½re uniquement le bouton retour
 		else if(menuInfos) {
 			if(x <= 0.6  && x >= 0.3 && y >= 0.10 && y <= 0.15) {
 				SoundPlayer.PlaySE("fire.wav");
 				menuInfos = false;
 			}
 		}
-		// Gestion des interactions souris sur la Scène Initale
+		// Gestion des interactions souris sur la Scï¿½ne Initale
 		else {
-			// Lance le jeu après un delai
+			// Lance le jeu aprï¿½s un delai
 			if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
 				SoundPlayer.PlaySE("fire.wav");
 				launchGame = true;
@@ -159,13 +158,13 @@ public class MenuStart extends GameScreen {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {	
-		//Gestion du déplacement des Nuages tant que l'on a pas cliqué sur le bouton demarré
+		//Gestion du dï¿½placement des Nuages tant que l'on a pas cliquï¿½ sur le bouton demarrï¿½
 		if (!launchGame) {
 			posXCloud += 0.001;
 			if (posXCloud >= 1.2)
 				posXCloud = -0.2;
 		}
-		//Gestion de LaunchTimer si l'utilisateur veut demarré le jeu
+		//Gestion de LaunchTimer si l'utilisateur veut demarrï¿½ le jeu
 		else {
 			if(launchTimer == null)
 				launchTimer = new Timer(2000);
@@ -183,35 +182,35 @@ public class MenuStart extends GameScreen {
 
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
-		
-		//Gère le Fond, le Titre et les Nuages
-		StdDraw.picture(0.5, 0.5,(launchGame)?SPRITEFILEPATH.getPath() + "/bg/Accueil2.png":SPRITEFILEPATH.getPath() + "/bg/Accueil1.png", 1, 1);
-		StdDraw.picture(0+posXCloud, 0.8,SPRITEFILEPATH.getPath() + "/set/CloudDown.png", 0.51, 0.51);
-		StdDraw.picture(1-posXCloud, 0.97,SPRITEFILEPATH.getPath() + "/set/CouldUp.png", 0.51, 0.51);
-		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH.getPath() + "/set/Affichage.png", 0.51, 0.51);
-		StdDraw.picture(0.5, 0.9, SPRITEFILEPATH.getPath() + "/set/title.png");
-		
+
+		//Gï¿½re le Fond, le Titre et les Nuages
+		StdDraw.picture(0.5, 0.5,(launchGame)?SPRITEFILEPATH + "/bg/Accueil2.png":SPRITEFILEPATH + "/bg/Accueil1.png", 1, 1);
+		StdDraw.picture(0+posXCloud, 0.8,SPRITEFILEPATH + "/set/CloudDown.png", 0.51, 0.51);
+		StdDraw.picture(1-posXCloud, 0.97,SPRITEFILEPATH + "/set/CouldUp.png", 0.51, 0.51);
+		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH + "/set/Affichage.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.9, SPRITEFILEPATH + "/set/title.png");
+
 		//Affichage du Texte
 		StdDraw.setFont(new Font("sans serif",10,20));
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 		StdDraw.text(0.509, 0.57,"Choix Niveau");
 		StdDraw.text(0.509, 0.05,"Quitter le Jeu");
-		
-		//Affichage des Boutons du Menu de Configuration de Touches et du Menu d'Informations
-		StdDraw.picture(0.1, 0.05,SPRITEFILEPATH.getPath() + "/button/keyboard.png",0.06,0.06);
-		StdDraw.picture(0.1, 0.05, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.06,0.04);
-		StdDraw.picture(0.9, 0.05,SPRITEFILEPATH.getPath() + "/button/Interrogation.png",0.03,0.03);
-		StdDraw.picture(0.9, 0.05, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.06,0.04);
 
-		//Affichage du Menu de Configuration de Touches si demandé
+		//Affichage des Boutons du Menu de Configuration de Touches et du Menu d'Informations
+		StdDraw.picture(0.1, 0.05,SPRITEFILEPATH + "/button/keyboard.png",0.06,0.06);
+		StdDraw.picture(0.1, 0.05, SPRITEFILEPATH + "/bg/Fondu.png",0.06,0.04);
+		StdDraw.picture(0.9, 0.05,SPRITEFILEPATH + "/button/Interrogation.png",0.03,0.03);
+		StdDraw.picture(0.9, 0.05, SPRITEFILEPATH + "/bg/Fondu.png",0.06,0.04);
+
+		//Affichage du Menu de Configuration de Touches si demandï¿½
 		if(menuSetButton)
 			menuSetButton();
-		//Affichage du Menu d'Informations si demandé
+		//Affichage du Menu d'Informations si demandï¿½
 		else if(menuInfos)
 			menuInfos();
-		//Effet Assombrissant lors du démarrage du jeu
+		//Effet Assombrissant lors du dï¿½marrage du jeu
 		else if(launchGame)
-			StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",5,5);
+			StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",5,5);
 	}
 
 	//------------------------------------------------------------------------------
@@ -220,18 +219,18 @@ public class MenuStart extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 	/**
-	 * Gère l'affichage du Menu de Configuration de Touches
+	 * Gï¿½re l'affichage du Menu de Configuration de Touches
 	 */
 	private void menuSetButton() {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.setFont(new Font("sans serif",15,40));
 
 		// Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
 
-		//Affichage du Texte, les couleurs variants en fonction de quel bouton va être changé
+		//Affichage du Texte, les couleurs variants en fonction de quel bouton va ï¿½tre changï¿½
 		StdDraw.text(0.5, 0.85,"Changement de touches :");
 
 		StdDraw.setPenColor((changeButton == Sunflower.getKey())?StdDraw.RED : StdDraw.WHITE);
@@ -256,35 +255,35 @@ public class MenuStart extends GameScreen {
 	}
 
 	/**
-	 * Gère l'affichage du Menu d'Informations
+	 * Gï¿½re l'affichage du Menu d'Informations
 	 */
 	private void menuInfos() {
 		StdDraw.setPenColor(StdDraw.WHITE);
 		StdDraw.setFont(new Font("sans serif",15,40));
 
 		// Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/Fondu.png",0.8,0.8);
 
 		// Affichage du Texte
 		StdDraw.text(0.5, 0.85,"Informations");
 		StdDraw.setFont(new Font("sans serif",15,20));
-		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, apparaît aléatoirement");
-		StdDraw.text(0.5, 0.7,"Sherif : Fournit des étoiles");
-		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des dégats en tirant en ligne droite");
-		StdDraw.text(0.5, 0.63,"Tonneau : Possède une grande quantité de vie pour bloquer les ennemis");
+		StdDraw.text(0.5, 0.78,"Etoiles : Monnaie du jeu, apparaï¿½t alï¿½atoirement");
+		StdDraw.text(0.5, 0.7,"Sherif : Fournit des ï¿½toiles");
+		StdDraw.text(0.5, 0.665,"CowBoy : Inflige des dï¿½gats en tirant en ligne droite");
+		StdDraw.text(0.5, 0.63,"Tonneau : Possï¿½de une grande quantitï¿½ de vie pour bloquer les ennemis");
 		StdDraw.text(0.5, 0.595,"Dynamite : Posez la et cliquez dessus pour faire une explosion en croix");
 		StdDraw.text(0.5, 0.5,"Cactus : Ennemi de base");
-		StdDraw.text(0.5, 0.465,"Cactus blindé : Ennemi avec plus de vie");
-		StdDraw.text(0.5, 0.43,"Cactus explosif : Ennemi plus rapide, qui n'attaque pas mais explose en croix à la mort");
-		StdDraw.text(0.5, 0.35, "Si un cactus atteint la gauche de l'écran, vous avez perdu.");
-		StdDraw.text(0.5, 0.32, "Survivez à la vague de cactus pour reussir le niveau.");
-		StdDraw.text(0.5, 0.25, "Réalisé par.");
+		StdDraw.text(0.5, 0.465,"Cactus blindï¿½ : Ennemi avec plus de vie");
+		StdDraw.text(0.5, 0.43,"Cactus explosif : Ennemi plus rapide, qui n'attaque pas mais explose en croix ï¿½ la mort");
+		StdDraw.text(0.5, 0.35, "Si un cactus atteint la gauche de l'ï¿½cran, vous avez perdu.");
+		StdDraw.text(0.5, 0.32, "Survivez ï¿½ la vague de cactus pour reussir le niveau.");
+		StdDraw.text(0.5, 0.25, "Rï¿½alisï¿½ par.");
 		StdDraw.text(0.5, 0.22, "Matthieu Gauget-Berlioz et Julien Cochet");
-		StdDraw.picture(0.3, 0.22, SPRITEFILEPATH.getPath() + "/mob/matthieu/matthieu_2.png",0.1,0.1);
-		StdDraw.picture(0.7, 0.22, SPRITEFILEPATH.getPath() + "/mob/julien/julien_2.png",0.1,0.1);
+		StdDraw.picture(0.3, 0.22, SPRITEFILEPATH + "/mob/matthieu/matthieu_2.png",0.1,0.1);
+		StdDraw.picture(0.7, 0.22, SPRITEFILEPATH + "/mob/julien/julien_2.png",0.1,0.1);
 
 
 		StdDraw.setFont(new Font("sans serif",15,30));

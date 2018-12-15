@@ -1,7 +1,6 @@
 package Screens;
 
 import java.awt.Font;
-import java.io.File;
 
 import Resources.Game;
 import Resources.SoundPlayer;
@@ -19,9 +18,9 @@ public class MenuGameOver  extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers les dossiers de sprites
-	private static final File SPRITEFILEPATH = new File(MenuGameOver.class.getResource("/sprites").toString());
-
+	// Chemin vers le dossier de sprite de BackGround
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString();
+	
 	//------------------------------------------------------------------------------
 	/*
 	 **      CONSTRUCTEUR
@@ -29,10 +28,10 @@ public class MenuGameOver  extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Construit la scène du Menu de Selections de Niveaux
+	 * Construit la scï¿½ne du Menu de Selections de Niveaux
 	 */
 	public MenuGameOver() {
-		//Demarrage de la musique de défaite
+		//Demarrage de la musique de dï¿½faite
 		SoundPlayer.PlayBGM("SadWestern.wav");
 	}
 
@@ -48,7 +47,7 @@ public class MenuGameOver  extends GameScreen {
 	 * @param key Touche pressee par l'utilisateur
 	 */
 	public void processUserInput(char key) {
-		// Rien à faire via les touches
+		// Rien ï¿½ faire via les touches
 	}
 
 	/**
@@ -58,7 +57,7 @@ public class MenuGameOver  extends GameScreen {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		//Redemarre le niveau raté
+		//Redemarre le niveau ratï¿½
 		if(x <= 0.589 && x >= 0.429 && y >= 0.62 && y <= 0.68) {
 			SoundPlayer.PlaySE("fire.wav");
 			Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()));
@@ -75,7 +74,7 @@ public class MenuGameOver  extends GameScreen {
 	 * Fait bouger/agir toutes les entites, ici inutile
 	 */
 	public void step() {	
-		//Rien de bouge sur cette scène
+		//Rien de bouge sur cette scï¿½ne
 	}
 
 	/**
@@ -83,8 +82,8 @@ public class MenuGameOver  extends GameScreen {
 	 */
 	public void dessine() {
 		//Affichage du Fond
-		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH.getPath() + "/bg/night.png", 1, 1);
-		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH.getPath() + "/set/nightSign.png", 0.51, 0.51);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH + "/bg/night.png", 1, 1);
+		StdDraw.picture(0.509, 0.57,SPRITEFILEPATH + "/set/nightSign.png", 0.51, 0.51);
 		
 		//Affichage du Texte des Boutons
 		StdDraw.setPenColor(StdDraw.BLACK);

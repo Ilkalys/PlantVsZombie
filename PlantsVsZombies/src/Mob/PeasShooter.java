@@ -1,7 +1,6 @@
 package Mob;
 
-import java.io.File;
-
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -19,8 +18,8 @@ public class PeasShooter extends Plant {
 
 	// Touche pour selectionner un tire-pois
 	private static char key = 'p';
-	// Icone du tire-pois
-	private static final File ICONE = new File(PeasShooter.class.getResource("/sprites/mob/peasShooter/peasShooter_0.png").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/peasShooter/peasShooter_";
 	// Point de vie de depart d'un tire-pois
 	private static final int HPMAX = 300;
 	// Prix du tire-pois
@@ -29,10 +28,8 @@ public class PeasShooter extends Plant {
 	private static final int COOLDOWN_TIME = 5_000;
 	// Timer du replantage d'un tire-pois
 	private static Timer Cooldown;
-	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File(PeasShooter.class.getResource("/sprites/mob/peasShooter").toString());
 
-	// Temps (en s) pour recharger, doit être superieur à 1_000
+	// Temps (en s) pour recharger, doit ï¿½tre superieur ï¿½ 1_000
 	private static final double RELOAD_TIME = 1.500;
 	// Timer du rechargement pour tirer
 	private Timer Reload;
@@ -51,7 +48,7 @@ public class PeasShooter extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public PeasShooter(double x, double y) {
-		super(x, y, ICONE.getPath(), HPMAX);
+		super(x, y, SPRITEFILEPATH + "0.png", HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 		this.Reload = new Timer((int)(RELOAD_TIME * 1_000));
 	}
@@ -75,7 +72,7 @@ public class PeasShooter extends Plant {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath()+ "/peasShooter_" + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITEFILEPATH + this.Animate() + ".png", 0.15, 0.15);
 	}
 
 	/**
@@ -130,8 +127,8 @@ public class PeasShooter extends Plant {
 	 * 
 	 * @return ICONE icone du tire-pois
 	 */
-	public static File getIcone() {
-		return ICONE;
+	public static String getIcone() {
+		return SPRITEFILEPATH + "0.png";
 	}
 
 	/**
@@ -162,9 +159,9 @@ public class PeasShooter extends Plant {
 	}
 
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour planter un tire-pois
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour planter un tire-pois
 	 * 
-	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter un tire-pois
+	 * @return Cooldown timer chargï¿½ de calculer le temps de rechargement pour planter un tire-pois
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
@@ -175,8 +172,8 @@ public class PeasShooter extends Plant {
 	 * 
 	 * @return SpriteAnim chemin vers les sprites d'animation
 	 */
-	public static File getSpriteAnim() {
-		return SpriteAnim;
+	public static String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 
 	/**
@@ -189,9 +186,9 @@ public class PeasShooter extends Plant {
 	}
 
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour tirer
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour tirer
 	 * 
-	 * @return Reload timer chargé de calculer le temps de rechargement pour tirer
+	 * @return Reload timer chargï¿½ de calculer le temps de rechargement pour tirer
 	 */
 	public Timer getReload() {
 		return this.Reload;
@@ -214,7 +211,7 @@ public class PeasShooter extends Plant {
 	}
 	
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tire-pois
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour planter un tire-pois
 	 * 
 	 * @param timer nouveau timer
 	 */
@@ -223,7 +220,7 @@ public class PeasShooter extends Plant {
 	}
 
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour tirer
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour tirer
 	 * 
 	 * @param timer nouveau timer
 	 */

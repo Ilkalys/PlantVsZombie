@@ -1,8 +1,7 @@
 package Mob;
 
-import java.io.File;
-
 import Resources.Entite;
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -23,7 +22,7 @@ public class DeadMob extends Entite {
 	// Timer charge du temps de vie
 	private Timer despawnTimer;
 	// Chemin vers les sprites d'animation
-	private final File SpriteAnim;
+	private final String SpriteAnim;
 
 	
 	//------------------------------------------------------------------------------
@@ -42,7 +41,7 @@ public class DeadMob extends Entite {
 	public DeadMob(double x, double y, String classe) {
 		super(x, y);
 		despawnTimer = new Timer(DESPAWN_TIME);
-		SpriteAnim = new File(DeadMob.class.getResource("/sprites/mob/deadMob/").toString() + classe.substring(4) + "_death_");
+		SpriteAnim = Game.getSpritefilepath().toString() + "/mob/deadMob/" + classe.substring(4) + "_death_";
 	}
 
 	
@@ -66,7 +65,7 @@ public class DeadMob extends Entite {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), SpriteAnim.getPath() + Animate() +".png", 0.15, 0.15);;
+		StdDraw.picture(this.getX(), this.getY(), SpriteAnim + Animate() +".png", 0.15, 0.15);;
 
 	}
 
@@ -115,7 +114,7 @@ public class DeadMob extends Entite {
 	 * 
 	 * @return SpriteAnim chemin vers les sprites d'animation
 	 */
-	public File getSpriteAnim() {
+	public String getSpriteAnim() {
 		return this.SpriteAnim;
 	}
 	

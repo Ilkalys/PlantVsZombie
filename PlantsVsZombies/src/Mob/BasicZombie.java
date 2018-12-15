@@ -1,7 +1,6 @@
 package Mob;
 
-import java.io.File;
-
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -17,15 +16,15 @@ public class BasicZombie extends Zombie {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers le sprites d'un zombie basique
-	private static final File SPRITE_PATH = new File(BasicZombie.class.getResource("/sprites/mob/basicZombie").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/basicZombie";
 	// Point de vie de depart d'un zombie basique
 	private static final int HPMAX = 200;
 	// Nombre de degat qu'inflige un zombie basique
 	private static final int DAMAGE = 30;
 	// Vitesse d'un zombie basique
 	private static final double SPEED = 0.25;
-	// Temps avant la prochaine attaque, doit être supérieur à 1_000.
+	// Temps avant la prochaine attaque, doit ï¿½tre supï¿½rieur ï¿½ 1_000.
 	private static final int ATTACK_TIME = 1_000;
 	// Timer pour l'attaque d'un zombie basique
 	private Timer Attack;
@@ -44,7 +43,7 @@ public class BasicZombie extends Zombie {
 	 * @param y coordonne Y de la plante
 	 */
 	public BasicZombie(double x, double y) {
-		super(x, y, SPRITE_PATH.getPath() + "/basicZombie_walk_0.png", HPMAX);
+		super(x, y, SPRITEFILEPATH + "/basicZombie_walk_0.png", HPMAX);
 		this.Attack = null;
 	}
 		
@@ -73,7 +72,7 @@ public class BasicZombie extends Zombie {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITE_PATH.getPath() + "/basicZombie_" + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITEFILEPATH + "/basicZombie_" + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
 	/**
@@ -122,8 +121,8 @@ public class BasicZombie extends Zombie {
 	 * 
 	 * @return SPRITE sprite d'un zombie basique
 	 */
-	public static File getSpritePath() {
-		return SPRITE_PATH;
+	public static String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 	
 	/**
@@ -163,9 +162,9 @@ public class BasicZombie extends Zombie {
 	}
 
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour attaquer
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour attaquer
 	 * 
-	 * @return Attack timer chargé de calculer le temps de rechargement pour attaquer
+	 * @return Attack timer chargï¿½ de calculer le temps de rechargement pour attaquer
 	 */
 	public Timer getAttack() {
 		return this.Attack;
@@ -179,7 +178,7 @@ public class BasicZombie extends Zombie {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour attaquer
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour attaquer
 	 * 
 	 * @param Attack nouveau timer
 	 */

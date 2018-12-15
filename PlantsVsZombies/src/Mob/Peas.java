@@ -1,8 +1,7 @@
 package Mob;
 
-import java.io.File;
-
 import Resources.Entite;
+import Resources.Game;
 import Resources.StdDraw;
 import Screens.GameWorld;
 
@@ -15,9 +14,8 @@ public class Peas extends Entite {
 	private static final int DAMAGE = 20;
 	// Vitesse d'un pois
 	private static final double SPEED = 1.5;
-	// Sprite d'un zombie basique
-	private static final File SPRITE_DEFAULT = new File(Nuts.class.getResource("/sprites/mob/peas.png").toString());
-
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/peas.png";
 	
 	//------------------------------------------------------------------------------
 	/*
@@ -61,7 +59,7 @@ public class Peas extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003, SPRITE_DEFAULT.getPath(), 0.02);
+		StdDraw.picture(this.position.getX() + 0.04, this.position.getY() + 0.003, SPRITEFILEPATH, 0.02);
 	}
 	
 
@@ -94,8 +92,8 @@ public class Peas extends Entite {
 	 * 
 	 * @return SPRITE
 	 */
-	public static File getSpriteDefault() {
-		return SPRITE_DEFAULT;
+	public static String getSpriteDefault() {
+		return SPRITEFILEPATH;
 	}
 	
 	//------------------------------------------------------------------------------

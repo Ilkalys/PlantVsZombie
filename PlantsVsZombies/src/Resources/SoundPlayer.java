@@ -1,6 +1,5 @@
 package Resources;
 
-import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -30,7 +29,7 @@ public class SoundPlayer {
 	//------------------------------------------------------------------------------
 	
 	/**
-	 * Constructeur de la classe, met tous les attributs à null.
+	 * Constructeur de la classe, met tous les attributs ï¿½ null.
 	 */
 	public SoundPlayer() {
 		BGMClip = null;
@@ -52,8 +51,7 @@ public class SoundPlayer {
 	public static void PlayBGM(String file) {
 		try {
 			BGMPlayed = file;
-			File BGMFilepath = new File(SoundPlayer.class.getResource("/sounds/bgm").toString().replaceAll("file:","")+ "/" + BGMPlayed);
-			AudioInputStream BGMStream = AudioSystem.getAudioInputStream(BGMFilepath);
+			AudioInputStream BGMStream =  AudioSystem.getAudioInputStream(SoundPlayer.class.getResource("/sounds/bgm/" + file));
 			if(BGMClip != null) BGMClip.stop();
 			BGMClip = AudioSystem.getClip();
 			BGMClip.open(BGMStream);
@@ -71,8 +69,7 @@ public class SoundPlayer {
 	 */
 	public static void PlaySE(String file) {
 		try {
-			File SEFilepath = new File(SoundPlayer.class.getResource("/sounds/se/").toString().replaceAll("file:","") + file);
-			AudioInputStream SEStream = AudioSystem.getAudioInputStream(SEFilepath);
+			AudioInputStream SEStream =  AudioSystem.getAudioInputStream(SoundPlayer.class.getResource("/sounds/se/" + file));
 			Clip SEClip = AudioSystem.getClip();
 			SEClip.open(SEStream);
 			SEClip.start();

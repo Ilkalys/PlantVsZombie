@@ -1,7 +1,6 @@
 package Screens;
 
 import java.awt.Font;
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,8 +36,8 @@ public class GameWorld extends GameScreen {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Chemin vers les sprites
-	private static final File SPRITES = new File(GameWorld.class.getResource("/sprites").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString();
 
 	// L'ensemble des entites, pour gerer (notamment) l'affichage
 	private static List<Entite> entites;
@@ -47,7 +46,7 @@ public class GameWorld extends GameScreen {
 
 	// Gestionnaire des apparitions de zombies
 	private static ZombieSpawner ZombieSpawn;
-	// Quantité de zombies restant a apparaitre
+	// Quantitï¿½ de zombies restant a apparaitre
 	private static int zombieQuantity;
 
 	// Gestionnaire des apparitions de soleil
@@ -73,7 +72,7 @@ public class GameWorld extends GameScreen {
 		// Musique
 		SoundPlayer.PlayBGM("Western.wav");
 
-		// Remises à zéro des timers
+		// Remises ï¿½ zï¿½ro des timers
 		Sunflower.setCooldown(new Timer(0));
 		PeasShooter.setCooldown(new Timer(0));
 		Nuts.setCooldown(new Timer(0));
@@ -105,7 +104,7 @@ public class GameWorld extends GameScreen {
 	 * @param key Touche pressee par l'utilisateur
 	 */
 	public void processUserInput(char key) {
-		//Verifie si la touche correspond à une plante et si c'est le cas appelle la fonction correspondante
+		//Verifie si la touche correspond ï¿½ une plante et si c'est le cas appelle la fonction correspondante
 		if(key == Sunflower.getKey())
 			selectSunflower();
 		else if(key == PeasShooter.getKey())
@@ -114,7 +113,7 @@ public class GameWorld extends GameScreen {
 			selectNuts();
 		else if(key == Dynamite.getKey())
 			selectDynamite();
-		//Affiche ou désaffiche les Informations si la touche correspondante est appuyée
+		//Affiche ou dï¿½saffiche les Informations si la touche correspondante est appuyï¿½e
 		else if(key == 'i')
 			dispInfos = ! dispInfos;
 	}
@@ -127,16 +126,16 @@ public class GameWorld extends GameScreen {
 	 * @param y position en y de la souris au moment du clic
 	 */
 	public void processMouseClick(double x, double y) {
-		// Gère les Interactions Souris si le Menu Information est présent
+		// Gï¿½re les Interactions Souris si le Menu Information est prï¿½sent
 		if(dispInfos) {
-			//Redémarre le niveau
+			//Redï¿½marre le niveau
 			if(x <= 0.84 && x >= 0.559 && y >= 0.565 && y <= 0.685)
 				Game.setWorld(new GameWorld(ZombieSpawner.getCurrentDifficulty()));
 			//Retour au Menu Principal
 			else if(x <= 0.85 && x >= 0.55 && y >= 0.42 && y <= 0.48)
 				Game.setWorld(new MenuStart());
 		}
-		// Gère les Interactions Souris dans les autres cas
+		// Gï¿½re les Interactions Souris dans les autres cas
 		else {
 			// Recuperation d'un soleil
 			Sun sunHere = Sun.somethingHere(suns, x, y);
@@ -149,19 +148,19 @@ public class GameWorld extends GameScreen {
 				if(dynamiteHere != null)
 					dynamiteHere.explose();
 				else {
-					// Selection d'un tournesol à la souris
+					// Selection d'un tournesol ï¿½ la souris
 					if(x >= 0.05 && x <= 0.15 && y >= 0.05 && y <= 0.15) {
 						selectSunflower();
 					}
-					// Selection d'un tire-pois à la souris
+					// Selection d'un tire-pois ï¿½ la souris
 					if(x >= 0.25 && x <= 0.35 && y >= 0.05 && y <= 0.15) {
 						selectPeasShooter();
 					}
-					// Selection d'une noix à la souris
+					// Selection d'une noix ï¿½ la souris
 					if(x >= 0.45 && x <= 0.55 && y >= 0.05 && y <= 0.15) {
 						selectNuts();
 					}
-					// Selection d'une dynamite à la souris
+					// Selection d'une dynamite ï¿½ la souris
 					if(x >= 0.65 && x <= 0.75 && y >= 0.05 && y <= 0.15) {
 						selectDynamite();
 					}
@@ -170,7 +169,7 @@ public class GameWorld extends GameScreen {
 						double rx, ry;
 						rx = (x % 0.1 <= 0.05)? x - (x % 0.1) : x - (x % 0.1) + 0.1;
 						ry = (y % 0.1 <= 0.05)? y - (y % 0.1) : y - (y % 0.1) + 0.1;
-						// Verification que la case souhaité soit vide
+						// Verification que la case souhaitï¿½ soit vide
 						if(Mob.somethingHere(entites, rx, ry) == null) {
 							if(selectedPlant == Sunflower.class.getName()) {
 								wallet -= Sunflower.getPrice();
@@ -203,13 +202,13 @@ public class GameWorld extends GameScreen {
 	 * Fait bouger/agir toutes les entites
 	 */
 	public void step() {
-		//Appelle le Step de toutes les entités de entites
+		//Appelle le Step de toutes les entitï¿½s de entites
 		for (int i = 0; i < entites.size(); i++) {
 			if(entites.get(i) != null) {
 				entites.get(i).step();
 			}
 		}
-		//Appelle le Step de toutes les entités de suns
+		//Appelle le Step de toutes les entitï¿½s de suns
 		for (int i = 0; i < suns.size(); i++) {
 			if(suns.get(i) != null) {
 				suns.get(i).step();
@@ -228,12 +227,12 @@ public class GameWorld extends GameScreen {
 		// Affichage fond
 		StdDraw.setFont();
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.picture(0.5, 0.5, SPRITES.getPath() +"/bg/FondLevel.png", 1, 1);
+		StdDraw.picture(0.5, 0.5, SPRITEFILEPATH +"/bg/FondLevel.png", 1, 1);
 
 		StdDraw.setFont(new Font("sans serif",10,20));
 
 		// Affichage du nombre de zombies
-		StdDraw.picture(0.9, 0.95, SPRITES.getPath() + "/bg/PanneauScore.png", 0.2, 0.2);
+		StdDraw.picture(0.9, 0.95, SPRITEFILEPATH + "/bg/PanneauScore.png", 0.2, 0.2);
 		StdDraw.text(0.9, 0.932, "Niveau : " + ZombieSpawn.getCurrentDifficulty());
 		StdDraw.text(0.9, 0.908, "Restants : " + zombieQuantity);
 
@@ -243,35 +242,35 @@ public class GameWorld extends GameScreen {
 		StdDraw.setFont(new Font("sans serif",10,40));
 
 		// Affichage du porte-monnaie
-		StdDraw.picture(0.9, 0.05, SPRITES.getPath() + "/bg/PanneauMonnaie.png", 0.15, 0.15);
+		StdDraw.picture(0.9, 0.05, SPRITEFILEPATH + "/bg/PanneauMonnaie.png", 0.15, 0.15);
 		StdDraw.text(0.93, 0.094, "" + wallet);
-		StdDraw.picture(0.84, 0.1, Sun.getIcone().getPath(), 0.04, 0.04);
+		StdDraw.picture(0.84, 0.1, Sun.getSpritefilepath(), 0.04, 0.04);
 
 
 		// Affichage des icones
 		if(selectedPlant == Sunflower.class.getName())
-			StdDraw.picture(0.1, 0.1, SPRITES.getPath() + "/bg/Selection.png", 0.1, 0.1);;
-			StdDraw.picture(0.1, 0.1, Sunflower.getIcone().getPath(), 0.12, 0.12);
+			StdDraw.picture(0.1, 0.1, SPRITEFILEPATH + "/bg/Selection.png", 0.1, 0.1);;
+			StdDraw.picture(0.1, 0.1, Sunflower.getIcone(), 0.12, 0.12);
 			double heightLoadSunFlo = ((Sunflower.getCooldown() == null)? 0 : Sunflower.getCooldown().getActualTime() / (Sunflower.getCooldownTime() / 100));
-			StdDraw.picture(0.1, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadSunFlo, heightLoadSunFlo);
+			StdDraw.picture(0.1, 0.1, SPRITEFILEPATH + "/bg/Fondu.png", heightLoadSunFlo, heightLoadSunFlo);
 
 			if(selectedPlant == PeasShooter.class.getName())
-				StdDraw.picture(0.3, 0.1, SPRITES.getPath() + "/bg/Selection.png", 0.1, 0.1);
-			StdDraw.picture(0.3, 0.1, PeasShooter.getIcone().getPath(), 0.12, 0.12);
+				StdDraw.picture(0.3, 0.1, SPRITEFILEPATH + "/bg/Selection.png", 0.1, 0.1);
+			StdDraw.picture(0.3, 0.1, PeasShooter.getIcone(), 0.12, 0.12);
 			double heightLoadPeasSh = ((PeasShooter.getCooldown() == null)? 0 : PeasShooter.getCooldown().getActualTime() / (PeasShooter.getCooldownTime() / 100));
-			StdDraw.picture(0.3, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadPeasSh, heightLoadPeasSh);
+			StdDraw.picture(0.3, 0.1, SPRITEFILEPATH + "/bg/Fondu.png", heightLoadPeasSh, heightLoadPeasSh);
 
 			if(selectedPlant == Nuts.class.getName())
-				StdDraw.picture(0.5, 0.1, SPRITES.getPath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.5, 0.1, Nuts.getIcone().getPath(), 0.12, 0.12);
+				StdDraw.picture(0.5, 0.1, SPRITEFILEPATH + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.5, 0.1, Nuts.getIcone(), 0.12, 0.12);
 			double heightLoadNuts = ((Nuts.getCooldown() == null)? 0 : Nuts.getCooldown().getActualTime() / (Nuts.getCooldownTime() / 100));
-			StdDraw.picture(0.5, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadNuts, heightLoadNuts);
+			StdDraw.picture(0.5, 0.1, SPRITEFILEPATH + "/bg/Fondu.png", heightLoadNuts, heightLoadNuts);
 
 			if(selectedPlant == Dynamite.class.getName())
-				StdDraw.picture(0.7, 0.1, SPRITES.getPath() + "/bg/Selection.png",0.1,0.1);
-			StdDraw.picture(0.7, 0.1, Dynamite.getIcone().getPath(), 0.12, 0.12);
+				StdDraw.picture(0.7, 0.1, SPRITEFILEPATH + "/bg/Selection.png",0.1,0.1);
+			StdDraw.picture(0.7, 0.1, Dynamite.getIcone(), 0.12, 0.12);
 			double heightLoadDynamite = ((Dynamite.getCooldown() == null)? 0 : Dynamite.getCooldown().getActualTime() / (Dynamite.getCooldownTime() / 100));
-			StdDraw.picture(0.7, 0.1, SPRITES.getPath() + "/bg/Fondu.png", heightLoadDynamite, heightLoadDynamite);
+			StdDraw.picture(0.7, 0.1, SPRITEFILEPATH + "/bg/Fondu.png", heightLoadDynamite, heightLoadDynamite);
 
 
 			// Affichage des prix
@@ -291,10 +290,10 @@ public class GameWorld extends GameScreen {
 
 			// Cadriage
 			if(selectedPlant != null) {
-				StdDraw.picture(0.50, 0.50, SPRITES.getPath() + "/bg/Quadrillage.png",0.9,0.5);
+				StdDraw.picture(0.50, 0.50, SPRITEFILEPATH + "/bg/Quadrillage.png",0.9,0.5);
 			}
 
-			// Affiche les entites de façon à avoir les sprites les plus haut le plus en profondeur
+			// Affiche les entites de faï¿½on ï¿½ avoir les SPRITEFILEPATH les plus haut le plus en profondeur
 			for (float i = 1; i >= 0; i -= 0.1) {
 				for (int j = 0; j < entites.size(); j++) {
 					if(entites.get(j).getY() < i && entites.get(j).getY() >= (i - 0.1)) {
@@ -302,11 +301,11 @@ public class GameWorld extends GameScreen {
 					}
 				}
 			}
-			// Affiche les soleils au dessus des autres sprites
+			// Affiche les soleils au dessus des autres SPRITEFILEPATH
 			for (Entite Sun : suns)
 				Sun.dessine();
 
-			//Affiche les Infos si demandé
+			//Affiche les Infos si demandï¿½
 			if(dispInfos)
 				dispInfos();
 	}
@@ -374,9 +373,9 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
-	 * retire une entitée d'une des listes d'entitées
-	 * @param entitesList la liste d'entitées selectionnée
-	 * @param entite l'entitée que l'on veut supprimer
+	 * retire une entitï¿½e d'une des listes d'entitï¿½es
+	 * @param entitesList la liste d'entitï¿½es selectionnï¿½e
+	 * @param entite l'entitï¿½e que l'on veut supprimer
 	 */
 	public static void removeEntiteFrom(List<Entite> entitesList, Entite entite) {
 		if(entite instanceof Sun)
@@ -445,16 +444,16 @@ public class GameWorld extends GameScreen {
 		StdDraw.text(0.3, 0.4, "Dynamite : Touche " + Dynamite.getKey());
 
 		// Affichage du bouton "Recommence le niveau"
-		StdDraw.picture(0.7, 0.625, SPRITES.getPath() + "/bg/Fondu.png",0.28,0.12);
+		StdDraw.picture(0.7, 0.625, SPRITEFILEPATH + "/bg/Fondu.png",0.28,0.12);
 		if(StdDraw.mouseX() <= 0.84 && StdDraw.mouseX() >= 0.559 && StdDraw.mouseY() >= 0.565 && StdDraw.mouseY() <= 0.685)
-			StdDraw.picture(0.7, 0.625, SPRITES.getPath() + "/bg/Fondu.png",0.28,0.12);
+			StdDraw.picture(0.7, 0.625, SPRITEFILEPATH + "/bg/Fondu.png",0.28,0.12);
 		StdDraw.text(0.7, 0.65, "Recommencer");
 		StdDraw.text(0.7, 0.60, "le Niveau");
 
 		// Affichage du bouton "Retour au Menu"
-		StdDraw.picture(0.7, 0.45, SPRITES.getPath() + "/bg/Fondu.png",0.3,0.06);
+		StdDraw.picture(0.7, 0.45, SPRITEFILEPATH + "/bg/Fondu.png",0.3,0.06);
 		if(StdDraw.mouseX() <= 0.85 && StdDraw.mouseX() >= 0.55 && StdDraw.mouseY() >= 0.42 && StdDraw.mouseY() <= 0.48)
-			StdDraw.picture(0.7, 0.45, SPRITES.getPath() + "/bg/Fondu.png",0.3,0.06);
+			StdDraw.picture(0.7, 0.45, SPRITEFILEPATH + "/bg/Fondu.png",0.3,0.06);
 		StdDraw.text(0.7, 0.45, "Retour au Menu");
 
 		StdDraw.setPenColor(StdDraw.BLACK);
@@ -521,12 +520,12 @@ public class GameWorld extends GameScreen {
 	//------------------------------------------------------------------------------
 
 	/**
-	 * Retourne le chemin vers l'ensemble des sprites
+	 * Retourne le chemin vers l'ensemble des SPRITEFILEPATH
 	 * 
-	 * @return SPRITES
+	 * @return SPRITEFILEPATH
 	 */
-	public File getSprites() {
-		return SPRITES;
+	public String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 
 	/**
@@ -584,7 +583,7 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
-	 * Retourne la quantité de zombies restant a apparaitre
+	 * Retourne la quantitï¿½ de zombies restant a apparaitre
 	 * 
 	 * @return zombieQuantity
 	 */
@@ -654,7 +653,7 @@ public class GameWorld extends GameScreen {
 	}
 
 	/**
-	 * Modifie la quantité de zombies restant a apparaitre
+	 * Modifie la quantitï¿½ de zombies restant a apparaitre
 	 * 
 	 * @return value nouvelle valeur
 	 */

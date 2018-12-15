@@ -1,7 +1,6 @@
 package Mob;
 
-import java.io.File;
-
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 
@@ -18,8 +17,8 @@ public class Nuts extends Plant {
 
 	// Touche pour selectionner une noix
 	private static char key = 'n';
-	// Icone de la noix
-	private static final File ICONE = new File(Nuts.class.getResource("/sprites/mob/nuts/nuts_0.png").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/nuts/nuts_";
 	// Point de vie de depart d'une noix
 	private static final int HPMAX = 1_500;
 	// Prix de la noix
@@ -28,8 +27,6 @@ public class Nuts extends Plant {
 	private static final int COOLDOWN_TIME = 20_000;
 	// Timer du replantage d'une noix
 	private static Timer Cooldown;
-	// Chemin vers les sprites d'animation
-	private static final File SpriteAnim = new File("/sprites/mob/nuts");
 	// Status de l'animation
 	private int actualAnim;
 	
@@ -46,7 +43,7 @@ public class Nuts extends Plant {
 	 * @param y coordonne Y de la plante
 	 */
 	public Nuts(double x, double y) {
-		super(x, y, ICONE.getPath(), HPMAX);
+		super(x, y, SPRITEFILEPATH + "0.png", HPMAX);
 		setCooldown(new Timer(COOLDOWN_TIME));
 		
 		this.actualAnim = 0;
@@ -71,7 +68,7 @@ public class Nuts extends Plant {
 	 */
 	@Override
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, SpriteAnim.getPath() + "/nuts_" + this.Animate() + ".png", 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, SPRITEFILEPATH + this.Animate() + ".png", 0.15, 0.15);
 	}
 	
 	/**
@@ -129,8 +126,8 @@ public class Nuts extends Plant {
 	 * 
 	 * @return ICONE icone de la noix
 	 */
-	public static File getIcone() {
-		return ICONE;
+	public static String getIcone() {
+		return SPRITEFILEPATH + "0.png";
 	}
 	
 	/**
@@ -161,9 +158,9 @@ public class Nuts extends Plant {
 	}
 	
 	/**
-	 * Retourne le timer chargé de calculer le temps de rechargement pour planter une noix
+	 * Retourne le timer chargï¿½ de calculer le temps de rechargement pour planter une noix
 	 * 
-	 * @return Cooldown timer chargé de calculer le temps de rechargement pour planter une noix
+	 * @return Cooldown timer chargï¿½ de calculer le temps de rechargement pour planter une noix
 	 */
 	public static Timer getCooldown() {
 		return Cooldown;
@@ -174,8 +171,8 @@ public class Nuts extends Plant {
 	 * 
 	 * @return SpriteAnim chemin vers les sprites d'animation
 	 */
-	public static File getSpriteAnim() {
-		return SpriteAnim;
+	public static String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 	
 	/**
@@ -203,7 +200,7 @@ public class Nuts extends Plant {
 	}
 	
 	/**
-	 * Modifie le timer chargé de calculer le temps de rechargement pour planter un tire-pois
+	 * Modifie le timer chargï¿½ de calculer le temps de rechargement pour planter un tire-pois
 	 * 
 	 * @param timer nouveau timer
 	 */

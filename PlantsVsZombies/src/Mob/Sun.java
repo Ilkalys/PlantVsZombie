@@ -1,9 +1,9 @@
 package Mob;
 
-import java.io.File;
 import java.util.List;
 
 import Resources.Entite;
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -19,8 +19,9 @@ public class Sun extends Entite {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Icone du soleil
-	private static final File ICONE = new File(Sun.class.getResource("/sprites/mob/sun.png").toString());
+	// Chemin vers le dossier de sprite de BackGround
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/sun.png";
+
 	// Valeur du soleil
 	private static final int VALUE = 25;
 	// Temps de vie du soleil
@@ -60,7 +61,7 @@ public class Sun extends Entite {
 	 * Dessine l'entite, aux bonnes coordonnees
 	 */
 	public  void dessine() {
-		StdDraw.picture(this.getX(), this.getY(), ICONE.getPath(), 0.1, 0.1);
+		StdDraw.picture(this.getX(), this.getY(), SPRITEFILEPATH, 0.1, 0.1);
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class Sun extends Entite {
 	 * @param entites liste des entites a verifier
 	 * @param x coordonne X a verifier
 	 * @param y coordonne Y a verifier
-	 * @return le soleil trouvé ou null
+	 * @return le soleil trouvï¿½ ou null
 	 */
 	public static Sun somethingHere(List<Entite> entites, double x, double y) {
 		for(int i =0; i<entites.size(); i++)
@@ -91,12 +92,13 @@ public class Sun extends Entite {
 	/**
 	 * Retourne l'icone du soleil
 	 * 
-	 * @return ICONE icone du soleil
+	 * @return SPRITEFILEPATH l' icone du soleil
 	 */
-	public static File getIcone() {
-		return ICONE;
+	public static String getSpritefilepath() {
+		return SPRITEFILEPATH;
 	}
-	
+
+
 	/**
 	 * Retourne la valeur du soleil
 	 * 

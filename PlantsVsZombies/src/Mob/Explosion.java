@@ -1,8 +1,7 @@
 package Mob;
 
-import java.io.File;
-
 import Resources.Entite;
+import Resources.Game;
 import Resources.StdDraw;
 import Resources.Timer;
 import Screens.GameWorld;
@@ -18,8 +17,8 @@ public class Explosion extends Entite {
 	 */
 	//------------------------------------------------------------------------------
 
-	// Sprite de l'explosion
-	private static final File SPRITE = new File(Dynamite.class.getResource("/sprites/mob/dynamite/explosion.png").toString());
+	// Chemin vers le dossier de sprite
+	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/dynamite/explosion.png";
 	// Temps de vie de l'explosion
 	private static final int LIFE_TIME = 100;
 	// Timer du temps de vie
@@ -62,7 +61,7 @@ public class Explosion extends Entite {
 	public void dessine() {
 		if(this.spriteSize < 0.3)
 			this.spriteSize += 0.1;
-		StdDraw.picture(this.getX(), this.getY(), SPRITE.getPath(), spriteSize, spriteSize);
+		StdDraw.picture(this.getX(), this.getY(), SPRITEFILEPATH, spriteSize, spriteSize);
 	}
 
 	
@@ -77,8 +76,8 @@ public class Explosion extends Entite {
 	 * 
 	 * @return ICONE sprite de l'explosion
 	 */
-	public static File getSprite() {
-		return SPRITE;
+	public static String getSPRITEFILEPATH() {
+		return SPRITEFILEPATH;
 	}
 	/**
 	 * Retourne le temps de vie du soleil
