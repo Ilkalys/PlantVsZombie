@@ -20,7 +20,7 @@ public class Explosion extends Entite {
 	// Chemin vers le dossier de sprite
 	private static final String SPRITEFILEPATH = Game.getSpritefilepath().toString() + "/mob/dynamite/explosion.png";
 	// Temps de vie de l'explosion
-	private static final int LIFE_TIME = 100;
+	private static final int LIFE_TIME = 500;
 	// Timer du temps de vie
 	private Timer Life;
 	// Taille du sprite

@@ -1,6 +1,5 @@
 package Mob;
 
-import java.io.File;
 import java.util.List;
 
 import Resources.Entite;
@@ -20,7 +19,7 @@ public abstract class Mob extends Entite {
 	//------------------------------------------------------------------------------	
 
 	// Sprite de depart
-	private File Sprite;
+	private String Sprite;
 	// Points de vie de depart
 	private int life;
 
@@ -41,7 +40,7 @@ public abstract class Mob extends Entite {
 	 */
 	public Mob(double x, double y, String SpriteFilepath, int life) {
 		super(x, y);
-		this.Sprite = new File(SpriteFilepath);
+		this.Sprite = SpriteFilepath;
 		this.life = life;
 	}
 
@@ -56,7 +55,7 @@ public abstract class Mob extends Entite {
 	 * Dessine le mob, aux bonnes coordonnees
 	 */
 	public void dessine() {
-		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite.getPath(), 0.15, 0.15);
+		StdDraw.picture(this.getX(), this.getY() + 0.01, Sprite, 0.15, 0.15);
 	}
 
 	/**
@@ -104,7 +103,7 @@ public abstract class Mob extends Entite {
 	 * 
 	 * @return Sprite sprite actuel
 	 */
-	public File getSprite() {
+	public String getSprite() {
 		return this.Sprite;
 	}
 
@@ -129,7 +128,7 @@ public abstract class Mob extends Entite {
 	 * 
 	 * @param Sprite nouveau sprite
 	 */
-	public void setSprite(File Sprite) {
+	public void setSprite(String Sprite) {
 		this.Sprite = Sprite;
 	}
 
