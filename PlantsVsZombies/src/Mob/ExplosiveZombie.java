@@ -62,8 +62,10 @@ public class ExplosiveZombie extends Zombie {
 	 */
 	public void step() {
 		Plant obstacle = Plant.somethingHere(GameWorld.getEntites(), this.getX() - 0.01 - (SPEED / 300), this.getY());
-		if(obstacle == null)
+		if(obstacle == null) {
 			this.position.setX(this.position.getX() - (SPEED / 300));
+			this.stop = false;
+		}
 		else
 			this.stop = true;
 	}
