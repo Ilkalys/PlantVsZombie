@@ -7,6 +7,7 @@ import Screens.GameWorld;
 import Screens.MenuGameOver;
 import Screens.MenuLevelComplete;
 import Screens.MenuStart;
+import Screens.MenuVictory;
 
 /**
  * @author GAUGET--BERLIOZ Matthieu, COCHET Julien
@@ -71,6 +72,10 @@ public class Game {
 			// Changement de niveau
 			if (World instanceof GameWorld) {
 				if(((GameWorld)World).LevelComplete())
+					if(ZombieSpawner.getCurrentDifficulty() == 10) {
+						World = new MenuVictory();
+					}
+					else
 					World = new MenuLevelComplete();
 				else if(((GameWorld)World).gameLost())
 					World = new MenuGameOver();
