@@ -30,7 +30,7 @@ public class Game {
 	// Determine si la souris est enfoncee ou non
 	private static boolean mousePressed = false;
 	// Largeur de la fenetre
-	private static int canvasXY = 1000;
+	private static int canvasXY = 500;
 
 
 

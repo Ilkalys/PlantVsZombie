@@ -153,16 +153,17 @@ public class MenuStart extends GameScreen {
 			//Modifie la taille de la Fenetre de Jeu
 			else if(x >= 0 && x <=0.06 && y <=1 && y >= 0.98) {
 				if(Game.getCanvasXY() == 1000)
-					Game.setCanvasXY(900);
-				else if(Game.getCanvasXY() == 900)
-					Game.setCanvasXY(800);
-				else if(Game.getCanvasXY() == 800)
-					Game.setCanvasXY(700);
-				else if(Game.getCanvasXY() == 700)
-					Game.setCanvasXY(600);
-				else if(Game.getCanvasXY() == 600)
 					Game.setCanvasXY(500);
-				else Game.setCanvasXY(1000);
+				else if(Game.getCanvasXY() == 900)
+					Game.setCanvasXY(1000);
+				else if(Game.getCanvasXY() == 800)
+					Game.setCanvasXY(900);
+				else if(Game.getCanvasXY() == 700)
+					Game.setCanvasXY(800);
+				else if(Game.getCanvasXY() == 600)
+					Game.setCanvasXY(700);
+				else if(Game.getCanvasXY() == 500)
+					Game.setCanvasXY(600);
 				Game.launch();
 			}
 		}
@@ -207,6 +208,7 @@ public class MenuStart extends GameScreen {
 		//Affichage du Texte
 		StdDraw.setFont(new Font("sans serif",10,14 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.035, 0.99, Game.getCanvasXY() + "x" + Game.getCanvasXY());
+		StdDraw.picture(0.08, 0.99,SPRITEFILEPATH + "/bg/SizeScreen.png",0.03,0.03);
 		StdDraw.setFont(new Font("sans serif",10,20 * Game.getCanvasXY() /1000));
 		StdDraw.text(0.509, 0.65,"Nouvelle Partie");
 		StdDraw.text(0.509, 0.57,"Choix Niveau");
