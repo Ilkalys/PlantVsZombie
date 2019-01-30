@@ -93,8 +93,10 @@ public class Dynamite extends Plant {
 	@Override
 	public void takeDamage(int damage) {
 		this.setLife(this.getLife() - damage);
-		if(this.getLife() <= 0)
+		if(this.getLife() <= 0) {
+			GameWorld.removeEntiteFrom(GameWorld.getEntites(),this);
 			explose();
+		}
 	}
 
 	/**
